@@ -10,7 +10,7 @@ class CardHero extends Component {
 		return (
 			<div className='card-container'>
 				<div className='card-background'>
-					<img src='https://www.superherodb.com/pictures2/portraits/10/100/10441.jpg' />
+					<img src='https://www.superherodb.com/pictures2/portraits/10/100/639.jpg' />
 				</div>
 				<CardFrame />
 			</div>

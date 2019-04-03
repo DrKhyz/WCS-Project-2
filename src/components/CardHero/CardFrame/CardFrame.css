@@ -7,6 +7,13 @@
 	position: absolute;
 	border-radius: 25px;
 	margin-top: 480px;
-	display: flex;
-	align-items: center;
+}
+
+.frame-table {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.frame-biography {
+	margin-top: 20px;
 }
