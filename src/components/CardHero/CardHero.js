@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import './CardHero.css';
 import CardFrame from './CardFrame/CardFrame';
+
 class CardHero extends Component {
 	constructor(props) {
 		super(props);
@@ -8,12 +10,12 @@ class CardHero extends Component {
 	}
 	render() {
 		return (
-			<div className='card-container'>
+			<container className='card-container'>
 				<div className='card-background'>
 					<img src='https://www.superherodb.com/pictures2/portraits/10/100/639.jpg' />
 				</div>
 				<CardFrame />
-			</div>
+			</container>
 		);
 	}
 }

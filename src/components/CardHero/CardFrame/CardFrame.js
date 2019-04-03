@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import './CardFrame.css';
 
 class CardFrame extends Component {
@@ -9,30 +10,26 @@ class CardFrame extends Component {
 	render() {
 		return (
 			<div className='card-frame'>
-				<table className='frame-table'>
-					<tr>
-						<td>Int</td>
-						<td>str</td>
-						<td>spd</td>
-						<td>dur</td>
-						<td>pw</td>
-						<td>cmb</td>
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>26</td>
-						<td>27</td>
-						<td>50</td>
-						<td>47</td>
-						<td>100</td>
-					</tr>
-				</table>
-				<div className='frame-biography'>
-					<div>Full-name: Bruce Wayne</div>
-					<div>Alignement : Good</div>
-					<div>Height : 188cm - Weigth: 95Kg</div>
-					<div>Univers : DC Comics</div>
-				</div>
+				<Row className='mt-2'>
+					<Col xs='2'>Int</Col>
+					<Col xs='2'>str</Col>
+					<Col xs='2'>spd</Col>
+					<Col xs='2'>dur</Col>
+					<Col xs='2'>pw</Col>
+					<Col xs='2'>cmb</Col>
+					<Col xs='2'>100</Col>
+					<Col xs='2'>100</Col>
+					<Col xs='2'>100</Col>
+					<Col xs='2'>100</Col>
+					<Col xs='2'>100</Col>
+					<Col xs='2'>100</Col>
+				</Row>
+				<Row className='mt-4'>
+					<Col xs='12'>Full-name: Bruce Wayne</Col>
+					<Col xs='12'>Alignement : Good</Col>
+					<Col xs='12'>Height : 188cm - Weigth: 95Kg</Col>
+					<Col xs='12'>Univers : DC Comics</Col>
+				</Row>
 			</div>
 		);
 	}
