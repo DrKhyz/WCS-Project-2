@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CardHero.css';
-
+import CardFrame from './CardFrame/CardFrame';
 class CardHero extends Component {
 	constructor(props) {
 		super(props);
@@ -11,8 +11,8 @@ class CardHero extends Component {
 			<div className='card-container'>
 				<div className='card-background'>
 					<img src='https://www.superherodb.com/pictures2/portraits/10/100/10441.jpg' />
-					<div className='card-frame' />
 				</div>
+				<CardFrame />
 			</div>
 		);
 	}
