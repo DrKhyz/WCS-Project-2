@@ -4,25 +4,10 @@
 	align-items: center;
 	width: 500px;
 	height: 700px;
-	margin: 0 auto;
-	margin-top: 56px;
+	margin: auto;
 	border: 1px solid black;
 	border-radius: 25px;
 	background: #171314;
 	box-sizing: border-box;
 	box-shadow: -8px 9px 16px -3px gray;
-}
-
-.card-background {
-	height: 680px;
-	width: 480px;
-	margin: 10px;
-	border-radius: 25px;
-	background-color: #bbb;
-}
-
-.card-background img {
-	height: 100%;
-	width: 100%;
-	border-radius: 25px;
 }

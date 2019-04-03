@@ -5,7 +5,6 @@ import './CardFrame.css';
 class CardFrame extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return (
@@ -17,18 +16,20 @@ class CardFrame extends Component {
 					<Col xs='2'>END</Col>
 					<Col xs='2'>POW</Col>
 					<Col xs='2'>CBT</Col>
-					<Col xs='2'>100</Col>
-					<Col xs='2'>26</Col>
-					<Col xs='2'>27</Col>
-					<Col xs='2'>50</Col>
-					<Col xs='2'>47</Col>
-					<Col xs='2'>100</Col>
+					<Col xs='2'>{this.props.powerstats.intelligence}</Col>
+					<Col xs='2'>{this.props.powerstats.strength}</Col>
+					<Col xs='2'>{this.props.powerstats.speed}</Col>
+					<Col xs='2'>{this.props.powerstats.durability}</Col>
+					<Col xs='2'>{this.props.powerstats.power}</Col>
+					<Col xs='2'>{this.props.powerstats.combat}</Col>
 				</Row>
 				<Row className='mt-4'>
-					<Col xs='12'>Full-name: Bruce Wayne</Col>
-					<Col xs='12'>Alignement : Good</Col>
-					<Col xs='12'>Height : 188cm - Weigth: 95Kg</Col>
-					<Col xs='12'>Univers : DC Comics</Col>
+					<Col xs='12'>Full-name: {this.props.biography['full-name']}</Col>
+					<Col xs='12'>Alignement : {this.props.biography.alignment}</Col>
+					<Col xs='12'>
+						Height : {this.props.appearance.height[1]} - Weigth: {this.props.appearance.weight[1]}
+					</Col>
+					<Col xs='12'>Univers : {this.props.biography.publisher}</Col>
 				</Row>
 			</div>
 		);

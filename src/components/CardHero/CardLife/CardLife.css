@@ -1,0 +1,9 @@
+.card-life {
+	position: absolute;
+	width: 480px;
+	margin-top: 75px;
+}
+.life-bar {
+	max-height: 8px;
+	width: 155px;
+}

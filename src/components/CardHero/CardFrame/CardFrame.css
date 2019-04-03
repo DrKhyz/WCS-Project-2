@@ -1,10 +1,11 @@
 .card-frame {
 	height: 200px;
-	width: 460px;
+	width: 440px;
 	background-color: #bbb;
 	opacity: 0.9;
 	border: 2px solid black;
 	position: absolute;
 	border-radius: 25px;
 	margin-top: 480px;
+	text-align: center;
 }
