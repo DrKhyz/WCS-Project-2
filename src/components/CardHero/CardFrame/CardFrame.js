@@ -11,17 +11,17 @@ class CardFrame extends Component {
 		return (
 			<div className='card-frame'>
 				<Row className='mt-2'>
-					<Col xs='2'>Int</Col>
-					<Col xs='2'>Str</Col>
-					<Col xs='2'>Spd</Col>
-					<Col xs='2'>Dur</Col>
-					<Col xs='2'>Pow</Col>
-					<Col xs='2'>Cbt</Col>
+					<Col xs='2'>INT</Col>
+					<Col xs='2'>STR</Col>
+					<Col xs='2'>SPD</Col>
+					<Col xs='2'>END</Col>
+					<Col xs='2'>POW</Col>
+					<Col xs='2'>CBT</Col>
 					<Col xs='2'>100</Col>
-					<Col xs='2'>100</Col>
-					<Col xs='2'>100</Col>
-					<Col xs='2'>100</Col>
-					<Col xs='2'>100</Col>
+					<Col xs='2'>26</Col>
+					<Col xs='2'>27</Col>
+					<Col xs='2'>50</Col>
+					<Col xs='2'>47</Col>
 					<Col xs='2'>100</Col>
 				</Row>
 				<Row className='mt-4'>

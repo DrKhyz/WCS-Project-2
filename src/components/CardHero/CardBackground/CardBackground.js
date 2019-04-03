@@ -1,10 +1,11 @@
 import React from 'react';
 import './CardBackground.css';
 
-const CardBackground = () => {
+const CardBackground = props => {
+	console.log(props);
 	return (
 		<div className='card-background'>
-			<img src='https://www.superherodb.com/pictures2/portraits/10/100/639.jpg' alt='Card background' />
+			<img src={props.image.url} alt='Card background' />
 		</div>
 	);
 };
