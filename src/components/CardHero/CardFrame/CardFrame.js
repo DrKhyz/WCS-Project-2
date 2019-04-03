@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import './CardFrame.css';
 
 class CardFrame extends Component {
@@ -12,11 +12,11 @@ class CardFrame extends Component {
 			<div className='card-frame'>
 				<Row className='mt-2'>
 					<Col xs='2'>Int</Col>
-					<Col xs='2'>str</Col>
-					<Col xs='2'>spd</Col>
-					<Col xs='2'>dur</Col>
-					<Col xs='2'>pw</Col>
-					<Col xs='2'>cmb</Col>
+					<Col xs='2'>Str</Col>
+					<Col xs='2'>Spd</Col>
+					<Col xs='2'>Dur</Col>
+					<Col xs='2'>Pow</Col>
+					<Col xs='2'>Cbt</Col>
 					<Col xs='2'>100</Col>
 					<Col xs='2'>100</Col>
 					<Col xs='2'>100</Col>
