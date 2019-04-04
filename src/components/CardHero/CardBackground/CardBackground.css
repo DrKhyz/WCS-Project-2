@@ -1,12 +1,12 @@
 .card-background {
-	height: 690px;
-	width: 480px;
-	margin: 5px;
-	border-radius: 25px;
+	height: 98%;
+	width: 98%;
+	margin: 1%;
+	border-radius: 2vw;
 	background-color: #bbb;
 }
 .card-background img {
 	height: 100%;
 	width: 100%;
-	border-radius: 25px;
+	border-radius: 2vw;
 }

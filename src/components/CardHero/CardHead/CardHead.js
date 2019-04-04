@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CardHead.css';
-import { Row, Col, Spinner } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 
 class CardHead extends Component {
 	constructor(props) {
@@ -8,19 +8,15 @@ class CardHead extends Component {
 	}
 	render() {
 		return (
-			<div className='card-head' xs='12'>
-				<Row className='mt-2'>
-					<Col className='card-name d-flex align-items-center' xs='4'>
-						{this.props.name}
-					</Col>
-					<Col className='card-level d-flex flex-row-reverse align-items-center' xs={{ size: 4, offset: 4 }}>
-						<Spinner className='m-auto' size='sm' type='grow' color='warning' />
-						<Spinner className='m-auto' size='sm' type='grow' color='warning' />
-						<Spinner className='m-auto' size='sm' type='grow' color='warning' />
-						<Spinner className='m-auto' size='sm' type='grow' color='warning' />
-						<Spinner className='m-auto' size='sm' type='grow' color='warning' />
-					</Col>
-				</Row>
+			<div className='card-head'>
+				<div className='card-name d-flex align-items-center'>{this.props.name}</div>
+				<div className='card-level d-flex'>
+					<img src='https://img.icons8.com/color/48/000000/filled-star.png' alt='star' className='star' />
+					<img src='https://img.icons8.com/color/48/000000/star-half.png' alt='star' className='star' />
+					<img src='https://img.icons8.com/color/48/000000/star.png' alt='star' className='star' />
+					<img src='https://img.icons8.com/color/48/000000/star.png' alt='star' className='star' />
+					<img src='https://img.icons8.com/color/48/000000/star.png' alt='star' className='star' />
+				</div>
 			</div>
 		);
 	}

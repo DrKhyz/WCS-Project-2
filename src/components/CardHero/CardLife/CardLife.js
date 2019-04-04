@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Progress, Row, Col } from 'reactstrap';
+import { Progress } from 'reactstrap';
 import './CardLife.css';
 
 class CardLife extends Component {
@@ -9,11 +9,9 @@ class CardLife extends Component {
 	}
 	render() {
 		return (
-			<Row className='card-life'>
-				<Col xs='4'>
-					<Progress className='life-bar' color='success' value='100' />
-				</Col>
-			</Row>
+			<div className='card-life'>
+				<Progress className='life-bar' color='success' value='100' />
+			</div>
 		);
 	}
 }

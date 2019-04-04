@@ -9,28 +9,32 @@ class CardFrame extends Component {
 	render() {
 		return (
 			<div className='card-frame'>
-				<Row className='mt-2'>
-					<Col xs='2'>INT</Col>
-					<Col xs='2'>STR</Col>
-					<Col xs='2'>SPD</Col>
-					<Col xs='2'>END</Col>
-					<Col xs='2'>POW</Col>
-					<Col xs='2'>CBT</Col>
-					<Col xs='2'>{this.props.powerstats.intelligence}</Col>
-					<Col xs='2'>{this.props.powerstats.strength}</Col>
-					<Col xs='2'>{this.props.powerstats.speed}</Col>
-					<Col xs='2'>{this.props.powerstats.durability}</Col>
-					<Col xs='2'>{this.props.powerstats.power}</Col>
-					<Col xs='2'>{this.props.powerstats.combat}</Col>
-				</Row>
-				<Row className='mt-4'>
-					<Col xs='12'>Full-name: {this.props.biography['full-name']}</Col>
-					<Col xs='12'>Alignement : {this.props.biography.alignment}</Col>
-					<Col xs='12'>
+				<table className='table-stats'>
+					<tr>
+						<td>INT</td>
+						<td>STR</td>
+						<td>SPD</td>
+						<td>END</td>
+						<td>POW</td>
+						<td>CBT</td>
+					</tr>
+					<tr>
+						<td>{this.props.powerstats.intelligence}</td>
+						<td>{this.props.powerstats.strength}</td>
+						<td>{this.props.powerstats.speed}</td>
+						<td>{this.props.powerstats.durability}</td>
+						<td>{this.props.powerstats.power}</td>
+						<td>{this.props.powerstats.combat}</td>
+					</tr>
+				</table>
+				<div className='mt-2'>
+					<div>Full-name: {this.props.biography['full-name']}</div>
+					<div>Alignement : {this.props.biography.alignment}</div>
+					<div>
 						Height : {this.props.appearance.height[1]} - Weigth: {this.props.appearance.weight[1]}
-					</Col>
-					<Col xs='12'>Univers : {this.props.biography.publisher}</Col>
-				</Row>
+					</div>
+					<div>Univers : {this.props.biography.publisher}</div>
+				</div>
 			</div>
 		);
 	}
