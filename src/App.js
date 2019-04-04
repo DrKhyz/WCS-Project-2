@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './App.css';
 import CardHero from './components/CardHero/CardHero';
+import FightButton from './components/FightButton/FightButton';
+import RandomButton from './components/RandomButton/RandomButton';
 
 class App extends Component {
 	render() {
@@ -140,17 +142,20 @@ class App extends Component {
 		return (
 			<div>
 				<Row className='no-gutters'>
-					<Col xs={{ size: 12 }} md='4'>
-						<CardHero {...batman3} />
+					<Col xs='12' md='4'>
+						<CardHero {...batman} />
 					</Col>
-					<Col xs={{ size: 4 }} md='4'>
+					<Col xs='12' md='4'>
+						<RandomButton />
 						<img
+							className='vs-img'
 							src='https://png2.kisspng.com/sh/c3bb16bcd5fdf9991c1d23fe39929022/L0KzQYm4UMI2N6V6gJH0aYP2gLBuTgZqbJZ0RdlqbXX2PcX2mb1qdqVqhJ9sb4LoPbq6TflvfJZxRdV4cnWweYa0UsUufqQyiNDwLUXldIO3hvQ3bJJrSKk5Lkm2QIWCUckzOWY5SKYEM0K6QImCVsgveJ9s/kisspng-video-games-toy-intel-core-i3-intel-core-i5-25-vs-png-5bd20fd6daf070.9304919215404932708968.png'
 							alt='logo vs'
 						/>
+						<FightButton />
 					</Col>
-					<Col xs={{ size: 4 }} md='4'>
-						<CardHero {...batman} />
+					<Col xs='12' md='4'>
+						<CardHero {...batman2} />
 					</Col>
 				</Row>
 			</div>
