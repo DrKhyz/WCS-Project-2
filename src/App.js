@@ -140,7 +140,7 @@ class App extends Component {
 		return (
 			<div>
 				<Row className='no-gutters'>
-					<Col xs={{ size: 4 }} md='4'>
+					<Col xs={{ size: 12 }} md='4'>
 						<CardHero {...batman3} />
 					</Col>
 					<Col xs={{ size: 4 }} md='4'>
@@ -150,7 +150,7 @@ class App extends Component {
 						/>
 					</Col>
 					<Col xs={{ size: 4 }} md='4'>
-						<CardHero {...batman2} />
+						<CardHero {...batman} />
 					</Col>
 				</Row>
 			</div>

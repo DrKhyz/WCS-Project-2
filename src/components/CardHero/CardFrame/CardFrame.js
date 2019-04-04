@@ -27,7 +27,7 @@ class CardFrame extends Component {
 						<td>{this.props.powerstats.combat}</td>
 					</tr>
 				</table>
-				<div className='mt-2'>
+				<div>
 					<div>Full-name: {this.props.biography['full-name']}</div>
 					<div>Alignement : {this.props.biography.alignment}</div>
 					<div>
