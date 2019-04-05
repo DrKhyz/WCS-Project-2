@@ -30,7 +30,7 @@ const CardFrame = props => {
 				<div>Full-name: {props.biography[0]}</div>
 				<div>Alignement : {props.biography[2]}</div>
 				<div>
-					Height : {props.appearance[0]} - Weigth: {props.appearance[1]}
+					Height : {props.appearance[2]} - Weigth: {props.appearance[3]}
 				</div>
 				<div>Univers : {props.biography[1]}</div>
 			</div>
