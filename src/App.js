@@ -30,6 +30,7 @@ class App extends Component {
 	getHero(rand) {
 		// fonction api qui recupere es donnees depuis l'api et hydrate l'etat des 2 heros
 		let randomNumber = Math.floor(Math.random() * rand) + 1;
+		// fetch(`https://www.superheroapi.com/api.php/10219454314208202/283`)
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 			.then(res => res.json())
 			.then(data => {
@@ -38,20 +39,26 @@ class App extends Component {
 						id: data.id,
 						name: data.name,
 						powerstats: [
-							data.powerstats.intelligence,
-							data.powerstats.strength,
-							data.powerstats.speed,
-							data.powerstats.durability,
-							data.powerstats.power,
-							data.powerstats.combat,
-							data.powerstats.durability
+							data.powerstats.intelligence !== 'null'
+								? data.powerstats.intelligence
+								: Math.floor(Math.random() * 60) + 1,
+							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1
 						],
-						biography: [data.biography['full-name'], data.biography.publisher, data.biography.alignment],
+						biography: [
+							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
+							data.biography.publisher,
+							data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown'
+						],
 						appearance: [
-							data.appearance.gender,
-							data.appearance.race,
-							data.appearance.height[1],
-							data.appearance.weight[1]
+							data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown',
+							data.appearance.race !== 'null' ? data.appearance.race : 'Unknown',
+							data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown',
+							data.appearance.weight[0] !== '- lb' ? data.appearance.height[1] : 'Unknown'
 						],
 						image: data.image.url
 					}
@@ -67,22 +74,30 @@ class App extends Component {
 						id: data.id,
 						name: data.name,
 						powerstats: [
-							data.powerstats.intelligence,
-							data.powerstats.strength,
-							data.powerstats.speed,
-							data.powerstats.durability,
-							data.powerstats.power,
-							data.powerstats.combat,
-							data.powerstats.durability
+							data.powerstats.intelligence !== 'null'
+								? data.powerstats.intelligence
+								: Math.floor(Math.random() * 60) + 1,
+							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 60) + 1,
+							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1
 						],
-						biography: [data.biography['full-name'], data.biography.publisher, data.biography.alignment],
+						biography: [
+							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
+							data.biography.publisher,
+							data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown'
+						],
 						appearance: [
-							data.appearance.gender,
-							data.appearance.race,
-							data.appearance.height[1],
-							data.appearance.weight[1]
+							data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown',
+							data.appearance.race !== 'null' ? data.appearance.race : 'Unknown',
+							data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown',
+							data.appearance.weight[0] !== '- lb' ? data.appearance.height[1] : 'Unknown'
 						],
 						image: data.image.url
+							? data.image.url
+							: `https://anthro-tech.com/uploads/users/_userImage/bio-blank-female.jpg`
 					}
 				});
 			});
