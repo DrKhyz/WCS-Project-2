@@ -4,7 +4,7 @@ import './CardBackground.css';
 const CardBackground = props => {
 	return (
 		<div className='card-background'>
-			<img src={props.image.url} alt='Card background' />
+			<img src={props.image} alt='Card background' />
 		</div>
 	);
 };

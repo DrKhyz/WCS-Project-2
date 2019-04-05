@@ -1,43 +1,41 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import React from 'react';
 import './CardFrame.css';
 
-class CardFrame extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div className='card-frame'>
-				<table className='table-stats'>
+const CardFrame = props => {
+	return (
+		<div className='card-frame'>
+			<table className='table-stats'>
+				<thead>
 					<tr>
-						<td>INT</td>
-						<td>STR</td>
-						<td>SPD</td>
-						<td>END</td>
-						<td>POW</td>
-						<td>CBT</td>
+						<th>INT</th>
+						<th>STR</th>
+						<th>SPD</th>
+						<th>END</th>
+						<th>POW</th>
+						<th>CBT</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr>
-						<td>{this.props.powerstats.intelligence}</td>
-						<td>{this.props.powerstats.strength}</td>
-						<td>{this.props.powerstats.speed}</td>
-						<td>{this.props.powerstats.durability}</td>
-						<td>{this.props.powerstats.power}</td>
-						<td>{this.props.powerstats.combat}</td>
+						<td>{props.powerstats[0]}</td>
+						<td>{props.powerstats[1]}</td>
+						<td>{props.powerstats[2]}</td>
+						<td>{props.powerstats[3]}</td>
+						<td>{props.powerstats[4]}</td>
+						<td>{props.powerstats[5]}</td>
 					</tr>
-				</table>
+				</tbody>
+			</table>
+			<div>
+				<div>Full-name: {props.biography[0]}</div>
+				<div>Alignement : {props.biography[2]}</div>
 				<div>
-					<div>Full-name: {this.props.biography['full-name']}</div>
-					<div>Alignement : {this.props.biography.alignment}</div>
-					<div>
-						Height : {this.props.appearance.height[1]} - Weigth: {this.props.appearance.weight[1]}
-					</div>
-					<div>Univers : {this.props.biography.publisher}</div>
+					Height : {props.appearance[0]} - Weigth: {props.appearance[1]}
 				</div>
+				<div>Univers : {props.biography[1]}</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 export default CardFrame;
