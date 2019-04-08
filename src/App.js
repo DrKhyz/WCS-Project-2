@@ -30,10 +30,12 @@ class App extends Component {
 	getHero(rand) {
 		// fonction api qui recupere es donnees depuis l'api et hydrate l'etat des 2 heros
 		let randomNumber = Math.floor(Math.random() * rand) + 1;
-		// fetch(`https://www.superheroapi.com/api.php/10219454314208202/283`)
+		// fetch(`https://www.superheroapi.com/api.php/10219454314208202/629`)
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 			.then(res => res.json())
 			.then(data => {
+				let durability =
+					data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 40) + 20;
 				this.setState({
 					hero1: {
 						id: data.id,
@@ -41,13 +43,13 @@ class App extends Component {
 						powerstats: [
 							data.powerstats.intelligence !== 'null'
 								? data.powerstats.intelligence
-								: Math.floor(Math.random() * 60) + 1,
-							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1
+								: Math.floor(Math.random() * 70) + 10,
+							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 70) + 10,
+							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 70) + 10,
+							durability,
+							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 70) + 10,
+							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 70) + 10,
+							durability
 						],
 						biography: [
 							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
@@ -69,6 +71,8 @@ class App extends Component {
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 			.then(res => res.json())
 			.then(data => {
+				let durability =
+					data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 40) + 20;
 				this.setState({
 					hero2: {
 						id: data.id,
@@ -76,13 +80,13 @@ class App extends Component {
 						powerstats: [
 							data.powerstats.intelligence !== 'null'
 								? data.powerstats.intelligence
-								: Math.floor(Math.random() * 60) + 1,
-							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 60) + 1,
-							data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 60) + 1
+								: Math.floor(Math.random() * 70) + 10,
+							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 70) + 10,
+							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 70) + 10,
+							durability,
+							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 70) + 10,
+							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 70) + 10,
+							durability
 						],
 						biography: [
 							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
@@ -96,8 +100,6 @@ class App extends Component {
 							data.appearance.weight[0] !== '- lb' ? data.appearance.height[1] : 'Unknown'
 						],
 						image: data.image.url
-							? data.image.url
-							: `https://anthro-tech.com/uploads/users/_userImage/bio-blank-female.jpg`
 					}
 				});
 			});
@@ -133,6 +135,27 @@ class App extends Component {
 					this.state.hero1.appearance[3] //weight
 				],
 				image: this.state.hero1.image //image
+			},
+			hero2: {
+				id: this.state.hero2.id,
+				name: this.state.hero2.name,
+				powerstats: [
+					this.state.hero2.powerstats[0], //int
+					this.state.hero2.powerstats[1], //str
+					this.state.hero2.powerstats[2], //spd
+					this.state.hero2.powerstats[3], //end
+					this.state.hero2.powerstats[4], //pow
+					this.state.hero2.powerstats[5], //cbt
+					this.state.hero2.powerstats[6] - 5 //life point
+				],
+				biography: [this.state.hero2.biography[0], this.state.hero2.biography[1], this.state.hero2.biography[2]],
+				appearance: [
+					this.state.hero2.appearance[0], //gender
+					this.state.hero2.appearance[1], //race
+					this.state.hero2.appearance[2], //height
+					this.state.hero2.appearance[3] //weight
+				],
+				image: this.state.hero2.image //image
 			}
 		});
 	};
