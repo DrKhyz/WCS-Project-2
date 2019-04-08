@@ -3,6 +3,8 @@ import { Row, Col } from 'reactstrap';
 import './App.css';
 import CardHero from './components/CardHero/CardHero';
 import { Button } from 'reactstrap';
+import getHeroDataFromApi from './fucntions/getHeroDataFromApi';
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -29,58 +31,29 @@ class App extends Component {
 		};
 	}
 
-	getHero(hero) {
-		// fonction api qui recupere les donnees depuis l'api et hydrate l'etat des 2 heros
-		let randomNumber = Math.floor(Math.random() * 730) + 1;
-		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
-			.then(res => res.json())
-			.then(data => {
-				let intelligence =
-					data.powerstats.intelligence !== 'null'
-						? parseInt(data.powerstats.intelligence)
-						: Math.floor(Math.random() * 40) + 20;
-				let strength =
-					data.powerstats.strength !== 'null'
-						? parseInt(data.powerstats.strength)
-						: Math.floor(Math.random() * 40) + 20;
-				let speed =
-					data.powerstats.speed !== 'null' ? parseInt(data.powerstats.speed) : Math.floor(Math.random() * 40) + 20;
-				let durability =
-					data.powerstats.durability !== 'null'
-						? parseInt(data.powerstats.durability)
-						: Math.floor(Math.random() * 40) + 20;
-				let power =
-					data.powerstats.power !== 'null' ? parseInt(data.powerstats.power) : Math.floor(Math.random() * 40) + 20;
-				let combat =
-					data.powerstats.combat !== 'null' ? parseInt(data.powerstats.combat) : Math.floor(Math.random() * 40) + 20;
-				let star = Math.floor(intelligence + strength + speed + durability + power + combat);
-				let fullname = data.biography['full-name'] ? data.biography['full-name'] : 'Unknown';
-				let alignement = data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown';
-				let gender = data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown';
-				let race = data.appearance.race !== 'null' ? data.appearance.race : 'Unknown';
-				let height = data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown';
-				let weight = data.appearance.weight[0] !== '- lb' ? data.appearance.weight[1] : 'Unknown';
-				this.setState({
-					[hero]: {
-						id: data.id,
-						name: data.name,
-						powerstats: [intelligence, strength, speed, durability, power, combat, durability],
-						biography: [fullname, data.biography.publisher, alignement],
-						appearance: [gender, race, height, weight],
-						image: data.image.url,
-						star
-					}
-				});
-			});
-	}
-
-	componentDidMount() {
-		this.getHero('hero1');
-		this.getHero('hero2');
+	componentWillMount() {
+		getHeroDataFromApi().then(res =>
+			this.setState({
+				hero1: res
+			})
+		);
+		getHeroDataFromApi().then(res =>
+			this.setState({
+				hero2: res
+			})
+		);
 	}
 	handleClickSelect = () => {
-		this.getHero('hero1');
-		this.getHero('hero2');
+		getHeroDataFromApi().then(res =>
+			this.setState({
+				hero1: res
+			})
+		);
+		getHeroDataFromApi().then(res =>
+			this.setState({
+				hero2: res
+			})
+		);
 	};
 
 	// Fonction algorithmique qui gere les données liez aux combats (en cours de dev)
