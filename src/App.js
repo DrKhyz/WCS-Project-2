@@ -14,7 +14,8 @@ class App extends Component {
 				powerstats: ['', '', '', '', '', '', ''],
 				biography: ['', ''],
 				appearance: ['', '', '', ''],
-				image: ''
+				image: '',
+				star: ''
 			},
 			hero2: {
 				id: '',
@@ -22,98 +23,69 @@ class App extends Component {
 				powerstats: ['', '', '', '', '', '', ''],
 				biography: ['', ''],
 				appearance: ['', '', '', ''],
-				image: ''
+				image: '',
+				star: ''
 			}
 		};
 	}
 
-	getHero(rand) {
-		// fonction api qui recupere es donnees depuis l'api et hydrate l'etat des 2 heros
-		let randomNumber = Math.floor(Math.random() * rand) + 1;
-		// fetch(`https://www.superheroapi.com/api.php/10219454314208202/629`)
+	getHero(hero) {
+		// fonction api qui recupere les donnees depuis l'api et hydrate l'etat des 2 heros
+		let randomNumber = Math.floor(Math.random() * 730) + 1;
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 			.then(res => res.json())
 			.then(data => {
+				let intelligence =
+					data.powerstats.intelligence !== 'null'
+						? parseInt(data.powerstats.intelligence)
+						: Math.floor(Math.random() * 40) + 20;
+				let strength =
+					data.powerstats.strength !== 'null'
+						? parseInt(data.powerstats.strength)
+						: Math.floor(Math.random() * 40) + 20;
+				let speed =
+					data.powerstats.speed !== 'null' ? parseInt(data.powerstats.speed) : Math.floor(Math.random() * 40) + 20;
 				let durability =
-					data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 40) + 20;
+					data.powerstats.durability !== 'null'
+						? parseInt(data.powerstats.durability)
+						: Math.floor(Math.random() * 40) + 20;
+				let power =
+					data.powerstats.power !== 'null' ? parseInt(data.powerstats.power) : Math.floor(Math.random() * 40) + 20;
+				let combat =
+					data.powerstats.combat !== 'null' ? parseInt(data.powerstats.combat) : Math.floor(Math.random() * 40) + 20;
+				let star = Math.floor(intelligence + strength + speed + durability + power + combat);
+				let fullname = data.biography['full-name'] ? data.biography['full-name'] : 'Unknown';
+				let alignement = data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown';
+				let gender = data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown';
+				let race = data.appearance.race !== 'null' ? data.appearance.race : 'Unknown';
+				let height = data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown';
+				let weight = data.appearance.weight[0] !== '- lb' ? data.appearance.weight[1] : 'Unknown';
 				this.setState({
-					hero1: {
+					[hero]: {
 						id: data.id,
 						name: data.name,
-						powerstats: [
-							data.powerstats.intelligence !== 'null'
-								? data.powerstats.intelligence
-								: Math.floor(Math.random() * 70) + 10,
-							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 70) + 10,
-							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 70) + 10,
-							durability,
-							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 70) + 10,
-							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 70) + 10,
-							durability
-						],
-						biography: [
-							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
-							data.biography.publisher,
-							data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown'
-						],
-						appearance: [
-							data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown',
-							data.appearance.race !== 'null' ? data.appearance.race : 'Unknown',
-							data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown',
-							data.appearance.weight[0] !== '- lb' ? data.appearance.height[1] : 'Unknown'
-						],
-						image: data.image.url
-					}
-				});
-			});
-		// api + hydration du 2eme perso
-		randomNumber = Math.floor(Math.random() * rand) + 1;
-		fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
-			.then(res => res.json())
-			.then(data => {
-				let durability =
-					data.powerstats.durability !== 'null' ? data.powerstats.durability : Math.floor(Math.random() * 40) + 20;
-				this.setState({
-					hero2: {
-						id: data.id,
-						name: data.name,
-						powerstats: [
-							data.powerstats.intelligence !== 'null'
-								? data.powerstats.intelligence
-								: Math.floor(Math.random() * 70) + 10,
-							data.powerstats.strength !== 'null' ? data.powerstats.strength : Math.floor(Math.random() * 70) + 10,
-							data.powerstats.speed !== 'null' ? data.powerstats.speed : Math.floor(Math.random() * 70) + 10,
-							durability,
-							data.powerstats.power !== 'null' ? data.powerstats.power : Math.floor(Math.random() * 70) + 10,
-							data.powerstats.combat !== 'null' ? data.powerstats.combat : Math.floor(Math.random() * 70) + 10,
-							durability
-						],
-						biography: [
-							data.biography['full-name'] ? data.biography['full-name'] : 'Unknown',
-							data.biography.publisher,
-							data.biography.alignment !== '-' ? data.biography.alignment : 'Unknown'
-						],
-						appearance: [
-							data.appearance.gender !== 'null' ? data.appearance.gender : 'Unknown',
-							data.appearance.race !== 'null' ? data.appearance.race : 'Unknown',
-							data.appearance.height[0] !== '-' ? data.appearance.height[1] : 'Unknown',
-							data.appearance.weight[0] !== '- lb' ? data.appearance.height[1] : 'Unknown'
-						],
-						image: data.image.url
+						powerstats: [intelligence, strength, speed, durability, power, combat, durability],
+						biography: [fullname, data.biography.publisher, alignement],
+						appearance: [gender, race, height, weight],
+						image: data.image.url,
+						star
 					}
 				});
 			});
 	}
 
 	componentDidMount() {
-		this.getHero(731);
+		this.getHero('hero1');
+		this.getHero('hero2');
 	}
 	handleClickSelect = () => {
-		this.getHero(731);
+		this.getHero('hero1');
+		this.getHero('hero2');
 	};
 
 	// Fonction algorithmique qui gere les données liez aux combats (en cours de dev)
 	handleClickCombat = () => {
+		//ICI POUR LES CALCULS
 		this.setState({
 			hero1: {
 				id: this.state.hero1.id,
@@ -125,7 +97,7 @@ class App extends Component {
 					this.state.hero1.powerstats[3], //end
 					this.state.hero1.powerstats[4], //pow
 					this.state.hero1.powerstats[5], //cbt
-					this.state.hero1.powerstats[6] - 5 //life point
+					this.state.hero1.powerstats[6] - this.state.hero2.powerstats[1] / 10 //life point
 				],
 				biography: [this.state.hero1.biography[0], this.state.hero1.biography[1], this.state.hero1.biography[2]],
 				appearance: [
@@ -146,7 +118,7 @@ class App extends Component {
 					this.state.hero2.powerstats[3], //end
 					this.state.hero2.powerstats[4], //pow
 					this.state.hero2.powerstats[5], //cbt
-					this.state.hero2.powerstats[6] - 5 //life point
+					this.state.hero2.powerstats[6] - this.state.hero1.powerstats[1] / 10 //life point
 				],
 				biography: [this.state.hero2.biography[0], this.state.hero2.biography[1], this.state.hero2.biography[2]],
 				appearance: [
