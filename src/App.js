@@ -3,8 +3,8 @@ import { Row, Col } from 'reactstrap';
 import './App.css';
 import CardHero from './components/CardHero/CardHero';
 import { Button } from 'reactstrap';
-import getHeroDataFromApi from './fucntions/getHeroDataFromApi';
-import handleCombat from './fucntions/handleCombat';
+import getHeroDataFromApi from './functions/getHeroDataFromApi';
+import handleCombat from './functions/handleCombat';
 import Loading from './components/Loading.jsx';
 
 class App extends Component {

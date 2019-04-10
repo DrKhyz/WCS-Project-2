@@ -12,27 +12,16 @@ class CardHead extends Component {
 	}
 
 	componentDidMount() {
-		let level;
-		this.state.star -= 100;
+		console.log(this.state.star);
 		let starsType = [];
-		if (this.state.star > 500) {
-			level = 5;
-		} else if (this.state.star < 499 && this.state.star > 401) {
-			level = 4;
-		} else if (this.state.star < 399 && this.state.star > 301) {
-			level = 3;
-		} else if (this.state.star < 299 && this.state.star > 201) {
-			level = 2;
-		} else if (this.state.star < 199) {
-			level = 1;
-		}
+		const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
+		const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
 		for (let i = 1; i <= 5; i++) {
-			level < i
-				? starsType.push('https://img.icons8.com/color/48/000000/star.png')
-				: starsType.push('https://img.icons8.com/color/48/000000/filled-star.png');
+			this.state.star < i ? starsType.push(emptyStar) : starsType.push(filledStar);
 		}
 		this.setState({ starsBand: starsType });
 	}
+
 	render() {
 		return (
 			<div className='card-head'>

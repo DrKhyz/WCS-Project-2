@@ -58,7 +58,7 @@ const createHero = data => {
 
 	let image = normalizeInformations(data.image);
 
-	let star = intelligence + strength + speed + durability + power + combat + durability;
+	let star = (intelligence + strength + speed + durability + power + combat + durability) / 100;
 
 	return {
 		id: data.id,
