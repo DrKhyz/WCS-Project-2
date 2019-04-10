@@ -21,3 +21,14 @@
 	margin-left: 50%;
 	margin-top: 50%;
 }
+
+.newcombat-button {
+	width: 80%;
+	font-size: 4rem;
+	background-color: green !important;
+}
+
+.winner {
+	margin: 15%;
+	font-size: 3rem;
+}

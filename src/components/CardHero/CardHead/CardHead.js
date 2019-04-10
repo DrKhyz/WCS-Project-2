@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import './CardHead.css';
 
 class CardHead extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			star: this.props.star,
-			name: this.props.name,
-			starsBand: []
-		};
-	}
+	state = {
+		star: this.props.star,
+		name: this.props.name,
+		starsBand: []
+	};
 
 	componentDidMount() {
-		console.log(this.state.star);
 		let starsType = [];
 		const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
 		const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
