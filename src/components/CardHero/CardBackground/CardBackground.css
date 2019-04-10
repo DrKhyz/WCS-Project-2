@@ -3,10 +3,10 @@
 	width: 98%;
 	margin: 1%;
 	border-radius: 2vw;
+	overflow: hidden;
 	background-color: #bbb;
 }
 .card-background img {
+	height: 98%;
 	width: 100%;
-	min-height: 100%;
-	border-radius: 2vw;
 }
