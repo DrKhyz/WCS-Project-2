@@ -16,3 +16,8 @@
 	font-size: 4rem;
 	background-color: green !important;
 }
+
+.loadingLogo {
+	margin-left: 50%;
+	margin-top: 50%;
+}

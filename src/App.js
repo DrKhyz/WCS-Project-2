@@ -5,57 +5,26 @@ import CardHero from './components/CardHero/CardHero';
 import { Button } from 'reactstrap';
 import getHeroDataFromApi from './fucntions/getHeroDataFromApi';
 import handleCombat from './fucntions/handleCombat';
+import Loading from './components/Loading.jsx';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
-		// Declaration de l'etat vide pour les 2 heros
 		this.state = {
-			hero1: {
-				id: '',
-				name: '',
-				powerstats: ['', '', '', '', '', '', ''],
-				biography: ['', ''],
-				appearance: ['', '', '', ''],
-				image: '',
-				star: ''
-			},
-			hero2: {
-				id: '',
-				name: '',
-				powerstats: ['', '', '', '', '', '', ''],
-				biography: ['', ''],
-				appearance: ['', '', '', ''],
-				image: '',
-				star: ''
-			}
+			hero1: { loading: true },
+			hero2: { loading: true }
 		};
 	}
 
-	componentWillMount() {
-		getHeroDataFromApi().then(res =>
-			this.setState({
-				hero1: res
-			})
-		);
-		getHeroDataFromApi().then(res =>
-			this.setState({
-				hero2: res
-			})
-		);
+	componentDidMount() {
+		getHeroDataFromApi().then(hero1 => this.setState({ hero1 }));
+		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }));
 	}
 
 	handleClickSelect = () => {
-		getHeroDataFromApi().then(res =>
-			this.setState({
-				hero1: res
-			})
-		);
-		getHeroDataFromApi().then(res =>
-			this.setState({
-				hero2: res
-			})
-		);
+		this.setState({ hero1: { loading: true }, hero2: { loading: true } });
+		getHeroDataFromApi().then(hero1 => this.setState({ hero1 }));
+		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }));
 	};
 
 	handleClickCombat = () => {
@@ -68,7 +37,7 @@ class App extends Component {
 			<div>
 				<Row className='no-gutters'>
 					<Col xs='12' md='4'>
-						<CardHero props={this.state.hero1} />
+						{this.state.hero1.loading ? <Loading /> : <CardHero props={this.state.hero1} />}
 					</Col>
 					<Col xs='12' md='4'>
 						<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
@@ -84,7 +53,7 @@ class App extends Component {
 						</Button>
 					</Col>
 					<Col xs='12' md='4'>
-						<CardHero props={this.state.hero2} />
+						{this.state.hero2.loading ? <Loading /> : <CardHero props={this.state.hero2} />}
 					</Col>
 				</Row>
 			</div>

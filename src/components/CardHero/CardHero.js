@@ -9,7 +9,7 @@ const CardHero = ({ props }) => {
 	return (
 		<div className='card-container'>
 			<CardBackground image={props.image} />
-			<CardHead name={props.name} />
+			<CardHead name={props.name} star={props.star} />
 			<CardLife powerstats={props.powerstats} />
 			<CardFrame powerstats={props.powerstats} biography={props.biography} appearance={props.appearance} />
 		</div>
