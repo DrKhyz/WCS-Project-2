@@ -6,14 +6,14 @@
 .fight-button {
 	width: 80%;
 	margin: 10%;
-	font-size: 4rem;
+	font-size: 2rem;
 	background-color: darkblue !important;
 }
 
 .random-button {
 	width: 80%;
 	margin: 10%;
-	font-size: 4rem;
+	font-size: 2rem;
 	background-color: green !important;
 }
 
@@ -25,7 +25,7 @@
 .newcombat-button {
 	width: 80%;
 	margin-top: 70%;
-	font-size: 4rem;
+	font-size: 2rem;
 	background-color: green !important;
 }
 
