@@ -24,6 +24,7 @@
 
 .newcombat-button {
 	width: 80%;
+	margin-top: 70%;
 	font-size: 4rem;
 	background-color: green !important;
 }
@@ -32,4 +33,8 @@
 	text-align: center;
 	margin: 10%;
 	font-size: 3rem;
+}
+
+.centerBand {
+	margin-top: 5%;
 }

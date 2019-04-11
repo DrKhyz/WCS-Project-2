@@ -34,12 +34,21 @@ class App extends Component {
 		}
 	};
 
+	winnerName = () => {
+		if (this.state.hero1.powerstats[6] === 0) {
+			return this.state.hero2.name;
+		}
+		if (this.state.hero2.powerstats[6] === 0) {
+			return this.state.hero1.name;
+		}
+	};
+
 	hideButton = () => {
 		if (this.state.hideButton) {
 			return (
 				<div className='winner'>
 					<h1>Winner is :</h1>
-					<h2>{this.state.hero1.name}</h2>
+					<h2>{this.winnerName()}</h2>
 					<Button onClick={this.handleClickSelect} className='newcombat-button' color='secondary'>
 						New Combat
 					</Button>
@@ -78,7 +87,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<Row className='no-gutters'>
+				<Row className='no-gutters centerBand'>
 					<Col xs='12' md='4'>
 						{this.loadingHeroes(this.state.hero1)}
 					</Col>

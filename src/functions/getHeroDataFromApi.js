@@ -7,6 +7,9 @@ const getHeroDataFromApi = () => {
 };
 
 const dataSelectors = data => {
+	let id = data.id;
+	let name = data.name;
+
 	let intelligence = data.powerstats.intelligence;
 	let strength = data.powerstats.strength;
 	let speed = data.powerstats.speed;
@@ -23,13 +26,13 @@ const dataSelectors = data => {
 	let height = data.appearance.height[0];
 	let weight = data.appearance.weight[0];
 
-	let star;
-
 	let image = data.image.url;
 
+	let star;
+
 	return {
-		id: data.id,
-		name: data.name,
+		id: id,
+		name: name,
 		powerstats: [intelligence, strength, speed, durability, power, combat, durability],
 		biography: [fullname, publisher, alignment],
 		appearance: [gender, race, height, weight],
