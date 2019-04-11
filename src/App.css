@@ -29,6 +29,7 @@
 }
 
 .winner {
-	margin: 15%;
+	text-align: center;
+	margin: 10%;
 	font-size: 3rem;
 }
