@@ -1,33 +1,40 @@
-.App {
-  text-align: center;
+.vs-img {
+	height: auto;
+	width: 50%;
+	margin-left: 25%;
+}
+.fight-button {
+	width: 80%;
+	margin: 10%;
+	font-size: 4rem;
+	background-color: darkblue !important;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.random-button {
+	width: 80%;
+	margin: 10%;
+	font-size: 4rem;
+	background-color: green !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.loadingLogo {
+	margin-left: 50%;
+	margin-top: 50%;
 }
 
-.App-link {
-  color: #61dafb;
+.newcombat-button {
+	width: 80%;
+	margin-top: 70%;
+	font-size: 4rem;
+	background-color: green !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.winner {
+	text-align: center;
+	margin: 10%;
+	font-size: 3rem;
+}
+
+.centerBand {
+	margin-top: 5%;
 }
