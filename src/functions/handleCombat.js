@@ -4,6 +4,7 @@ const handleCombat = oldStats => {
 	} else {
 		oldStats.hero1.powerstats[6] = oldStats.hero1.powerstats[6] - oldStats.hero2.powerstats[1] / 10; //life point
 	}
+
 	if (oldStats.hero2.powerstats[6] <= 0) {
 		oldStats.hero2.powerstats[6] = 0;
 	} else {
@@ -12,6 +13,7 @@ const handleCombat = oldStats => {
 
 	console.log(oldStats.hero1.powerstats[6]);
 	console.log(oldStats.hero2.powerstats[6]);
+
 	return {
 		hero1: {
 			id: oldStats.hero1.id,
