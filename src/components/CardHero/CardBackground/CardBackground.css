@@ -1,20 +1,17 @@
 .card-background {
-	height: 98%;
-	height: 98%;
-	width: 98%;
 	margin: 1%;
 	border-radius: 2vw;
 	overflow: hidden;
 	background-color: #bbb;
 }
 .card-background img {
-	height: 98%;
-	width: 100%;
+	max-height: var(--width);
+	--width: 40vw;
 	margin-bottom: 0%;
 }
 
 .silouhette {
-	margin-top: 17%;
-	margin-bottom: 17%;
-	height: 80%;
+	max-height: var(--width);
+	--width: 40vw;
+	margin-top: 23%;
 }

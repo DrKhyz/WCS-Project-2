@@ -47,8 +47,8 @@ class App extends Component {
 		if (this.state.hideButton) {
 			return (
 				<div className='winner'>
-					<h1>Winner is :</h1>
-					<h2>{this.winnerName()}</h2>
+					<p>Winner is :</p>
+					<p>{this.winnerName()}</p>
 					<Button onClick={this.handleClickSelect} className='newcombat-button' color='secondary'>
 						New Combat
 					</Button>
@@ -92,15 +92,9 @@ class App extends Component {
 		return (
 			<div>
 				<Row className='no-gutters centerBand'>
-					<Col xs='12' md='4'>
-						{this.loadingHeroes(this.state.hero1)}
-					</Col>
-					<Col xs='12' md='4'>
-						{this.hideButton()}
-					</Col>
-					<Col xs='12' md='4'>
-						{this.loadingHeroes(this.state.hero2)}
-					</Col>
+					<Col xs='4'>{this.loadingHeroes(this.state.hero1)}</Col>
+					<Col xs='4'>{this.hideButton()}</Col>
+					<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
 				</Row>
 			</div>
 		);
