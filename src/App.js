@@ -47,8 +47,8 @@ class App extends Component {
 		if (this.state.hideButton) {
 			return (
 				<div className='winner'>
-					<h1>Winner is :</h1>
-					<h2>{this.winnerName()}</h2>
+					<p>Winner is :</p>
+					<p>{this.winnerName()}</p>
 					<Button onClick={this.handleClickSelect} className='newcombat-button' color='secondary'>
 						New Combat
 					</Button>
@@ -57,23 +57,27 @@ class App extends Component {
 		} else {
 			return (
 				<div>
-					<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
-						Randomize Hero
-					</Button>
-					<img
-						className='vs-img'
-						src='https://png2.kisspng.com/sh/c3bb16bcd5fdf9991c1d23fe39929022/L0KzQYm4UMI2N6V6gJH0aYP2gLBuTgZqbJZ0RdlqbXX2PcX2mb1qdqVqhJ9sb4LoPbq6TflvfJZxRdV4cnWweYa0UsUufqQyiNDwLUXldIO3hvQ3bJJrSKk5Lkm2QIWCUckzOWY5SKYEM0K6QImCVsgveJ9s/kisspng-video-games-toy-intel-core-i3-intel-core-i5-25-vs-png-5bd20fd6daf070.9304919215404932708968.png'
-						alt='logo vs'
-					/>
-
-					{this.state.hero1.loading ? (
-						<Button className='fight-button' color='danger'>
-							Preparing Fighters
-						</Button>
+					{this.state.hero1.loading || this.state.hero2.loading ? (
+						<div>
+							<Button className='random-button' color='secondary'>
+								Retriving Datas
+							</Button>
+							<div className='gap'> </div>
+						</div>
 					) : (
-						<Button onClick={this.handleClickCombat} className='fight-button' color='danger'>
-							FIGHT
-						</Button>
+						<div>
+							<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
+								Randomize Hero
+							</Button>
+							<img
+								className='vs-img'
+								src='https://png2.kisspng.com/sh/c3bb16bcd5fdf9991c1d23fe39929022/L0KzQYm4UMI2N6V6gJH0aYP2gLBuTgZqbJZ0RdlqbXX2PcX2mb1qdqVqhJ9sb4LoPbq6TflvfJZxRdV4cnWweYa0UsUufqQyiNDwLUXldIO3hvQ3bJJrSKk5Lkm2QIWCUckzOWY5SKYEM0K6QImCVsgveJ9s/kisspng-video-games-toy-intel-core-i3-intel-core-i5-25-vs-png-5bd20fd6daf070.9304919215404932708968.png'
+								alt='logo vs'
+							/>
+							<Button onClick={this.handleClickCombat} className='fight-button' color='danger'>
+								FIGHT
+							</Button>
+						</div>
 					)}
 				</div>
 			);
@@ -88,15 +92,9 @@ class App extends Component {
 		return (
 			<div>
 				<Row className='no-gutters centerBand'>
-					<Col xs='12' md='4'>
-						{this.loadingHeroes(this.state.hero1)}
-					</Col>
-					<Col xs='12' md='4'>
-						{this.hideButton()}
-					</Col>
-					<Col xs='12' md='4'>
-						{this.loadingHeroes(this.state.hero2)}
-					</Col>
+					<Col xs='4'>{this.loadingHeroes(this.state.hero1)}</Col>
+					<Col xs='4'>{this.hideButton()}</Col>
+					<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
 				</Row>
 			</div>
 		);

@@ -1,10 +1,20 @@
 const handleCombat = oldStats => {
+	if (oldStats.hero1.powerstats[6] <= 0 && oldStats.hero2.powerstats[6] <= 0) {
+		if (oldStats.hero1.powerstats[2] >= oldStats.hero2.powerstats[2]) {
+			oldStats.hero1.powerstats[3] = 1;
+		} else {
+			oldStats.hero2.powerstats[3] = 1;
+		}
+	}
+
 	if (oldStats.hero1.powerstats[6] <= 0) {
 		oldStats.hero1.powerstats[6] = 0;
 	} else {
 		oldStats.hero1.powerstats[6] -=
-			((oldStats.hero2.powerstats[1] + oldStats.hero2.powerstats[5]) / 10 +
-				(oldStats.hero2.powerstats[0] + oldStats.hero2.powerstats[4]) / 10) *
+			((oldStats.hero2.powerstats[1] +
+				oldStats.hero2.powerstats[5] +
+				(oldStats.hero2.powerstats[0] + oldStats.hero2.powerstats[4])) /
+				10) *
 			(oldStats.hero2.powerstats[2] / 100);
 	}
 
