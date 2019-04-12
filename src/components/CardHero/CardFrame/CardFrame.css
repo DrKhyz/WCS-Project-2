@@ -1,13 +1,13 @@
 .card-frame {
 	width: 94%;
-	font-size: 4vw;
+	font-size: 1.3vw;
 	background-color: #bbb;
 	opacity: 0.9;
 	border: 2px solid black;
 	position: absolute;
 	border-radius: 2vw;
-	margin-top: 78%;
-	max-height: 29%;
+	margin-top: 82%;
+	max-height: 32%;
 	text-align: center;
 }
 
