@@ -57,9 +57,15 @@ class App extends Component {
 		} else {
 			return (
 				<div>
-					<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
-						Randomize Hero
-					</Button>
+					{this.state.hero1.loading || this.state.hero2.loading ? (
+						<Button className='random-button' color='secondary'>
+							Retriving Datas
+						</Button>
+					) : (
+						<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
+							Randomize Hero
+						</Button>
+					)}
 					<img
 						className='vs-img'
 						src='https://png2.kisspng.com/sh/c3bb16bcd5fdf9991c1d23fe39929022/L0KzQYm4UMI2N6V6gJH0aYP2gLBuTgZqbJZ0RdlqbXX2PcX2mb1qdqVqhJ9sb4LoPbq6TflvfJZxRdV4cnWweYa0UsUufqQyiNDwLUXldIO3hvQ3bJJrSKk5Lkm2QIWCUckzOWY5SKYEM0K6QImCVsgveJ9s/kisspng-video-games-toy-intel-core-i3-intel-core-i5-25-vs-png-5bd20fd6daf070.9304919215404932708968.png'
