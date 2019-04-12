@@ -1,5 +1,6 @@
 .card-background {
 	height: 98%;
+	height: 98%;
 	width: 98%;
 	margin: 1%;
 	border-radius: 2vw;
@@ -9,4 +10,11 @@
 .card-background img {
 	height: 98%;
 	width: 100%;
+	margin-bottom: 0%;
+}
+
+.silouhette {
+	margin-top: 17%;
+	margin-bottom: 17%;
+	height: 80%;
 }

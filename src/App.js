@@ -63,9 +63,6 @@ class App extends Component {
 								Retriving Datas
 							</Button>
 							<div className='gap'> </div>
-							<Button className='fight-button' color='danger'>
-								Preparing Fighters
-							</Button>
 						</div>
 					) : (
 						<div>
