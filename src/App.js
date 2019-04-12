@@ -70,7 +70,7 @@ class App extends Component {
 								Randomize Hero
 							</Button>
 							<img
-								className='vs-img'
+								className='vs-img animate'
 								src='https://png2.kisspng.com/sh/c3bb16bcd5fdf9991c1d23fe39929022/L0KzQYm4UMI2N6V6gJH0aYP2gLBuTgZqbJZ0RdlqbXX2PcX2mb1qdqVqhJ9sb4LoPbq6TflvfJZxRdV4cnWweYa0UsUufqQyiNDwLUXldIO3hvQ3bJJrSKk5Lkm2QIWCUckzOWY5SKYEM0K6QImCVsgveJ9s/kisspng-video-games-toy-intel-core-i3-intel-core-i5-25-vs-png-5bd20fd6daf070.9304919215404932708968.png'
 								alt='logo vs'
 							/>
@@ -85,7 +85,13 @@ class App extends Component {
 	};
 
 	loadingHeroes = hero => {
-		return hero.loading ? <Loading /> : <CardHero props={hero} />;
+		return hero.loading ? (
+			<Loading />
+		) : (
+			<div className='animate'>
+				<CardHero props={hero} />
+			</div>
+		);
 	};
 
 	render() {
