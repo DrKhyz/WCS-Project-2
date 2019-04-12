@@ -1,5 +1,7 @@
 .card-background {
 	margin: 1%;
+	width: 98%;
+
 	border-radius: 2vw;
 	overflow: hidden;
 	background-color: #bbb;
