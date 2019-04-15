@@ -17,22 +17,22 @@ const CardFrame = props => {
 				</thead>
 				<tbody>
 					<tr>
-						<td>{props.powerstats[0]}</td>
-						<td>{props.powerstats[1]}</td>
-						<td>{props.powerstats[2]}</td>
-						<td>{props.powerstats[3]}</td>
-						<td>{props.powerstats[4]}</td>
-						<td>{props.powerstats[5]}</td>
+						<td>{props.powerstats.intelligence}</td>
+						<td>{props.powerstats.strength}</td>
+						<td>{props.powerstats.speed}</td>
+						<td>{props.powerstats.durability}</td>
+						<td>{props.powerstats.power}</td>
+						<td>{props.powerstats.combat}</td>
 					</tr>
 				</tbody>
 			</table>
 			<div>
-				<div>Full-name: {props.biography[0]}</div>
-				<div>Alignement : {props.biography[2]}</div>
+				<div>Full-name: {props.biography.alignment}</div>
+				<div>Alignement : {props.biography.alignment}</div>
 				<div>
-					Height : {props.appearance[2]} - Weigth: {props.appearance[3]}
+					Height : {props.appearance.height} - Weigth: {props.appearance.weight}
 				</div>
-				<div>Univers : {props.biography[1]}</div>
+				<div>Univers : {props.biography.publisher}</div>
 			</div>
 		</div>
 	);
