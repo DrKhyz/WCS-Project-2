@@ -1,6 +1,6 @@
 import React from 'react';
 import CardFrame from './CardFrame.jsx';
-import CardHead from './CardHead/CardHead';
+import CardHead from './CardHead.jsx';
 import CardBackground from './CardBackground/CardBackground';
 import CardLife from './CardLife.jsx';
 
