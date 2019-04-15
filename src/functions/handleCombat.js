@@ -1,30 +1,30 @@
 const handleCombat = oldStats => {
-	if (oldStats.hero1.powerstats[6] <= 0 && oldStats.hero2.powerstats[6] <= 0) {
-		if (oldStats.hero1.powerstats[2] >= oldStats.hero2.powerstats[2]) {
-			oldStats.hero1.powerstats[3] = 1;
+	if (oldStats.hero1.powerstats.life <= 0 && oldStats.hero2.powerstats.life <= 0) {
+		if (oldStats.hero1.powerstats.speed >= oldStats.hero2.powerstats.speed) {
+			oldStats.hero1.powerstats.durability = 1;
 		} else {
-			oldStats.hero2.powerstats[3] = 1;
+			oldStats.hero2.powerstats.durability = 1;
 		}
 	}
 
-	if (oldStats.hero1.powerstats[6] <= 0) {
-		oldStats.hero1.powerstats[6] = 0;
+	if (oldStats.hero1.powerstats.life <= 0) {
+		oldStats.hero1.powerstats.life = 0;
 	} else {
-		oldStats.hero1.powerstats[6] -=
-			((oldStats.hero2.powerstats[1] +
-				oldStats.hero2.powerstats[5] +
-				(oldStats.hero2.powerstats[0] + oldStats.hero2.powerstats[4])) /
+		oldStats.hero1.powerstats.life -=
+			((oldStats.hero2.powerstats.strength +
+				oldStats.hero2.powerstats.combat +
+				(oldStats.hero2.powerstats.intelligence + oldStats.hero2.powerstats.power)) /
 				10) *
-			(oldStats.hero2.powerstats[2] / 100);
+			(oldStats.hero2.powerstats.speed / 100);
 	}
 
-	if (oldStats.hero2.powerstats[6] <= 0) {
-		oldStats.hero2.powerstats[6] = 0;
+	if (oldStats.hero2.powerstats.life <= 0) {
+		oldStats.hero2.powerstats.life = 0;
 	} else {
-		oldStats.hero2.powerstats[6] -=
-			((oldStats.hero1.powerstats[1] + oldStats.hero1.powerstats[5]) / 10 +
-				(oldStats.hero1.powerstats[0] + oldStats.hero1.powerstats[4]) / 10) *
-			(oldStats.hero1.powerstats[2] / 100);
+		oldStats.hero2.powerstats.life -=
+			((oldStats.hero1.powerstats.strength + oldStats.hero1.powerstats.combat) / 10 +
+				(oldStats.hero1.powerstats.intelligence + oldStats.hero1.powerstats.power) / 10) *
+			(oldStats.hero1.powerstats.speed / 100);
 	}
 
 	return {
@@ -32,13 +32,13 @@ const handleCombat = oldStats => {
 			id: oldStats.hero1.id,
 			name: oldStats.hero1.name,
 			powerstats: [
-				oldStats.hero1.powerstats[0], //int
-				oldStats.hero1.powerstats[1], //str
-				oldStats.hero1.powerstats[2], //spd
-				oldStats.hero1.powerstats[3], //end
-				oldStats.hero1.powerstats[4], //pow
-				oldStats.hero1.powerstats[5], //cbt
-				oldStats.hero1.powerstats[6] //life point
+				oldStats.hero1.powerstats.intelligence, //int
+				oldStats.hero1.powerstats.strength, //str
+				oldStats.hero1.powerstats.speed, //spd
+				oldStats.hero1.powerstats.durability, //end
+				oldStats.hero1.powerstats.power, //pow
+				oldStats.hero1.powerstats.combat, //cbt
+				oldStats.hero1.powerstats.life //life point
 			],
 			biography: [...oldStats.hero1.biography],
 			appearance: [...oldStats.hero1.appearance],
@@ -48,13 +48,13 @@ const handleCombat = oldStats => {
 			id: oldStats.hero2.id,
 			name: oldStats.hero2.name,
 			powerstats: [
-				oldStats.hero2.powerstats[0], //int
-				oldStats.hero2.powerstats[1], //str
-				oldStats.hero2.powerstats[2], //spd
-				oldStats.hero2.powerstats[3], //end
-				oldStats.hero2.powerstats[4], //pow
-				oldStats.hero2.powerstats[5], //cbt
-				oldStats.hero2.powerstats[6] //life point
+				oldStats.hero2.powerstats.intelligence, //int
+				oldStats.hero2.powerstats.strength, //str
+				oldStats.hero2.powerstats.speed, //spd
+				oldStats.hero2.powerstats.durability, //end
+				oldStats.hero2.powerstats.power, //pow
+				oldStats.hero2.powerstats.combat, //cbt
+				oldStats.hero2.powerstats.life //life point
 			],
 			biography: [...oldStats.hero2.biography],
 			appearance: [...oldStats.hero2.appearance],
