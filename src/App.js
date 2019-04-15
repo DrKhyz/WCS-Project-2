@@ -28,17 +28,17 @@ class App extends Component {
 
 	handleClickCombat = () => {
 		this.setState({ hideButton: true });
-		while (this.state.hero1.powerstats[6] !== 0 && this.state.hero2.powerstats[6] !== 0) {
+		while (this.state.hero1.powerstats.life !== 0 && this.state.hero2.powerstats.life !== 0) {
 			let newStats = handleCombat(this.state);
 			this.setState(newStats);
 		}
 	};
 
 	winnerName = () => {
-		if (this.state.hero1.powerstats[6] === 0) {
+		if (this.state.hero1.powerstats.life === 0) {
 			return this.state.hero2.name;
 		}
-		if (this.state.hero2.powerstats[6] === 0) {
+		if (this.state.hero2.powerstats.life === 0) {
 			return this.state.hero1.name;
 		}
 	};

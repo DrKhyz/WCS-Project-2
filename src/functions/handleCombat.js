@@ -31,34 +31,34 @@ const handleCombat = oldStats => {
 		hero1: {
 			id: oldStats.hero1.id,
 			name: oldStats.hero1.name,
-			powerstats: [
-				oldStats.hero1.powerstats.intelligence, //int
-				oldStats.hero1.powerstats.strength, //str
-				oldStats.hero1.powerstats.speed, //spd
-				oldStats.hero1.powerstats.durability, //end
-				oldStats.hero1.powerstats.power, //pow
-				oldStats.hero1.powerstats.combat, //cbt
-				oldStats.hero1.powerstats.life //life point
-			],
-			biography: [...oldStats.hero1.biography],
-			appearance: [...oldStats.hero1.appearance],
-			image: oldStats.hero1.image //image
+			powerstats: {
+				intelligence: oldStats.hero1.powerstats.strength,
+				strength: oldStats.hero1.powerstats.speed,
+				speed: oldStats.hero1.powerstats.durability,
+				durability: oldStats.hero1.powerstats.intelligence,
+				power: oldStats.hero1.powerstats.power,
+				combat: oldStats.hero1.powerstats.combat,
+				life: oldStats.hero1.powerstats.life
+			},
+			biography: { ...oldStats.hero1.biography },
+			appearance: { ...oldStats.hero1.appearance },
+			image: oldStats.hero1.image
 		},
 		hero2: {
 			id: oldStats.hero2.id,
 			name: oldStats.hero2.name,
-			powerstats: [
-				oldStats.hero2.powerstats.intelligence, //int
-				oldStats.hero2.powerstats.strength, //str
-				oldStats.hero2.powerstats.speed, //spd
-				oldStats.hero2.powerstats.durability, //end
-				oldStats.hero2.powerstats.power, //pow
-				oldStats.hero2.powerstats.combat, //cbt
-				oldStats.hero2.powerstats.life //life point
-			],
-			biography: [...oldStats.hero2.biography],
-			appearance: [...oldStats.hero2.appearance],
-			image: oldStats.hero2.image //image
+			powerstats: {
+				intelligence: oldStats.hero2.powerstats.strength,
+				strength: oldStats.hero2.powerstats.speed,
+				speed: oldStats.hero2.powerstats.durability,
+				durability: oldStats.hero2.powerstats.intelligence,
+				power: oldStats.hero2.powerstats.power,
+				combat: oldStats.hero2.powerstats.combat,
+				life: oldStats.hero2.powerstats.life
+			},
+			biography: { ...oldStats.hero2.biography },
+			appearance: { ...oldStats.hero2.appearance },
+			image: oldStats.hero2.image
 		}
 	};
 };
