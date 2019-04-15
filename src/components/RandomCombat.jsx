@@ -97,9 +97,11 @@ class RandomCombat extends Component {
 	render() {
 		return (
 			<div>
-				<NavLink className='btn outline btn-primary' activeClassName='btn-danger' exact to='/'>
-					Back to Main
-				</NavLink>
+				<Row>
+					<NavLink className='btn outline btn-primary m-1' activeClassName='btn-danger' exact to='/'>
+						Back to Main
+					</NavLink>
+				</Row>
 				<Row className='no-gutters centerBand'>
 					<Col xs='4'>{this.loadingHeroes(this.state.hero1)}</Col>
 					<Col xs='4'>{this.hideButton()}</Col>
