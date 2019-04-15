@@ -35,10 +35,10 @@ class App extends Component {
 	};
 
 	winnerName = () => {
-		if (this.state.hero1.powerstats.life === 0) {
+		if (!this.state.hero1.powerstats.life) {
 			return this.state.hero2.name;
 		}
-		if (this.state.hero2.powerstats.life === 0) {
+		if (!this.state.hero2.powerstats.life) {
 			return this.state.hero1.name;
 		}
 	};
