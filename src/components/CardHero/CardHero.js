@@ -1,13 +1,29 @@
 import React from 'react';
-import './CardHero.css';
-import CardFrame from './CardFrame/CardFrame';
-import CardHead from './CardHead/CardHead';
+import CardFrame from './CardFrame.jsx';
+import CardHead from './CardHead.jsx';
 import CardBackground from './CardBackground/CardBackground';
-import CardLife from './CardLife/CardLife';
-//creation de la card et envoie des données via les props
+import CardLife from './CardLife.jsx';
+
 const CardHero = ({ props }) => {
+	const cardContainer = {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		margin: 'auto',
+		width: '100%',
+		border: '1px solid black',
+		borderRadius: '2vw',
+		background: '#171314',
+		boxSizing: 'border-box',
+		boxShadow: '-8px 9px 16px -3px gray'
+	};
+
+	const img = {
+		width: '100%'
+	};
+
 	return (
-		<div className='card-container'>
+		<div style={cardContainer}>
 			<CardBackground image={props.image} />
 			<CardHead name={props.name} star={props.star} />
 			<CardLife powerstats={props.powerstats} />

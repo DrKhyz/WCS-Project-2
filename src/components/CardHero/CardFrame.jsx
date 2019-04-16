@@ -1,10 +1,22 @@
 import React from 'react';
-import './CardFrame.css';
 
 const CardFrame = props => {
+	const cardFrame = {
+		width: '94%',
+		fontSize: '1.3vw',
+		backgroundColor: '#bbb',
+		opacity: '0.9',
+		border: '2px solid black',
+		position: 'absolute',
+		borderRadius: '2vw',
+		marginTop: '82%',
+		maxHeight: '32%',
+		textAlign: 'center'
+	};
+
 	return (
-		<div className='card-frame'>
-			<table className='table-stats'>
+		<div style={cardFrame}>
+			<table style={{ width: '90%', margin: 'auto' }}>
 				<thead>
 					<tr>
 						<th>INT</th>
