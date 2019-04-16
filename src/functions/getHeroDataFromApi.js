@@ -16,6 +16,7 @@ const dataSelectors = data => {
 	let durability = data.powerstats.durability;
 	let power = data.powerstats.power;
 	let combat = data.powerstats.combat;
+	let life = data.powerstats.durability;
 
 	let fullname = data.biography['full-name'];
 	let publisher = data.biography.publisher;
@@ -33,9 +34,17 @@ const dataSelectors = data => {
 	return {
 		id: id,
 		name: name,
-		powerstats: [intelligence, strength, speed, durability, power, combat, durability],
-		biography: [fullname, publisher, alignment],
-		appearance: [gender, race, height, weight],
+		powerstats: {
+			intelligence: intelligence,
+			strength: strength,
+			speed: speed,
+			durability: durability,
+			power: power,
+			combat: combat,
+			life: life
+		},
+		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
+		appearance: { gender: gender, race: race, height: height, weight: weight },
 		image: image,
 		star,
 		loading: false
@@ -43,21 +52,22 @@ const dataSelectors = data => {
 };
 
 const createHero = data => {
-	let intelligence = normalizePowerstats(data.powerstats[0]);
-	let strength = normalizePowerstats(data.powerstats[1]);
-	let speed = normalizePowerstats(data.powerstats[2]);
-	let durability = normalizePowerstats(data.powerstats[3]);
-	let power = normalizePowerstats(data.powerstats[4]);
-	let combat = normalizePowerstats(data.powerstats[5]);
+	let intelligence = normalizePowerstats(data.powerstats.intelligence);
+	let strength = normalizePowerstats(data.powerstats.strength);
+	let speed = normalizePowerstats(data.powerstats.speed);
+	let durability = normalizePowerstats(data.powerstats.durability);
+	let power = normalizePowerstats(data.powerstats.power);
+	let combat = normalizePowerstats(data.powerstats.combat);
+	let life = normalizePowerstats(data.powerstats.life);
 
-	let fullname = normalizeInformations(data.biography[0]);
-	let publisher = normalizeInformations(data.biography[1]);
-	let alignment = normalizeInformations(data.biography[2]);
+	let fullname = normalizeInformations(data.biography.fullname);
+	let publisher = normalizeInformations(data.biography.publisher);
+	let alignment = normalizeInformations(data.biography.alignment);
 
-	let gender = normalizeInformations(data.appearance[0]);
-	let race = normalizeInformations(data.appearance[1]);
-	let height = normalizeInformations(data.appearance[2]);
-	let weight = normalizeInformations(data.appearance[3]);
+	let gender = normalizeInformations(data.appearance.gender);
+	let race = normalizeInformations(data.appearance.race);
+	let height = normalizeInformations(data.appearance.height);
+	let weight = normalizeInformations(data.appearance.weight);
 
 	let image = normalizeInformations(data.image);
 
@@ -66,9 +76,17 @@ const createHero = data => {
 	return {
 		id: data.id,
 		name: data.name,
-		powerstats: [intelligence, strength, speed, durability, power, combat, durability],
-		biography: [fullname, publisher, alignment],
-		appearance: [gender, race, height, weight],
+		powerstats: {
+			intelligence: intelligence,
+			strength: strength,
+			speed: speed,
+			durability: durability,
+			power: power,
+			combat: combat,
+			life: life
+		},
+		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
+		appearance: { gender: gender, race: race, height: height, weight: weight },
 		image: image,
 		star,
 		loading: false
