@@ -40,15 +40,16 @@ class RandomCombat extends Component {
 					</NavLink>
 				</Row>
 				<Row>
-					<h1>{this.state.search}</h1>
-				</Row>
-				<Row>
 					<form onSubmit={this.getHerosData}>
-						<label>Name:</label>
+						<label>Name:{this.state.search}</label>
+						<br />
 						<input type='text' onChange={this.handleChange} value={this.state.search} name='search' id='search' />
 						<input type='submit' value='Submit' />
 					</form>
-					{this.loadingHeroes(this.state.hero0)}{' '}
+				</Row>
+
+				<Row>
+					<Col xs={{ offset: 4, size: 4 }}>{this.loadingHeroes(this.state.hero0)}</Col>
 				</Row>
 			</div>
 		);

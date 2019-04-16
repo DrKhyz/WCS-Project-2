@@ -6,7 +6,7 @@ const CardBackground = props => {
 		<div className='card-background'>
 			<img
 				className=''
-				src={props.image}
+				src={props.image.url}
 				onError={e => {
 					e.target.onerror = null;
 					e.target.className = 'silouhette';

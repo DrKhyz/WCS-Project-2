@@ -27,7 +27,7 @@ const dataSelectors = data => {
 	let height = data.appearance.height[0];
 	let weight = data.appearance.weight[0];
 
-	let image = data.image.url;
+	let image = data.image;
 
 	let star;
 
