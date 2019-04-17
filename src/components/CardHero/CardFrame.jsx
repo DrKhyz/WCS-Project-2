@@ -9,7 +9,7 @@ const CardFrame = props => {
 		border: '2px solid black',
 		position: 'absolute',
 		borderRadius: '2vw',
-		marginTop: '82%',
+		marginTop: '80%',
 		maxHeight: '32%',
 		height: '32%',
 		maxWidth: '100%',
