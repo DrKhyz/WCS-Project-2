@@ -7,6 +7,7 @@ import Loading from './Loading.jsx';
 class RandomCombat extends Component {
 	state = {
 		search: '',
+		heroStore: [],
 		isLoading: true
 	};
 
@@ -18,6 +19,7 @@ class RandomCombat extends Component {
 	normalizeInformations = data =>
 		data !== 'null' && data !== '-' && data !== '- lb' && data !== '' ? data : 'Unknown';
 	getHerosData = e => {
+		this.setState({ heroStore: [] });
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
 			.then(res => res.json())
 			.then(data =>
@@ -46,29 +48,35 @@ class RandomCombat extends Component {
 
 					let star = (intelligence + strength + speed + durability + power + combat + durability) / 100;
 
-					return this.setState({
-						['hero' + i]: {
-							id: id,
-							name: name,
-							powerstats: {
-								intelligence: intelligence,
-								strength: strength,
-								speed: speed,
-								durability: durability,
-								power: power,
-								combat: combat,
-								life: life
-							},
-							biography: { fullname: fullname, publisher: publisher, alignment: alignment },
-							appearance: { gender: gender, race: race, height: height, weight: weight },
-							image: image,
-							star
-						},
-						isLoading: false
-					});
+					return this.setState(prevState => ({
+						heroStore: [
+							...prevState.heroStore,
+							{
+								id: id,
+								name: name,
+								powerstats: {
+									intelligence: intelligence,
+									strength: strength,
+									speed: speed,
+									durability: durability,
+									power: power,
+									combat: combat,
+									life: life
+								},
+								biography: { fullname: fullname, publisher: publisher, alignment: alignment },
+								appearance: { gender: gender, race: race, height: height, weight: weight },
+								image: image,
+								star
+							}
+						]
+					}));
 				})
 			);
 		e.preventDefault();
+	};
+
+	loadingHeroes = hero => {
+		return hero.loading ? <Loading /> : <div className='animate' />;
 	};
 
 	render() {
@@ -89,15 +97,11 @@ class RandomCombat extends Component {
 				</Row>
 
 				<Row className='no-gutters'>
-					<Col xs={{ size: 4, offset: 4 }}>
-						{this.state.isLoading ? (
-							<Loading />
-						) : (
-							<div>
-								<CardHero props={this.state.hero0} />
-							</div>
-						)}
-					</Col>
+					{this.state.heroStore.map(x => (
+						<Col xs='4'>
+							<CardHero props={x} />
+						</Col>
+					))}
 				</Row>
 			</div>
 		);
