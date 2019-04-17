@@ -9,13 +9,14 @@ const CardHero = ({ props }) => {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		margin: 'auto',
+		margin: '0',
 		width: '100%',
 		border: '1px solid black',
 		borderRadius: '2vw',
 		background: '#171314',
 		boxSizing: 'border-box',
-		boxShadow: '-8px 9px 16px -3px gray'
+		boxShadow: '-8px 9px 16px -3px gray',
+		padding: '0'
 	};
 
 	return (

@@ -7,7 +7,7 @@ import Loading from './Loading.jsx';
 class RandomCombat extends Component {
 	state = {
 		search: '',
-		hero0: { loading: true }
+		isLoading: true
 	};
 
 	handleChange = e => {
@@ -62,23 +62,13 @@ class RandomCombat extends Component {
 							biography: { fullname: fullname, publisher: publisher, alignment: alignment },
 							appearance: { gender: gender, race: race, height: height, weight: weight },
 							image: image,
-							star,
-							loading: false
-						}
+							star
+						},
+						isLoading: false
 					});
 				})
 			);
 		e.preventDefault();
-	};
-
-	loadingHeroes = hero => {
-		return hero.loading ? (
-			<Loading />
-		) : (
-			<div className='animate'>
-				<CardHero props={hero} />
-			</div>
-		);
 	};
 
 	render() {
@@ -98,8 +88,16 @@ class RandomCombat extends Component {
 					</form>
 				</Row>
 
-				<Row>
-					<Col xs={{ offset: 4, size: 4 }}>{this.loadingHeroes(this.state.hero0)}</Col>
+				<Row className='no-gutters'>
+					<Col xs={{ size: 4, offset: 4 }}>
+						{this.state.isLoading ? (
+							<Loading />
+						) : (
+							<div>
+								<CardHero props={this.state.hero0} />
+							</div>
+						)}
+					</Col>
 				</Row>
 			</div>
 		);

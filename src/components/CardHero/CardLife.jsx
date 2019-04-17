@@ -5,10 +5,12 @@ const CardLife = props => {
 	const cardLife = {
 		position: 'absolute',
 		width: '98%',
-		marginTop: '16%'
+		marginTop: '16%',
+		paddingTop: '4px'
 	};
 	const lifeBar = {
-		maxHeight: '4px',
+		minHeight: '3px',
+		maxHeight: '0.1vh',
 		width: '36%'
 	};
 

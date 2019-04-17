@@ -11,6 +11,8 @@ const CardFrame = props => {
 		borderRadius: '2vw',
 		marginTop: '82%',
 		maxHeight: '32%',
+		height: '32%',
+		maxWidth: '100%',
 		textAlign: 'center'
 	};
 

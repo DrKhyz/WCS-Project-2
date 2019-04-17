@@ -4,18 +4,18 @@ const CardHead = props => {
 	let starsType = [];
 	const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
 	const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
-	console.log(props.star);
 	for (let i = 1; i <= 5; i++) {
 		props.star < i ? starsType.push(emptyStar) : starsType.push(filledStar);
 	}
 
 	const cardHead = {
 		width: '94%',
-		fontSize: '1vw',
+		fontSize: '0.8vw',
 		position: 'absolute'
 	};
 
 	const cardName = {
+		position: 'absolute',
 		display: 'flex',
 		alignItems: 'align-items-center',
 		fontSize: '1.5vw',
@@ -34,6 +34,7 @@ const CardHead = props => {
 
 	const cardLevel = {
 		display: 'flex',
+		position: 'absolute',
 		color: 'white',
 		width: '40%',
 		marginLeft: '62%',
@@ -42,7 +43,7 @@ const CardHead = props => {
 		opacity: '0.9',
 		borderTopLeftRadius: '10px',
 		borderBottomLeftRadius: '10px',
-		marginTop: '-9%'
+		marginTop: '10%'
 	};
 
 	const star = {
