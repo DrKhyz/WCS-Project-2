@@ -1,8 +1,9 @@
+import Axios from 'axios';
+
 const getHeroDataFromApi = () => {
 	let randomNumber = Math.floor(Math.random() * 730) + 1;
-	return fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
-		.then(res => res.json())
-		.then(data => dataSelectors(data))
+	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
+		.then(res => dataSelectors(res.data))
 		.then(data => createHero(data));
 };
 

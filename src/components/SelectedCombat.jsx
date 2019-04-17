@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CardHero from './CardHero/CardHero';
 import Loading from './Loading.jsx';
+import axios from 'axios';
 
 class RandomCombat extends Component {
 	state = {
@@ -20,10 +21,10 @@ class RandomCombat extends Component {
 		data !== 'null' && data !== '-' && data !== '- lb' && data !== '' ? data : 'Unknown';
 	getHerosData = e => {
 		this.setState({ heroStore: [] });
-		fetch(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
-			.then(res => res.json())
-			.then(data =>
-				data.results.map((data, i) => {
+		axios
+			.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
+			.then(res =>
+				res.data.results.map((data, i) => {
 					let id = data.id;
 					let name = data.name;
 
@@ -71,7 +72,11 @@ class RandomCombat extends Component {
 						]
 					}));
 				})
-			);
+			)
+			.catch(error => {
+				console.error(error);
+			});
+
 		e.preventDefault();
 	};
 
