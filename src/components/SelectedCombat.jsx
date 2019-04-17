@@ -35,13 +35,7 @@ class RandomCombat extends Component {
 	};
 
 	loadingHeroes = hero => {
-		return hero.loading ? (
-			<Loading />
-		) : (
-			<div className='animate'>
-				<CardHero props={hero} />
-			</div>
-		);
+		return hero.loading ? <Loading /> : <CardHero props={hero} />;
 	};
 
 	handleChange = e => {
@@ -66,7 +60,6 @@ class RandomCombat extends Component {
 					let durability = this.normalizePowerstats(data.powerstats.durability);
 					let power = this.normalizePowerstats(data.powerstats.power);
 					let combat = this.normalizePowerstats(data.powerstats.combat);
-					let life = this.normalizePowerstats(data.powerstats.durability);
 
 					let fullname = this.normalizeInformations(data.biography['full-name']);
 					let publisher = this.normalizeInformations(data.biography.publisher);
@@ -88,25 +81,25 @@ class RandomCombat extends Component {
 								id: id,
 								name: name,
 								powerstats: {
-									intelligence: intelligence,
-									strength: strength,
-									speed: speed,
-									durability: durability,
-									power: power,
-									combat: combat,
-									life: life
+									intelligence,
+									strength,
+									speed,
+									durability,
+									power,
+									combat,
+									life: durability
 								},
 								biography: { fullname: fullname, publisher: publisher, alignment: alignment },
 								appearance: { gender: gender, race: race, height: height, weight: weight },
 								image: image,
-								star
+								star,
+								isLoading: false
 							}
 						]
 					}));
 				})
 			)
 			.catch(error => console.log(error));
-
 		e.preventDefault();
 	};
 
@@ -117,21 +110,11 @@ class RandomCombat extends Component {
 	handleClickSelect = () => {
 		this.setState({
 			hero1: {
-				id: this.state.hero1.id,
-				name: this.state.hero1.name,
+				...this.state.hero1,
 				powerstats: {
-					intelligence: this.state.hero1.powerstats.intelligence,
-					strength: this.state.hero1.powerstats.strength,
-					speed: this.state.hero1.powerstats.speed,
-					durability: this.state.hero1.powerstats.durability,
-					power: this.state.hero1.powerstats.power,
-					combat: this.state.hero1.powerstats.combat,
+					...this.state.hero1.powerstats,
 					life: this.state.hero1.powerstats.durability
-				},
-				biography: { ...this.state.hero1.biography },
-				appearance: { ...this.state.hero1.appearance },
-				image: this.state.hero1.image,
-				star: this.state.hero1.star
+				}
 			}
 		});
 		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }));

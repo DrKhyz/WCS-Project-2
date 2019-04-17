@@ -34,33 +34,35 @@ const dataSelectors = data => {
 	let star;
 
 	return {
-		id: id,
-		name: name,
+		id,
+		name,
 		powerstats: {
-			intelligence: intelligence,
-			strength: strength,
-			speed: speed,
-			durability: durability,
-			power: power,
-			combat: combat,
-			life: life
+			intelligence,
+			strength,
+			speed,
+			durability,
+			power,
+			combat,
+			life
 		},
-		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
-		appearance: { gender: gender, race: race, height: height, weight: weight },
-		image: image,
+		biography: { fullname, publisher, alignment },
+		appearance: { gender, race, height, weight },
+		image,
 		star,
 		loading: false
 	};
 };
 
 const createHero = data => {
+	let id = data.id;
+	let name = data.name;
+
 	let intelligence = normalizePowerstats(data.powerstats.intelligence);
 	let strength = normalizePowerstats(data.powerstats.strength);
 	let speed = normalizePowerstats(data.powerstats.speed);
 	let durability = normalizePowerstats(data.powerstats.durability);
 	let power = normalizePowerstats(data.powerstats.power);
 	let combat = normalizePowerstats(data.powerstats.combat);
-	let life = normalizePowerstats(data.powerstats.life);
 
 	let fullname = normalizeInformations(data.biography.fullname);
 	let publisher = normalizeInformations(data.biography.publisher);
@@ -76,20 +78,20 @@ const createHero = data => {
 	let star = (intelligence + strength + speed + durability + power + combat + durability) / 100;
 
 	return {
-		id: data.id,
-		name: data.name,
+		id,
+		name,
 		powerstats: {
-			intelligence: intelligence,
-			strength: strength,
-			speed: speed,
-			durability: durability,
-			power: power,
-			combat: combat,
-			life: life
+			intelligence,
+			strength,
+			speed,
+			durability,
+			power,
+			combat,
+			life: durability
 		},
-		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
-		appearance: { gender: gender, race: race, height: height, weight: weight },
-		image: image,
+		biography: { fullname, publisher, alignment },
+		appearance: { gender, race, height, weight },
+		image,
 		star,
 		loading: false
 	};

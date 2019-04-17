@@ -84,13 +84,7 @@ class RandomCombat extends Component {
 	};
 
 	loadingHeroes = hero => {
-		return hero.loading ? (
-			<Loading />
-		) : (
-			<div className='animate'>
-				<CardHero props={hero} />
-			</div>
-		);
+		return hero.loading ? <Loading /> : <CardHero props={hero} />;
 	};
 
 	render() {
