@@ -169,8 +169,6 @@ class RandomCombat extends Component {
 				) : (
 					<div>
 						<form onSubmit={this.getHerosData}>
-							<label>Name:{this.state.search}</label>
-							<br />
 							<input type='text' onChange={this.handleChange} value={this.state.search} name='search' id='search' />
 							<input type='submit' value='Submit' />
 						</form>

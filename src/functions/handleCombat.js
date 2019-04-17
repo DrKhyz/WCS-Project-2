@@ -42,7 +42,8 @@ const handleCombat = oldStats => {
 			},
 			biography: { ...oldStats.hero1.biography },
 			appearance: { ...oldStats.hero1.appearance },
-			image: oldStats.hero1.image
+			image: oldStats.hero1.image,
+			star: oldStats.hero1.star
 		},
 		hero2: {
 			id: oldStats.hero2.id,
@@ -58,7 +59,8 @@ const handleCombat = oldStats => {
 			},
 			biography: { ...oldStats.hero2.biography },
 			appearance: { ...oldStats.hero2.appearance },
-			image: oldStats.hero2.image
+			image: oldStats.hero2.image,
+			star: oldStats.hero2.star
 		}
 	};
 };
