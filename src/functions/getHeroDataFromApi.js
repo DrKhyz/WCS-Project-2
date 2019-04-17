@@ -4,7 +4,8 @@ const getHeroDataFromApi = () => {
 	let randomNumber = Math.floor(Math.random() * 730) + 1;
 	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 		.then(res => dataSelectors(res.data))
-		.then(data => createHero(data));
+		.then(data => createHero(data))
+		.catch(error => console.log(error));
 };
 
 const dataSelectors = data => {
@@ -25,8 +26,8 @@ const dataSelectors = data => {
 
 	let gender = data.appearance.gender;
 	let race = data.appearance.race;
-	let height = data.appearance.height[0];
-	let weight = data.appearance.weight[0];
+	let height = data.appearance.height[1];
+	let weight = data.appearance.weight[1];
 
 	let image = data.image;
 
@@ -97,7 +98,7 @@ const createHero = data => {
 // Normalizers
 const normalizePowerstats = stats => (stats !== 'null' ? parseInt(stats) : Math.floor(Math.random() * 40) + 20);
 const normalizeInformations = data =>
-	data !== 'null' && data !== '-' && data !== '- lb' && data !== '' ? data : 'Unknown';
+	data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown';
 // End Normalizers
 
 export default getHeroDataFromApi;

@@ -41,7 +41,7 @@ const CardFrame = props => {
 				</tbody>
 			</table>
 			<div>
-				<div>Full-name: {props.biography.alignment}</div>
+				<div>Full-name: {props.biography.fullname}</div>
 				<div>Alignement : {props.biography.alignment}</div>
 				<div>
 					Height : {props.appearance.height} - Weigth: {props.appearance.weight}

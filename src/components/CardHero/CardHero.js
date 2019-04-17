@@ -15,7 +15,6 @@ const CardHero = ({ props }) => {
 		borderRadius: '2vw',
 		background: '#171314',
 		boxSizing: 'border-box',
-		boxShadow: '-8px 9px 16px -3px gray',
 		padding: '0'
 	};
 
