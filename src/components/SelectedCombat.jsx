@@ -19,7 +19,6 @@ class RandomCombat extends Component {
 	}
 
 	handleClickCombat = () => {
-		this.setState({ hideButton: true });
 		while (this.state.hero1.powerstats.life !== 0 && this.state.hero2.powerstats.life !== 0) {
 			let newStats = handleCombat(this.state);
 			this.setState(newStats);
@@ -116,28 +115,26 @@ class RandomCombat extends Component {
 	};
 
 	handleClickSelect = () => {
-		getHeroDataFromApi().then(hero2 =>
-			this.setState({
-				hero1: {
-					id: this.state.hero1.id,
-					name: this.state.hero1.name,
-					powerstats: {
-						intelligence: this.state.hero1.intelligence,
-						strength: this.state.hero1.strength,
-						speed: this.state.hero1.speed,
-						durability: this.state.hero1.durability,
-						power: this.state.hero1.power,
-						combat: this.state.hero1.combat,
-						life: this.state.hero1.durability
-					},
-					biography: { ...this.state.hero1.biography },
-					appearance: { ...this.state.hero1.appearance },
-					image: this.state.hero1.image,
-					star: this.state.hero1.star
+		this.setState({
+			hero1: {
+				id: this.state.hero1.id,
+				name: this.state.hero1.name,
+				powerstats: {
+					intelligence: this.state.hero1.powerstats.intelligence,
+					strength: this.state.hero1.powerstats.strength,
+					speed: this.state.hero1.powerstats.speed,
+					durability: this.state.hero1.powerstats.durability,
+					power: this.state.hero1.powerstats.power,
+					combat: this.state.hero1.powerstats.combat,
+					life: this.state.hero1.powerstats.durability
 				},
-				hero2
-			})
-		);
+				biography: { ...this.state.hero1.biography },
+				appearance: { ...this.state.hero1.appearance },
+				image: this.state.hero1.image,
+				star: this.state.hero1.star
+			}
+		});
+		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }));
 	};
 
 	render() {
@@ -147,7 +144,7 @@ class RandomCombat extends Component {
 					<NavLink className='btn outline btn-primary' activeClassName='btn-danger' exact to='/'>
 						Back to Main
 					</NavLink>
-					<button name='Reset hero' onClick={() => this.setState({ hero1: undefined, search: [] })}>
+					<button name='Reset hero' onClick={() => this.setState({ hero1: undefined, heroStore: [] })}>
 						Change hero
 					</button>
 				</Row>
