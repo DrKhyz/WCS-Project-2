@@ -25,8 +25,8 @@ class RandomCombat extends Component {
 			.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
 			.then(res =>
 				res.data.results.map((data, i) => {
-					let id = data.id;
-					let name = data.name;
+					let id = this.normalizePowerstats(data.id);
+					let name = this.normalizeInformations(data.name);
 
 					let intelligence = this.normalizePowerstats(data.powerstats.intelligence);
 					let strength = this.normalizePowerstats(data.powerstats.strength);
@@ -103,7 +103,7 @@ class RandomCombat extends Component {
 
 				<Row className='no-gutters'>
 					{this.state.heroStore.map(x => (
-						<Col xs='4'>
+						<Col key={x.id} xs='4'>
 							<CardHero props={x} />
 						</Col>
 					))}
