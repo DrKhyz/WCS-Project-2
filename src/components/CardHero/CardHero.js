@@ -18,10 +18,6 @@ const CardHero = ({ props }) => {
 		boxShadow: '-8px 9px 16px -3px gray'
 	};
 
-	const img = {
-		width: '100%'
-	};
-
 	return (
 		<div style={cardContainer}>
 			<CardBackground image={props.image} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CardHero from './CardHero/CardHero';
 import Loading from './Loading.jsx';
@@ -14,10 +14,60 @@ class RandomCombat extends Component {
 		this.setState({ search: e.target.value });
 	};
 
+	normalizePowerstats = stats => (stats !== 'null' ? parseInt(stats) : Math.floor(Math.random() * 40) + 20);
+	normalizeInformations = data =>
+		data !== 'null' && data !== '-' && data !== '- lb' && data !== '' ? data : 'Unknown';
 	getHerosData = e => {
 		fetch(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
 			.then(res => res.json())
-			.then(data => data.results.map((h, i) => this.setState({ ['hero' + i]: h, loading: false })));
+			.then(data =>
+				data.results.map((data, i) => {
+					let id = data.id;
+					let name = data.name;
+
+					let intelligence = this.normalizePowerstats(data.powerstats.intelligence);
+					let strength = this.normalizePowerstats(data.powerstats.strength);
+					let speed = this.normalizePowerstats(data.powerstats.speed);
+					let durability = this.normalizePowerstats(data.powerstats.durability);
+					let power = this.normalizePowerstats(data.powerstats.power);
+					let combat = this.normalizePowerstats(data.powerstats.combat);
+					let life = this.normalizePowerstats(data.powerstats.durability);
+
+					let fullname = this.normalizeInformations(data.biography['full-name']);
+					let publisher = this.normalizeInformations(data.biography.publisher);
+					let alignment = this.normalizeInformations(data.biography.alignment);
+
+					let gender = this.normalizeInformations(data.appearance.gender);
+					let race = this.normalizeInformations(data.appearance.race);
+					let height = this.normalizeInformations(data.appearance.height[0]);
+					let weight = this.normalizeInformations(data.appearance.weight[0]);
+
+					let image = this.normalizeInformations(data.image);
+
+					let star = (intelligence + strength + speed + durability + power + combat + durability) / 100;
+
+					return this.setState({
+						['hero' + i]: {
+							id: id,
+							name: name,
+							powerstats: {
+								intelligence: intelligence,
+								strength: strength,
+								speed: speed,
+								durability: durability,
+								power: power,
+								combat: combat,
+								life: life
+							},
+							biography: { fullname: fullname, publisher: publisher, alignment: alignment },
+							appearance: { gender: gender, race: race, height: height, weight: weight },
+							image: image,
+							star,
+							loading: false
+						}
+					});
+				})
+			);
 		e.preventDefault();
 	};
 
