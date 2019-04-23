@@ -1,9 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import RandomCombat from './components/RandomCombat.jsx';
-import SelectedCombat from './components/SelectedCombat.jsx';
-import Main from './components/Main.jsx';
-import './App.css';
+import React from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import RandomCombat from "./components/RandomCombat.jsx"
+import SelectedCombat from "./components/SelectedCombat.jsx"
+import Main from "./components/Main.jsx"
+import "./App.css"
 
 const MyRouter = () => {
 	return (
@@ -16,7 +16,7 @@ const MyRouter = () => {
 				</Switch>
 			</div>
 		</Router>
-	);
-};
+	)
+}
 
-export default MyRouter;
+export default MyRouter
