@@ -1,15 +1,15 @@
-import React, { Component } from "react"
-import { Row, Col, Button } from "reactstrap"
-import { NavLink } from "react-router-dom"
-import CardHero from "./CardHero/CardHero"
-import getHeroDataFromApi from "../functions/getHeroDataFromApi"
-import handleCombat from "../functions/handleCombat"
-import Loading from "./Loading.jsx"
-import axios from "axios"
+import React, { Component } from 'react'
+import { Row, Col, Button } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import CardHero from './CardHero/CardHero'
+import getHeroDataFromApi from '../functions/getHeroDataFromApi'
+import handleCombat from '../functions/handleCombat'
+import Loading from './Loading.jsx'
+import axios from 'axios'
 
 class SelectedCombat extends Component {
 	state = {
-		search: "",
+		search: '',
 		heroStore: [],
 		isLoading: true,
 	}
@@ -23,6 +23,12 @@ class SelectedCombat extends Component {
 			let newStats = handleCombat(this.state)
 			this.setState(newStats)
 		}
+		if (this.state.hero2.powerstats.life === 0) {
+			this.setState({ winner: this.state.hero1.name })
+		}
+		if (this.state.hero1.powerstats.life === 0) {
+			this.setState({ winner: this.state.hero2.name })
+		}
 	}
 
 	winnerName = () => {
@@ -34,18 +40,14 @@ class SelectedCombat extends Component {
 		}
 	}
 
-	loadingHeroes = hero => {
-		return hero.loading ? <Loading /> : <CardHero props={hero} />
-	}
-
 	handleChange = e => {
 		this.setState({ search: e.target.value })
 	}
 
 	normalizePowerstats = stats =>
-		stats !== "null" ? parseInt(stats) : Math.floor(Math.random() * 40) + 20
+		stats !== 'null' ? parseInt(stats) : Math.floor(Math.random() * 40) + 20
 	normalizeInformations = data =>
-		data !== "null" && data !== "0 cm" && data !== "0 kg" && data !== "" ? data : "Unknown"
+		data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown'
 	getHerosData = e => {
 		this.setState({ heroStore: [] })
 		axios
@@ -62,7 +64,7 @@ class SelectedCombat extends Component {
 					let power = this.normalizePowerstats(data.powerstats.power)
 					let combat = this.normalizePowerstats(data.powerstats.combat)
 
-					let fullname = this.normalizeInformations(data.biography["full-name"])
+					let fullname = this.normalizeInformations(data.biography['full-name'])
 					let publisher = this.normalizeInformations(data.biography.publisher)
 					let alignment = this.normalizeInformations(data.biography.alignment)
 
@@ -104,7 +106,7 @@ class SelectedCombat extends Component {
 								},
 								image: image,
 								star,
-								isLoading: false,
+								loading: false,
 							},
 						],
 					}))
@@ -115,10 +117,12 @@ class SelectedCombat extends Component {
 	}
 
 	loadingHeroes = hero => {
-		return hero.loading ? <Loading /> : <div className='animate' />
+		return hero.loading ? <Loading /> : <CardHero props={hero} />
 	}
 
 	handleClickSelect = () => {
+		this.setState({ hero2: { loading: true } })
+		this.setState({ winner: '' })
 		this.setState({
 			hero1: {
 				...this.state.hero1,
@@ -134,37 +138,44 @@ class SelectedCombat extends Component {
 	render() {
 		return (
 			<div>
-				<Row>
-					<NavLink className='btn outline btn-primary' activeClassName='btn-danger' exact to='/'>
-						Back to Main
-					</NavLink>
-					<button
-						name='Reset hero'
-						onClick={() => this.setState({ hero1: undefined, heroStore: [] })}>
-						Change hero
-					</button>
-				</Row>
-
+				<NavLink className='btn btn-primary m-1 ' activeClassName='btn-danger' exact to='/'>
+					Back to Main
+				</NavLink>
+				<button
+					className='m-1'
+					name='Reset hero'
+					onClick={() => this.setState({ hero1: undefined, heroStore: [] })}>
+					Change hero
+				</button>
 				{this.state.hero1 ? (
-					<Row className='no-gutters'>
-						<Col xs='4'>
-							<CardHero props={this.state.hero1} />
-						</Col>
-						<Col xs='4'>
-							<Button onClick={this.handleClickSelect} className='random-button' color='secondary'>
-								Change Oppenent
-							</Button>
-							<Button onClick={this.handleClickCombat} className='fight-button' color='danger'>
-								FIGHT
-							</Button>
-						</Col>
-						<Col xs='4'>
-							<CardHero props={this.state.hero2} />
-						</Col>
-					</Row>
+					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
+						<Row>
+							<Col xs='4'>
+								<CardHero props={this.state.hero1} />
+							</Col>
+							<Col xs='4'>
+								<Button
+									onClick={this.handleClickSelect}
+									className='random-button'
+									color='secondary'>
+									Next Oppenent
+								</Button>
+								{this.state.hero2.loading ? (
+									''
+								) : this.state.winner ? (
+									<p className='text-center mt-5'>{this.state.winner} win the match</p>
+								) : (
+									<Button onClick={this.handleClickCombat} className='fight-button' color='danger'>
+										FIGHT
+									</Button>
+								)}
+							</Col>
+							<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
+						</Row>
+					</div>
 				) : (
-					<div>
-						<form onSubmit={this.getHerosData}>
+					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
+						<form style={{ marginLeft: '40%' }} onSubmit={this.getHerosData}>
 							<input
 								type='text'
 								onChange={this.handleChange}
@@ -174,13 +185,14 @@ class SelectedCombat extends Component {
 							/>
 							<input type='submit' value='Submit' />
 						</form>
-						<Row className='no-gutters '>
+						<Row>
 							{this.state.heroStore.map(x => (
 								<Col
 									key={x.id}
 									xs='4'
 									onClick={() => {
 										this.setState({ hero1: x })
+										this.setState({ hero2: { loading: true } })
 										getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
 									}}>
 									<CardHero props={x} />
