@@ -9,11 +9,10 @@
 .card-background img {
 	max-height: var(--width);
 	--width: 40vw;
-	margin-bottom: 0%;
 }
 
 .silouhette {
 	max-height: var(--width);
 	--width: 40vw;
-	margin-top: 23%;
+	margin-top: 23.1%;
 }

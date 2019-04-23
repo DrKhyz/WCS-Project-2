@@ -9,8 +9,10 @@ const CardFrame = props => {
 		border: '2px solid black',
 		position: 'absolute',
 		borderRadius: '2vw',
-		marginTop: '82%',
+		marginTop: '80%',
 		maxHeight: '32%',
+		height: '32%',
+		maxWidth: '100%',
 		textAlign: 'center'
 	};
 
@@ -39,7 +41,7 @@ const CardFrame = props => {
 				</tbody>
 			</table>
 			<div>
-				<div>Full-name: {props.biography.alignment}</div>
+				<div>Full-name: {props.biography.fullname}</div>
 				<div>Alignement : {props.biography.alignment}</div>
 				<div>
 					Height : {props.appearance.height} - Weigth: {props.appearance.weight}

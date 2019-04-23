@@ -14,6 +14,9 @@ const Main = () => {
 			<NavLink className='btn btn-primary' activeClassName='btn-danger' to='/random'>
 				Random Combat
 			</NavLink>
+			<NavLink className='btn btn-primary' activeClassName='btn-danger' to='/selected'>
+				Selected Combat
+			</NavLink>
 		</div>
 	);
 };
