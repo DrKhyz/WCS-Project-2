@@ -1,22 +1,29 @@
-import React from 'react';
-import { Progress } from 'reactstrap';
+import React from 'react'
+import { Progress } from 'reactstrap'
 
 const CardLife = props => {
 	const cardLife = {
 		position: 'absolute',
-		width: '98%',
-		marginTop: '16%'
-	};
+		marginTop: '5vw',
+		marginLeft: '2vw',
+		width: '100%',
+	}
 	const lifeBar = {
-		maxHeight: '4px',
-		width: '36%'
-	};
+		minHeight: '2px',
+		maxHeight: '0.2vh',
+		width: '10vw',
+	}
 
 	return (
 		<div style={cardLife}>
-			<Progress style={lifeBar} color='success' value={props.powerstats.life} max={props.powerstats.durability} />
+			<Progress
+				style={lifeBar}
+				color='success'
+				value={props.powerstats.life}
+				max={props.powerstats.durability}
+			/>
 		</div>
-	);
-};
+	)
+}
 
-export default CardLife;
+export default CardLife

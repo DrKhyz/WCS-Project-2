@@ -1,9 +1,11 @@
+import Axios from 'axios';
+
 const getHeroDataFromApi = () => {
 	let randomNumber = Math.floor(Math.random() * 730) + 1;
-	return fetch(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
-		.then(res => res.json())
-		.then(data => dataSelectors(data))
-		.then(data => createHero(data));
+	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
+		.then(res => dataSelectors(res.data))
+		.then(data => createHero(data))
+		.catch(error => console.log(error));
 };
 
 const dataSelectors = data => {
@@ -24,41 +26,43 @@ const dataSelectors = data => {
 
 	let gender = data.appearance.gender;
 	let race = data.appearance.race;
-	let height = data.appearance.height[0];
-	let weight = data.appearance.weight[0];
+	let height = data.appearance.height[1];
+	let weight = data.appearance.weight[1];
 
-	let image = data.image.url;
+	let image = data.image;
 
 	let star;
 
 	return {
-		id: id,
-		name: name,
+		id,
+		name,
 		powerstats: {
-			intelligence: intelligence,
-			strength: strength,
-			speed: speed,
-			durability: durability,
-			power: power,
-			combat: combat,
-			life: life
+			intelligence,
+			strength,
+			speed,
+			durability,
+			power,
+			combat,
+			life
 		},
-		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
-		appearance: { gender: gender, race: race, height: height, weight: weight },
-		image: image,
+		biography: { fullname, publisher, alignment },
+		appearance: { gender, race, height, weight },
+		image,
 		star,
 		loading: false
 	};
 };
 
 const createHero = data => {
+	let id = data.id;
+	let name = data.name;
+
 	let intelligence = normalizePowerstats(data.powerstats.intelligence);
 	let strength = normalizePowerstats(data.powerstats.strength);
 	let speed = normalizePowerstats(data.powerstats.speed);
 	let durability = normalizePowerstats(data.powerstats.durability);
 	let power = normalizePowerstats(data.powerstats.power);
 	let combat = normalizePowerstats(data.powerstats.combat);
-	let life = normalizePowerstats(data.powerstats.life);
 
 	let fullname = normalizeInformations(data.biography.fullname);
 	let publisher = normalizeInformations(data.biography.publisher);
@@ -74,20 +78,20 @@ const createHero = data => {
 	let star = (intelligence + strength + speed + durability + power + combat + durability) / 100;
 
 	return {
-		id: data.id,
-		name: data.name,
+		id,
+		name,
 		powerstats: {
-			intelligence: intelligence,
-			strength: strength,
-			speed: speed,
-			durability: durability,
-			power: power,
-			combat: combat,
-			life: life
+			intelligence,
+			strength,
+			speed,
+			durability,
+			power,
+			combat,
+			life: durability
 		},
-		biography: { fullname: fullname, publisher: publisher, alignment: alignment },
-		appearance: { gender: gender, race: race, height: height, weight: weight },
-		image: image,
+		biography: { fullname, publisher, alignment },
+		appearance: { gender, race, height, weight },
+		image,
 		star,
 		loading: false
 	};
@@ -96,7 +100,7 @@ const createHero = data => {
 // Normalizers
 const normalizePowerstats = stats => (stats !== 'null' ? parseInt(stats) : Math.floor(Math.random() * 40) + 20);
 const normalizeInformations = data =>
-	data !== 'null' && data !== '-' && data !== '- lb' && data !== '' ? data : 'Unknown';
+	data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown';
 // End Normalizers
 
 export default getHeroDataFromApi;

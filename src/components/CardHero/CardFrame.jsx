@@ -1,18 +1,20 @@
-import React from 'react';
+import React from 'react'
 
 const CardFrame = props => {
 	const cardFrame = {
-		width: '94%',
+		width: '28vw',
 		fontSize: '1.3vw',
 		backgroundColor: '#bbb',
 		opacity: '0.9',
 		border: '2px solid black',
 		position: 'absolute',
 		borderRadius: '2vw',
-		marginTop: '82%',
+		marginTop: '25vw',
 		maxHeight: '32%',
-		textAlign: 'center'
-	};
+		height: '32%',
+		maxWidth: '100%',
+		textAlign: 'center',
+	}
 
 	return (
 		<div style={cardFrame}>
@@ -39,7 +41,7 @@ const CardFrame = props => {
 				</tbody>
 			</table>
 			<div>
-				<div>Full-name: {props.biography.alignment}</div>
+				<div>Full-name: {props.biography.fullname}</div>
 				<div>Alignement : {props.biography.alignment}</div>
 				<div>
 					Height : {props.appearance.height} - Weigth: {props.appearance.weight}
@@ -47,7 +49,7 @@ const CardFrame = props => {
 				<div>Univers : {props.biography.publisher}</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default CardFrame;
+export default CardFrame
