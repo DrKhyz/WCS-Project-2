@@ -16,6 +16,7 @@ class SelectedCombat extends Component {
 		asLost: false,
 		isLoading: true,
 		inCombat: false,
+		heroStoreLoading: false,
 	}
 
 	componentDidMount() {
@@ -44,7 +45,6 @@ class SelectedCombat extends Component {
 
 	handleClickCombat = () => {
 		this.setState({ inCombat: true })
-
 		this.combatLoop()
 	}
 
@@ -66,7 +66,7 @@ class SelectedCombat extends Component {
 	normalizeInformations = data =>
 		data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown'
 	getHerosData = e => {
-		this.setState({ heroStore: [] })
+		this.setState({ heroStore: [], lastSearch: this.state.search, heroStoreLoading: true })
 		axios
 			.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
 			.then(res =>
@@ -130,6 +130,7 @@ class SelectedCombat extends Component {
 				}),
 			)
 			.catch(error => console.log(error))
+			.then(() => this.setState({ heroStoreLoading: false }))
 		e.preventDefault()
 	}
 
@@ -176,7 +177,9 @@ class SelectedCombat extends Component {
 
 	render() {
 		let isShaking = ''
-		this.state.inCombat ? (isShaking = 'shaking') : (isShaking = '')
+		if (this.state.inCombat) {
+			isShaking = 'shaking'
+		}
 
 		return (
 			<div>
@@ -235,16 +238,43 @@ class SelectedCombat extends Component {
 						</Row>
 					</div>
 				) : (
-					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
-						<form style={{ marginLeft: '40%' }} onSubmit={this.getHerosData}>
+					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%', textAlign: 'center' }}>
+						{this.state.heroStoreLoading ? (
+							<h1>Searching</h1>
+						) : this.state.lastSearch ? (
+							this.state.heroStore.length !== 0 ? (
+								<h1>
+									There is {this.state.heroStore.length} match for your search (
+									{this.state.lastSearch})
+								</h1>
+							) : (
+								<h1>There is no match for your search ({this.state.lastSearch})</h1>
+							)
+						) : (
+							<h1>Search your hero</h1>
+						)}
+
+						<form onSubmit={this.getHerosData}>
 							<input
+								style={{ borderRadius: '5px', border: 'blue 1px solid' }}
 								type='text'
 								onChange={this.handleChange}
 								value={this.state.search}
 								name='search'
 								id='search'
 							/>
-							<input type='submit' value='Submit' />
+							<input
+								style={{
+									borderRadius: '5px',
+									border: 'black 1px solid',
+									color: 'red',
+									background: 'blue',
+									margin: 'auto',
+								}}
+								className='ml-1'
+								type='submit'
+								value='S'
+							/>
 						</form>
 						<Row>
 							{this.state.heroStore.map(x => (
@@ -252,8 +282,7 @@ class SelectedCombat extends Component {
 									key={x.id}
 									xs='4'
 									onClick={() => {
-										this.setState({ hero1: x })
-										this.setState({ hero2: { loading: true } })
+										this.setState({ hero1: x, hero2: { loading: true } })
 										getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
 									}}>
 									<CardHero props={x} />
