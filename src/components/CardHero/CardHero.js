@@ -3,6 +3,7 @@ import CardFrame from './CardFrame.jsx'
 import CardHead from './CardHead.jsx'
 import CardBackground from './CardBackground/CardBackground'
 import CardLife from './CardLife.jsx'
+import PropTypes from 'prop-types'
 
 const CardHero = ({ props }) => {
 	const cardContainer = {
@@ -34,3 +35,7 @@ const CardHero = ({ props }) => {
 }
 
 export default CardHero
+
+CardHero.propTypes = {
+	props: PropTypes.object.isRequired,
+}
