@@ -175,6 +175,9 @@ class SelectedCombat extends Component {
 	}
 
 	render() {
+		let isShaking = ''
+		this.state.inCombat ? (isShaking = 'shaking') : (isShaking = '')
+
 		return (
 			<div>
 				<NavLink className='btn btn-primary m-1 ' activeClassName='btn-danger' exact to='/'>
@@ -200,11 +203,13 @@ class SelectedCombat extends Component {
 					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
 						<Row>
 							<Col xs='4'>
-								<CardHero props={this.state.hero1} />
+								<div className={isShaking}>
+									<CardHero props={this.state.hero1} />
+								</div>
 							</Col>
 							<Col xs='4'>
 								{this.state.hero2.loading ? (
-									''
+									<Loading />
 								) : this.state.asLost ? (
 									<div>
 										<Button className='newCampaign-button' onClick={this.resetCombat}>
@@ -224,7 +229,9 @@ class SelectedCombat extends Component {
 									</Button>
 								)}
 							</Col>
-							<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
+							<Col xs='4'>
+								<div className={isShaking}>{this.loadingHeroes(this.state.hero2)}</div>
+							</Col>
 						</Row>
 					</div>
 				) : (
