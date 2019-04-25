@@ -88,6 +88,8 @@ class RandomCombat extends Component {
 	}
 
 	render() {
+		let isShaking = ''
+		this.state.inCombat ? (isShaking = 'shaking') : (isShaking = '')
 		return (
 			<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
 				<Row>
@@ -96,9 +98,13 @@ class RandomCombat extends Component {
 					</NavLink>
 				</Row>
 				<Row className=' centerBand' style={{ marginTop: '5%' }}>
-					<Col xs='4'>{this.loadingHeroes(this.state.hero1)}</Col>
+					<Col xs='4'>
+						<div className={isShaking}>{this.loadingHeroes(this.state.hero1)}</div>
+					</Col>
 					<Col xs='4'>{this.hideButton()}</Col>
-					<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
+					<Col xs='4'>
+						<div className={isShaking}>{this.loadingHeroes(this.state.hero2)}</div>
+					</Col>
 				</Row>
 			</div>
 		)
