@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const CardFrame = props => {
+const CardFrame = ({ powerstats, biography, appearance }) => {
 	const cardFrame = {
 		width: '28vw',
 		fontSize: '1.3vw',
@@ -31,25 +32,31 @@ const CardFrame = props => {
 				</thead>
 				<tbody>
 					<tr>
-						<td>{props.powerstats.intelligence}</td>
-						<td>{props.powerstats.strength}</td>
-						<td>{props.powerstats.speed}</td>
-						<td>{props.powerstats.durability}</td>
-						<td>{props.powerstats.power}</td>
-						<td>{props.powerstats.combat}</td>
+						<td>{powerstats.intelligence}</td>
+						<td>{powerstats.strength}</td>
+						<td>{powerstats.speed}</td>
+						<td>{powerstats.durability}</td>
+						<td>{powerstats.power}</td>
+						<td>{powerstats.combat}</td>
 					</tr>
 				</tbody>
 			</table>
 			<div>
-				<div>Full-name: {props.biography.fullname}</div>
-				<div>Alignement : {props.biography.alignment}</div>
+				<div>Full-name: {biography.fullname}</div>
+				<div>Alignement : {biography.alignment}</div>
 				<div>
-					Height : {props.appearance.height} - Weigth: {props.appearance.weight}
+					Height : {appearance.height} - Weigth: {appearance.weight}
 				</div>
-				<div>Univers : {props.biography.publisher}</div>
+				<div>Univers : {biography.publisher}</div>
 			</div>
 		</div>
 	)
 }
 
 export default CardFrame
+
+CardFrame.PropTypes = {
+	powerstats: PropTypes.object.isRequired,
+	biography: PropTypes.object.isRequired,
+	appearance: PropTypes.object.isRequired,
+}
