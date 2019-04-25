@@ -192,15 +192,25 @@ class SelectedCombat extends Component {
 						Fight in Progress
 					</Button>
 				) : (
-					<Button
-						className='m-1'
-						name='Reset hero'
-						color='info'
-						onClick={() =>
-							this.setState({ hero1: undefined, heroStore: [], search: '', asLost: false })
-						}>
-						Change hero
-					</Button>
+					this.state.lastSearch && (
+						<Button
+							className='m-1'
+							name='Reset hero'
+							color='info'
+							onClick={() =>
+								this.setState({
+									hero1: undefined,
+									heroStore: [],
+									search: '',
+									asLost: false,
+									lastSearch: '',
+									winStrike: 0,
+									asLost: false,
+								})
+							}>
+							{this.state.hero1 ? 'Change hero' : 'Reset Search'}
+						</Button>
+					)
 				)}
 				{this.state.hero1 ? (
 					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
@@ -243,10 +253,13 @@ class SelectedCombat extends Component {
 							<h1>Searching</h1>
 						) : this.state.lastSearch ? (
 							this.state.heroStore.length !== 0 ? (
-								<h1>
-									There is {this.state.heroStore.length} match for your search (
-									{this.state.lastSearch})
-								</h1>
+								<div>
+									<h1>Select your hero</h1>
+									<h3>
+										There is {this.state.heroStore.length} match for your search (
+										{this.state.lastSearch})
+									</h3>
+								</div>
 							) : (
 								<h1>There is no match for your search ({this.state.lastSearch})</h1>
 							)
@@ -282,7 +295,10 @@ class SelectedCombat extends Component {
 									key={x.id}
 									xs='4'
 									onClick={() => {
-										this.setState({ hero1: x, hero2: { loading: true } })
+										this.setState({
+											hero1: x,
+											hero2: { loading: true },
+										})
 										getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
 									}}>
 									<CardHero props={x} />
