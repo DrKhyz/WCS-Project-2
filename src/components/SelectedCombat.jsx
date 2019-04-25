@@ -9,26 +9,43 @@ import axios from 'axios'
 
 class SelectedCombat extends Component {
 	state = {
+		winStrike: 0,
+		lastCombats: [],
 		search: '',
 		heroStore: [],
+		asLost: false,
 		isLoading: true,
+		inCombat: false,
 	}
 
 	componentDidMount() {
 		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
 	}
 
-	handleClickCombat = () => {
-		while (this.state.hero1.powerstats.life !== 0 && this.state.hero2.powerstats.life !== 0) {
+	combatLoop = () => {
+		if (
+			this.state.hero1.powerstats.life !== 0 &&
+			this.state.hero2.powerstats.life !== 0 &&
+			!this.state.hero2.isLoading
+		) {
 			let newStats = handleCombat(this.state)
 			this.setState(newStats)
+			setTimeout(this.combatLoop, 1000)
+		} else {
+			this.setState({ inCombat: false })
+			if (this.state.hero2.powerstats.life <= 0) {
+				this.setState({ winStrike: this.state.winStrike + 1, inCombat: false })
+			}
+			if (this.state.hero1.powerstats.life <= 0) {
+				this.setState({ asLost: true, inCombat: false })
+			}
 		}
-		if (this.state.hero2.powerstats.life === 0) {
-			this.setState({ winner: this.state.hero1.name })
-		}
-		if (this.state.hero1.powerstats.life === 0) {
-			this.setState({ winner: this.state.hero2.name })
-		}
+	}
+
+	handleClickCombat = () => {
+		this.setState({ inCombat: true })
+
+		this.combatLoop()
 	}
 
 	winnerName = () => {
@@ -120,9 +137,27 @@ class SelectedCombat extends Component {
 		return hero.loading ? <Loading /> : <CardHero props={hero} />
 	}
 
-	handleClickSelect = () => {
-		this.setState({ hero2: { loading: true } })
-		this.setState({ winner: '' })
+	selectNextOppenent = () => {
+		let NewLife = this.state.hero1.powerstats.life + this.state.hero1.powerstats.durability / 5
+		if (NewLife >= this.state.hero1.powerstats.durability) {
+			NewLife = this.state.hero1.powerstats.durability
+		}
+
+		this.setState({
+			hero1: {
+				...this.state.hero1,
+				powerstats: {
+					...this.state.hero1.powerstats,
+					life: NewLife,
+				},
+			},
+			hero2: { loading: true },
+			inCombat: false,
+		})
+		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
+	}
+
+	resetCombat = () => {
 		this.setState({
 			hero1: {
 				...this.state.hero1,
@@ -131,46 +166,72 @@ class SelectedCombat extends Component {
 					life: this.state.hero1.powerstats.durability,
 				},
 			},
+			winStrike: 0,
+			hero2: { loading: true },
+			asLost: false,
+			inCombat: false,
 		})
 		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
 	}
 
 	render() {
+		let isShaking = ''
+		this.state.inCombat ? (isShaking = 'shaking') : (isShaking = '')
+
 		return (
 			<div>
 				<NavLink className='btn btn-primary m-1 ' activeClassName='btn-danger' exact to='/'>
 					Back to Main
 				</NavLink>
-				<button
-					className='m-1'
-					name='Reset hero'
-					onClick={() => this.setState({ hero1: undefined, heroStore: [] })}>
-					Change hero
-				</button>
+
+				{this.state.inCombat ? (
+					<Button className='m-1' color='info'>
+						Fight in Progress
+					</Button>
+				) : (
+					<Button
+						className='m-1'
+						name='Reset hero'
+						color='info'
+						onClick={() =>
+							this.setState({ hero1: undefined, heroStore: [], search: '', asLost: false })
+						}>
+						Change hero
+					</Button>
+				)}
 				{this.state.hero1 ? (
 					<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
 						<Row>
 							<Col xs='4'>
-								<CardHero props={this.state.hero1} />
+								<div className={isShaking}>
+									<CardHero props={this.state.hero1} />
+								</div>
 							</Col>
 							<Col xs='4'>
-								<Button
-									onClick={this.handleClickSelect}
-									className='random-button'
-									color='secondary'>
-									Next Oppenent
-								</Button>
 								{this.state.hero2.loading ? (
+									<Loading />
+								) : this.state.asLost ? (
+									<div>
+										<Button className='newCampaign-button' onClick={this.resetCombat}>
+											New Campaign
+										</Button>
+										<p className='text-center mt-5'>You won {this.state.winStrike} match</p>
+									</div>
+								) : this.state.inCombat ? (
 									''
-								) : this.state.winner ? (
-									<p className='text-center mt-5'>{this.state.winner} win the match</p>
-								) : (
-									<Button onClick={this.handleClickCombat} className='fight-button' color='danger'>
+								) : this.state.hero2.powerstats.life > 0 ? (
+									<Button onClick={this.handleClickCombat} className='fight-button'>
 										FIGHT
+									</Button>
+								) : (
+									<Button onClick={this.selectNextOppenent} className='random-button'>
+										Next Oppenent
 									</Button>
 								)}
 							</Col>
-							<Col xs='4'>{this.loadingHeroes(this.state.hero2)}</Col>
+							<Col xs='4'>
+								<div className={isShaking}>{this.loadingHeroes(this.state.hero2)}</div>
+							</Col>
 						</Row>
 					</div>
 				) : (
