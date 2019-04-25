@@ -55,7 +55,7 @@ const CardFrame = ({ powerstats, biography, appearance }) => {
 
 export default CardFrame
 
-CardFrame.PropTypes = {
+CardFrame.propTypes = {
 	powerstats: PropTypes.object.isRequired,
 	biography: PropTypes.object.isRequired,
 	appearance: PropTypes.object.isRequired,
