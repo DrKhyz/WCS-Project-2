@@ -1,7 +1,8 @@
 import React from 'react'
 import { Progress } from 'reactstrap'
+import PropTypes from 'prop-types'
 
-const CardLife = props => {
+const CardLife = ({ powerstats }) => {
 	const cardLife = {
 		position: 'absolute',
 		marginTop: '5vw',
@@ -19,11 +20,15 @@ const CardLife = props => {
 			<Progress
 				style={lifeBar}
 				color='success'
-				value={props.powerstats.life}
-				max={props.powerstats.durability}
+				value={powerstats.life}
+				max={powerstats.durability}
 			/>
 		</div>
 	)
 }
 
 export default CardLife
+
+CardLife.propTypes = {
+	powerstats: PropTypes.object.isRequired,
+}
