@@ -5,7 +5,6 @@ import CardHero from './CardHero/CardHero'
 import getDatasFromApi from '../functions/getDatasFromApi'
 import handleCombat from '../functions/handleCombat'
 import Loading from './Loading.jsx'
-import axios from 'axios'
 
 class SelectedCombat extends Component {
 	state = {
@@ -48,9 +47,9 @@ class SelectedCombat extends Component {
 		this.combatLoop()
 	}
 
-	callHeroList = w => {
+	callHeroList = soughtWord => {
 		this.setState({ lastSearch: this.state.search, heroStoreLoading: true })
-		getDatasFromApi(w).then(heroStore => this.setState(heroStore))
+		getDatasFromApi(soughtWord).then(heroStore => this.setState(heroStore))
 	}
 
 	winnerName = () => {
@@ -137,7 +136,6 @@ class SelectedCombat extends Component {
 									asLost: false,
 									lastSearch: '',
 									winStrike: 0,
-									asLost: false,
 								})
 							}>
 							{this.state.hero1 ? 'Change hero' : 'Reset Search'}
@@ -199,7 +197,11 @@ class SelectedCombat extends Component {
 							<h1>Search your hero</h1>
 						)}
 
-						<form onSubmit={e => (e.preventDefault(), this.callHeroList(this.state.search))}>
+						<form
+							onSubmit={e => {
+								e.preventDefault()
+								return this.callHeroList(this.state.search)
+							}}>
 							<input
 								style={{ borderRadius: '5px', border: 'blue 1px solid' }}
 								type='text'

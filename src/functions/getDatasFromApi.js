@@ -16,9 +16,7 @@ const getHerosDataDataFromApiForStore = param => {
 	const heroStore = []
 	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${param}`)
 		.then(res => {
-			res.data.results.map(data => {
-				heroStore.push(createHero(dataSelectors(data)))
-			})
+			res.data.results.map(data => heroStore.push(createHero(dataSelectors(data))))
 			return heroStore
 		})
 		.then(data => {
