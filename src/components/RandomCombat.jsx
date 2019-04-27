@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'reactstrap'
 import CardHero from './CardHero/CardHero'
-import getHeroDataFromApi from '../functions/getHeroDataFromApi'
+import getDatasFromApi from '../functions/getDatasFromApi'
 import handleCombat from '../functions/handleCombat'
 import Loading from './Loading.jsx'
 import BackToMain from './BackToMain.jsx'
@@ -12,8 +12,8 @@ const RandomCombat = () => {
 	const [hideButton, setHideButton] = useState(false)
 
 	useEffect(() => {
-		getHeroDataFromApi().then(hero => setHero1(hero))
-		getHeroDataFromApi().then(hero => setHero2(hero))
+		getDatasFromApi().then(hero => setHero1(hero))
+		getDatasFromApi().then(hero => setHero2(hero))
 	}, [])
 
 	const winnerName = () => {
@@ -29,8 +29,8 @@ const RandomCombat = () => {
 		setHideButton(false)
 		setHero1({ loading: true })
 		setHero2({ loading: true })
-		getHeroDataFromApi().then(hero => setHero1(hero))
-		getHeroDataFromApi().then(hero => setHero2(hero))
+		getDatasFromApi().then(hero => setHero1(hero))
+		getDatasFromApi().then(hero => setHero2(hero))
 	}
 
 	const handleClickCombat = () => {

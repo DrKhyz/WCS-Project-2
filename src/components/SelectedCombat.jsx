@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col, Button } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import CardHero from './CardHero/CardHero'
-import getHeroDataFromApi from '../functions/getHeroDataFromApi'
+import getDatasFromApi from '../functions/getDatasFromApi'
 import handleCombat from '../functions/handleCombat'
 import Loading from './Loading.jsx'
 import axios from 'axios'
@@ -20,7 +20,7 @@ class SelectedCombat extends Component {
 	}
 
 	componentDidMount() {
-		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
+		getDatasFromApi().then(hero2 => this.setState({ hero2 }))
 	}
 
 	combatLoop = () => {
@@ -48,6 +48,11 @@ class SelectedCombat extends Component {
 		this.combatLoop()
 	}
 
+	callHeroList = w => {
+		this.setState({ lastSearch: this.state.search, heroStoreLoading: true })
+		getDatasFromApi(w).then(heroStore => this.setState(heroStore))
+	}
+
 	winnerName = () => {
 		if (!this.state.hero1.powerstats.life) {
 			return this.state.hero2.name
@@ -59,79 +64,6 @@ class SelectedCombat extends Component {
 
 	handleChange = e => {
 		this.setState({ search: e.target.value })
-	}
-
-	normalizePowerstats = stats =>
-		stats !== 'null' ? parseInt(stats) : Math.floor(Math.random() * 40) + 20
-	normalizeInformations = data =>
-		data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown'
-	getHerosData = e => {
-		this.setState({ heroStore: [], lastSearch: this.state.search, heroStoreLoading: true })
-		axios
-			.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${this.state.search}`)
-			.then(res =>
-				res.data.results.map((data, i) => {
-					let id = this.normalizePowerstats(data.id)
-					let name = this.normalizeInformations(data.name)
-
-					let intelligence = this.normalizePowerstats(data.powerstats.intelligence)
-					let strength = this.normalizePowerstats(data.powerstats.strength)
-					let speed = this.normalizePowerstats(data.powerstats.speed)
-					let durability = this.normalizePowerstats(data.powerstats.durability)
-					let power = this.normalizePowerstats(data.powerstats.power)
-					let combat = this.normalizePowerstats(data.powerstats.combat)
-
-					let fullname = this.normalizeInformations(data.biography['full-name'])
-					let publisher = this.normalizeInformations(data.biography.publisher)
-					let alignment = this.normalizeInformations(data.biography.alignment)
-
-					let gender = this.normalizeInformations(data.appearance.gender)
-					let race = this.normalizeInformations(data.appearance.race)
-					let height = this.normalizeInformations(data.appearance.height[1])
-					let weight = this.normalizeInformations(data.appearance.weight[1])
-
-					let image = this.normalizeInformations(data.image)
-
-					let star =
-						(intelligence + strength + speed + durability + power + combat + durability) / 100
-
-					return this.setState(prevState => ({
-						heroStore: [
-							...prevState.heroStore,
-							{
-								id: id,
-								name: name,
-								powerstats: {
-									intelligence,
-									strength,
-									speed,
-									durability,
-									power,
-									combat,
-									life: durability,
-								},
-								biography: {
-									fullname: fullname,
-									publisher: publisher,
-									alignment: alignment,
-								},
-								appearance: {
-									gender: gender,
-									race: race,
-									height: height,
-									weight: weight,
-								},
-								image: image,
-								star,
-								loading: false,
-							},
-						],
-					}))
-				}),
-			)
-			.catch(error => console.log(error))
-			.then(() => this.setState({ heroStoreLoading: false }))
-		e.preventDefault()
 	}
 
 	loadingHeroes = hero => {
@@ -155,7 +87,7 @@ class SelectedCombat extends Component {
 			hero2: { loading: true },
 			inCombat: false,
 		})
-		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
+		getDatasFromApi().then(hero2 => this.setState({ hero2 }))
 	}
 
 	resetCombat = () => {
@@ -172,7 +104,7 @@ class SelectedCombat extends Component {
 			asLost: false,
 			inCombat: false,
 		})
-		getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
+		getDatasFromApi().then(hero2 => this.setState({ hero2 }))
 	}
 
 	render() {
@@ -267,7 +199,7 @@ class SelectedCombat extends Component {
 							<h1>Search your hero</h1>
 						)}
 
-						<form onSubmit={this.getHerosData}>
+						<form onSubmit={e => (e.preventDefault(), this.callHeroList(this.state.search))}>
 							<input
 								style={{ borderRadius: '5px', border: 'blue 1px solid' }}
 								type='text'
@@ -299,7 +231,7 @@ class SelectedCombat extends Component {
 											hero1: x,
 											hero2: { loading: true },
 										})
-										getHeroDataFromApi().then(hero2 => this.setState({ hero2 }))
+										getDatasFromApi().then(hero2 => this.setState({ hero2 }))
 									}}>
 									<CardHero props={x} />
 								</Col>
