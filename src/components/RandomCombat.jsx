@@ -1,51 +1,46 @@
-import React, { useState, useEffect } from 'react'
-import { Row, Col, Button } from 'reactstrap'
-import CardHero from './CardHero/CardHero'
-import getDatasFromApi from '../functions/getDatasFromApi'
-import handleCombat from '../functions/handleCombat'
-import Loading from './Loading.jsx'
-import BackToMain from './BackToMain.jsx'
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Button } from 'reactstrap';
+import CardHero from './CardHero/CardHero';
+import getDatasFromApi from '../functions/getDatasFromApi';
+import handleCombat from '../functions/handleCombat';
+import Loading from './Loading.jsx';
+import BackToMain from './BackToMain.jsx';
 
 const RandomCombat = () => {
-	const [hero1, setHero1] = useState({ loading: true })
-	const [hero2, setHero2] = useState({ loading: true })
-	const [hideButton, setHideButton] = useState(false)
+	const [hero1, setHero1] = useState({ loading: true });
+	const [hero2, setHero2] = useState({ loading: true });
+	const [hideButton, setHideButton] = useState(false);
 
 	useEffect(() => {
-		getDatasFromApi().then(hero => setHero1(hero))
-		getDatasFromApi().then(hero => setHero2(hero))
-	}, [])
+		getDatasFromApi().then(hero => setHero1(hero));
+		getDatasFromApi().then(hero => setHero2(hero));
+	}, []);
 
 	const winnerName = () => {
-		if (!hero1.powerstats.life) {
-			return hero2.name
-		}
-		if (!hero2.powerstats.life) {
-			return hero1.name
-		}
-	}
+		return hero1.powerstats.life ? hero1.name : hero2.name;
+	};
 
 	const handleClickSelect = () => {
-		setHideButton(false)
-		setHero1({ loading: true })
-		setHero2({ loading: true })
-		getDatasFromApi().then(hero => setHero1(hero))
-		getDatasFromApi().then(hero => setHero2(hero))
-	}
+		setHideButton(false);
+		setHero1({ loading: true });
+		setHero2({ loading: true });
+		getDatasFromApi().then(hero => setHero1(hero));
+		getDatasFromApi().then(hero => setHero2(hero));
+	};
 
 	const handleClickCombat = () => {
-		setHideButton(true)
+		setHideButton(true);
 
 		while (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0) {
-			let newStats = handleCombat({ hero1, hero2 })
-			setHero1(newStats.hero1)
-			setHero2(newStats.hero2)
+			let newStats = handleCombat({ hero1, hero2 });
+			setHero1(newStats.hero1);
+			setHero2(newStats.hero2);
 		}
-	}
+	};
 
 	const loadingHeroes = hero => {
-		return hero.loading ? <Loading /> : <CardHero props={hero} />
-	}
+		return hero.loading ? <Loading /> : <CardHero props={hero} />;
+	};
 
 	const hideCenter = () => {
 		if (hideButton) {
@@ -57,7 +52,7 @@ const RandomCombat = () => {
 						New Combat
 					</Button>
 				</div>
-			)
+			);
 		} else {
 			return (
 				<div>
@@ -84,9 +79,9 @@ const RandomCombat = () => {
 						</div>
 					)}
 				</div>
-			)
+			);
 		}
-	}
+	};
 
 	return (
 		<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
@@ -103,7 +98,7 @@ const RandomCombat = () => {
 				</Col>
 			</Row>
 		</div>
-	)
-}
+	);
+};
 
-export default RandomCombat
+export default RandomCombat;
