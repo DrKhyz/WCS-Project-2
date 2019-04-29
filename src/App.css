@@ -92,7 +92,7 @@ img {
 		transform: translateX(0);
 	}
 	100% {
-		transform: translateX(30px);
+		transform: translateX(5%);
 	}
 }
 
@@ -101,7 +101,7 @@ img {
 		transform: translateX(0);
 	}
 	100% {
-		transform: translateX(-30px);
+		transform: translateX(-5%);
 	}
 }
 
