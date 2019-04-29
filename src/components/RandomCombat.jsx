@@ -10,6 +10,11 @@ const RandomCombat = () => {
 	const [hero1, setHero1] = useState({ loading: true });
 	const [hero2, setHero2] = useState({ loading: true });
 	const [hideButton, setHideButton] = useState(false);
+	const [inCombat, setInCombat] = useState(false);
+	const [hero1DealingDamage, setHero1DealingDamage] = useState(false);
+	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
+	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
+	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
 
 	useEffect(() => {
 		getDatasFromApi().then(hero => setHero1(hero));
@@ -28,23 +33,58 @@ const RandomCombat = () => {
 		getDatasFromApi().then(hero => setHero2(hero));
 	};
 
-	const handleClickCombat = () => {
-		setHideButton(true);
-
-		while (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0) {
+	const combatLoop = () => {
+		if (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0 && !hero2.loading) {
 			let newStats = handleCombat({ hero1, hero2 });
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
+
+			setHero1DealingDamage(newStats.hero1DealingDamage);
+			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
+			setHero2DealingDamage(newStats.hero2DealingDamage);
+			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
+
+			setTimeout(combatLoop, 1000);
+		} else {
+			setInCombat(false);
+			if (hero2.powerstats.life <= 0) {
+				setHero1DealingDamage(false);
+				setHero2DealingDamage(false);
+			}
+			if (hero1.powerstats.life <= 0) {
+				setHero1DealingDamage(false);
+				setHero2DealingDamage(false);
+			}
 		}
+	};
+
+	const handleClickCombat = () => {
+		setInCombat(true);
+		setHideButton(true);
+
+		combatLoop();
 	};
 
 	const loadingHeroes = hero => {
 		return hero.loading ? <Loading /> : <CardHero props={hero} />;
 	};
 
+	let hero1Anime = '';
+	let hero2Anime = '';
+	if (hero1DealingDamage && hero2ReceivingDamage) {
+		hero2Anime += 'shaking';
+		hero1Anime += 'h1Attacking';
+	}
+	if (hero2DealingDamage && hero1ReceivingDamage) {
+		hero1Anime += 'shaking';
+		hero2Anime += 'h2Attacking';
+	}
+
 	const hideCenter = () => {
 		if (hideButton) {
-			return (
+			return hideButton && inCombat ? (
+				''
+			) : (
 				<div className='winner'>
 					<p>Winner is :</p>
 					<p>{winnerName()}</p>
@@ -90,11 +130,11 @@ const RandomCombat = () => {
 			</Row>
 			<Row className=' centerBand' style={{ marginTop: '5%' }}>
 				<Col xs='4'>
-					<div>{loadingHeroes(hero1)}</div>
+					<div className={hero1Anime}>{loadingHeroes(hero1)}</div>
 				</Col>
 				<Col xs='4'>{hideCenter()}</Col>
 				<Col xs='4'>
-					<div>{loadingHeroes(hero2)}</div>
+					<div className={hero2Anime}>{loadingHeroes(hero2)}</div>
 				</Col>
 			</Row>
 		</div>
