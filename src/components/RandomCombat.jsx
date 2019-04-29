@@ -124,10 +124,8 @@ const RandomCombat = () => {
 	};
 
 	return (
-		<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
-			<Row>
-				<BackToMain />
-			</Row>
+		<div style={{ width: '96%', marginLeft: '1%' }}>
+			<BackToMain />
 			<Row className=' centerBand' style={{ marginTop: '5%' }}>
 				<Col xs='4'>
 					<div className={hero1Anime}>{loadingHeroes(hero1)}</div>

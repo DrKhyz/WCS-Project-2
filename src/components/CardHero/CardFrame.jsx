@@ -1,8 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const CardFrame = ({ powerstats, biography, appearance }) => {
 	const cardFrame = {
+		color: 'black',
 		width: '28vw',
 		fontSize: '1.3vw',
 		backgroundColor: '#bbb',
@@ -15,7 +16,7 @@ const CardFrame = ({ powerstats, biography, appearance }) => {
 		height: '32%',
 		maxWidth: '100%',
 		textAlign: 'center',
-	}
+	};
 
 	return (
 		<div style={cardFrame}>
@@ -50,13 +51,13 @@ const CardFrame = ({ powerstats, biography, appearance }) => {
 				<div>Univers : {biography.publisher}</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CardFrame
+export default CardFrame;
 
 CardFrame.propTypes = {
 	powerstats: PropTypes.object.isRequired,
 	biography: PropTypes.object.isRequired,
 	appearance: PropTypes.object.isRequired,
-}
+};

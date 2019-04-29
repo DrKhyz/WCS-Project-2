@@ -6,7 +6,12 @@ import CardLife from './CardLife.jsx';
 import PropTypes from 'prop-types';
 
 const CardHero = ({ props }) => {
-	const cardContainer = {
+	let golden = false;
+	if (props.star > 6) {
+		golden = true;
+	}
+
+	let cardContainer = {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -20,11 +25,20 @@ const CardHero = ({ props }) => {
 		maxHeigth: '15vw',
 	};
 
+	if (golden) {
+		cardContainer = { ...cardContainer, border: '1px solid gold', background: 'gold' };
+	}
+
 	return (
 		<div style={cardContainer} key={props.id}>
-			<CardBackground image={props.image} />
-			<CardHead name={props.name} star={props.star} />
-			<CardFrame powerstats={props.powerstats} biography={props.biography} appearance={props.appearance} />
+			<CardBackground image={props.image} star={props.star} />
+			<CardHead name={props.name} star={props.star} golden={golden} />
+			<CardFrame
+				powerstats={props.powerstats}
+				biography={props.biography}
+				appearance={props.appearance}
+				golden={golden}
+			/>
 			<CardLife powerstats={props.powerstats} />
 		</div>
 	);
