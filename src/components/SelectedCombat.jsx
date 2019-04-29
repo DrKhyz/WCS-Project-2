@@ -16,6 +16,10 @@ const SelectedCombat = () => {
 	const [asLost, setAsLost] = useState(false);
 	const [inCombat, setInCombat] = useState(false);
 	const [heroStoreLoading, setHeroStoreLoading] = useState(false);
+	const [hero1DealingDamage, setHero1DealingDamage] = useState(false);
+	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
+	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
+	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
 
 	useEffect(() => {
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
@@ -26,16 +30,24 @@ const SelectedCombat = () => {
 			let newStats = handleCombat({ hero1, hero2 });
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
+
+			setHero1DealingDamage(newStats.hero1DealingDamage);
+			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
+			setHero2DealingDamage(newStats.hero2DealingDamage);
+			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
+
 			setTimeout(combatLoop, 1000);
 		} else {
 			setInCombat(false);
 			if (hero2.powerstats.life <= 0) {
 				setWinStrike(winStrike + 1);
-				setInCombat(false);
+				setHero1DealingDamage(false);
+				setHero2DealingDamage(false);
 			}
 			if (hero1.powerstats.life <= 0) {
 				setAsLost(true);
-				setInCombat(false);
+				setHero1DealingDamage(false);
+				setHero2DealingDamage(false);
 			}
 		}
 	};
@@ -75,9 +87,15 @@ const SelectedCombat = () => {
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 	};
 
-	let isShaking = '';
-	if (inCombat) {
-		isShaking = 'shaking';
+	let hero1Anime = '';
+	let hero2Anime = '';
+	if (hero1DealingDamage && hero2ReceivingDamage) {
+		hero2Anime += 'shaking';
+		hero1Anime += 'h1Attacking';
+	}
+	if (hero2DealingDamage && hero1ReceivingDamage) {
+		hero1Anime += 'shaking';
+		hero2Anime += 'h2Attacking';
 	}
 
 	return (
@@ -112,7 +130,7 @@ const SelectedCombat = () => {
 				<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
 					<Row>
 						<Col xs='4'>
-							<div className={isShaking}>
+							<div className={hero1Anime}>
 								<CardHero props={hero1} />
 							</div>
 						</Col>
@@ -139,7 +157,7 @@ const SelectedCombat = () => {
 							)}
 						</Col>
 						<Col xs='4'>
-							<div className={isShaking}>{hero2.loading ? <Loading /> : <CardHero props={hero2} />}</div>
+							<div className={hero2Anime}>{hero2.loading ? <Loading /> : <CardHero props={hero2} />}</div>
 						</Col>
 					</Row>
 				</div>
