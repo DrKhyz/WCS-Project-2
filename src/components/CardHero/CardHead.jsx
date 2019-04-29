@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const CardHead = props => {
-	let starsType = []
-	const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png'
-	const emptyStar = 'https://img.icons8.com/color/48/000000/star.png'
+const CardHead = ({ name, star }) => {
+	let starsType = [];
+	const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
+	const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
 	for (let i = 1; i <= 5; i++) {
-		props.star < i ? starsType.push(emptyStar) : starsType.push(filledStar)
+		star < i ? starsType.push(emptyStar) : starsType.push(filledStar);
 	}
 
 	const cardHead = {
 		width: '28vw',
 		fontSize: '0.8vw',
 		position: 'absolute',
-	}
+	};
 
 	const cardName = {
 		position: 'absolute',
@@ -30,7 +31,7 @@ const CardHead = props => {
 		opacity: '0.9',
 		borderTopRightRadius: '10px',
 		borderBottomRightRadius: '10px',
-	}
+	};
 
 	const cardLevel = {
 		display: 'flex',
@@ -44,26 +45,29 @@ const CardHead = props => {
 		borderTopLeftRadius: '10px',
 		borderBottomLeftRadius: '10px',
 		marginTop: '10%',
-	}
+	};
 
-	const star = {
+	const starContainer = {
 		maxHeight: '20%',
 		height: '20%',
 		maxWidth: '20%',
 		width: '20%',
-	}
+	};
 	return (
 		<div style={cardHead}>
-			<div style={cardName}>{props.name}</div>
+			<div style={cardName}>{name}</div>
 			<div style={cardLevel}>
-				<img src={starsType[0]} alt='star' style={star} />
-				<img src={starsType[1]} alt='star' style={star} />
-				<img src={starsType[2]} alt='star' style={star} />
-				<img src={starsType[3]} alt='star' style={star} />
-				<img src={starsType[4]} alt='star' style={star} />
+				{starsType.map((x, i) => (
+					<img key={i} src={x} alt='star' style={starContainer} />
+				))}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CardHead
+export default CardHead;
+
+CardHead.propTypes = {
+	name: PropTypes.string.isRequired,
+	star: PropTypes.number.isRequired,
+};

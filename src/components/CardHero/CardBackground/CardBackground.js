@@ -1,11 +1,12 @@
 import React from 'react'
 import './CardBackground.css'
+import PropTypes from 'prop-types'
 
-const CardBackground = props => {
+const CardBackground = ({ image }) => {
 	return (
 		<div className='card-background'>
 			<img
-				src={props.image.url}
+				src={image.url}
 				onError={e => {
 					e.target.className = 'silouhette'
 					e.target.onerror = null
@@ -19,3 +20,7 @@ const CardBackground = props => {
 }
 
 export default CardBackground
+
+CardBackground.propTypes = {
+	image: PropTypes.object.isRequired,
+}
