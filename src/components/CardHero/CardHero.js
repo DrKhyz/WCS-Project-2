@@ -1,8 +1,9 @@
-import React from 'react'
-import CardFrame from './CardFrame.jsx'
-import CardHead from './CardHead.jsx'
-import CardBackground from './CardBackground/CardBackground'
-import CardLife from './CardLife.jsx'
+import React from 'react';
+import CardFrame from './CardFrame.jsx';
+import CardHead from './CardHead.jsx';
+import CardBackground from './CardBackground/CardBackground';
+import CardLife from './CardLife.jsx';
+import PropTypes from 'prop-types';
 
 const CardHero = ({ props }) => {
 	const cardContainer = {
@@ -17,20 +18,20 @@ const CardHero = ({ props }) => {
 		boxSizing: 'border-box',
 		padding: '0',
 		maxHeigth: '15vw',
-	}
+	};
 
 	return (
-		<div style={cardContainer}>
+		<div style={cardContainer} key={props.id}>
 			<CardBackground image={props.image} />
 			<CardHead name={props.name} star={props.star} />
-			<CardFrame
-				powerstats={props.powerstats}
-				biography={props.biography}
-				appearance={props.appearance}
-			/>
+			<CardFrame powerstats={props.powerstats} biography={props.biography} appearance={props.appearance} />
 			<CardLife powerstats={props.powerstats} />
 		</div>
-	)
-}
+	);
+};
 
-export default CardHero
+export default CardHero;
+
+CardHero.propTypes = {
+	props: PropTypes.object.isRequired,
+};

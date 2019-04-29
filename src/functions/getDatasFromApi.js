@@ -1,11 +1,27 @@
 import Axios from 'axios';
 
+const getDatasFromApi = param => {
+	return param ? getHerosDataDataFromApiForStore(param) : getHeroDataFromApi();
+};
+
 const getHeroDataFromApi = () => {
 	let randomNumber = Math.floor(Math.random() * 730) + 1;
 	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/${randomNumber}`)
 		.then(res => dataSelectors(res.data))
 		.then(data => createHero(data))
 		.catch(error => console.log(error));
+};
+
+const getHerosDataDataFromApiForStore = param => {
+	const heroStore = [];
+	return Axios.get(`https://www.superheroapi.com/api.php/10219454314208202/search/${param}`)
+		.then(res => {
+			res.data.results.map(data => heroStore.push(createHero(dataSelectors(data))));
+			return heroStore;
+		})
+		.catch(error => {
+			return [];
+		});
 };
 
 const dataSelectors = data => {
@@ -43,13 +59,13 @@ const dataSelectors = data => {
 			durability,
 			power,
 			combat,
-			life
+			life,
 		},
 		biography: { fullname, publisher, alignment },
 		appearance: { gender, race, height, weight },
 		image,
 		star,
-		loading: false
+		loading: false,
 	};
 };
 
@@ -87,13 +103,13 @@ const createHero = data => {
 			durability,
 			power,
 			combat,
-			life: durability
+			life: durability,
 		},
 		biography: { fullname, publisher, alignment },
 		appearance: { gender, race, height, weight },
 		image,
 		star,
-		loading: false
+		loading: false,
 	};
 };
 
@@ -103,4 +119,4 @@ const normalizeInformations = data =>
 	data !== 'null' && data !== '0 cm' && data !== '0 kg' && data !== '' ? data : 'Unknown';
 // End Normalizers
 
-export default getHeroDataFromApi;
+export default getDatasFromApi;
