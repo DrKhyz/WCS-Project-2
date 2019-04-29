@@ -1,12 +1,9 @@
-let firstAttackerHero1 = true;
-
 const handleCombat = oldStats => {
-	firstAttackerHero1 = !firstAttackerHero1;
 	let hero1DealingDamage = false;
 	let hero1ReceivingDamage = false;
 	let hero2DealingDamage = false;
 	let hero2ReceivingDamage = false;
-	if (firstAttackerHero1) {
+	if (oldStats.firstAttack) {
 		oldStats.hero2.powerstats.life -=
 			((oldStats.hero1.powerstats.strength + oldStats.hero1.powerstats.combat) / 10 +
 				(oldStats.hero1.powerstats.intelligence + oldStats.hero1.powerstats.power) / 10) *
@@ -14,7 +11,7 @@ const handleCombat = oldStats => {
 		hero1DealingDamage = true;
 		hero2ReceivingDamage = true;
 	}
-	if (!firstAttackerHero1) {
+	if (!oldStats.firstAttack) {
 		oldStats.hero1.powerstats.life -=
 			((oldStats.hero2.powerstats.strength +
 				oldStats.hero2.powerstats.combat +
@@ -46,6 +43,7 @@ const handleCombat = oldStats => {
 		hero1ReceivingDamage: hero1ReceivingDamage,
 		hero2DealingDamage: hero2DealingDamage,
 		hero2ReceivingDamage: hero2ReceivingDamage,
+		firstAttack: !oldStats.firstAttack,
 		hero1: {
 			...oldStats.hero1,
 			powerstats: {

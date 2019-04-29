@@ -20,14 +20,25 @@ const SelectedCombat = () => {
 	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
 	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
 	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
-
+	let firstAttack;
 	useEffect(() => {
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 	}, []);
 
+	const handleClickCombat = () => {
+		if (hero1.powerstats.speed > hero2.powerstats.speed) {
+			firstAttack = true;
+		} else {
+			firstAttack = false;
+		}
+		setInCombat(true);
+
+		combatLoop();
+	};
+
 	const combatLoop = () => {
 		if (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0 && !hero2.loading) {
-			let newStats = handleCombat({ hero1, hero2 });
+			let newStats = handleCombat({ hero1, hero2, firstAttack });
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
 
@@ -35,6 +46,7 @@ const SelectedCombat = () => {
 			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
 			setHero2DealingDamage(newStats.hero2DealingDamage);
 			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
+			firstAttack = newStats.firstAttack;
 
 			setTimeout(combatLoop, 1000);
 		} else {
@@ -50,11 +62,6 @@ const SelectedCombat = () => {
 				setHero2DealingDamage(false);
 			}
 		}
-	};
-
-	const handleClickCombat = () => {
-		setInCombat(true);
-		combatLoop();
 	};
 
 	const callHeroList = soughtWord => {
@@ -137,7 +144,7 @@ const SelectedCombat = () => {
 								<Loading />
 							) : asLost ? (
 								<div>
-									<Button className='newCampaign-button' onClick={resetCombat}>
+									<Button className='newCampaign-button' onClick={() => resetCombat()}>
 										New Campaign
 									</Button>
 									<p className='text-center mt-5'>You won {winStrike} match</p>
@@ -145,11 +152,11 @@ const SelectedCombat = () => {
 							) : inCombat ? (
 								''
 							) : hero2.powerstats.life > 0 ? (
-								<Button onClick={handleClickCombat} className='fight-button'>
+								<Button onClick={() => handleClickCombat()} className='fight-button'>
 									FIGHT
 								</Button>
 							) : (
-								<Button onClick={selectNextOppenent} className='random-button'>
+								<Button onClick={() => selectNextOppenent()} className='random-button'>
 									Next Oppenent
 								</Button>
 							)}
