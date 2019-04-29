@@ -3,31 +3,61 @@ const handleCombat = oldStats => {
 	let hero1ReceivingDamage = false;
 	let hero2DealingDamage = false;
 	let hero2ReceivingDamage = false;
+
+	let criticalHitHero1 = oldStats.hero1.powerstats.intelligence / 10;
+	let criticalHitHero2 = oldStats.hero2.powerstats.intelligence / 10;
+
+	let chanceMissHero1 = oldStats.hero1.powerstats.speed / 10;
+	let chanceMissHero2 = oldStats.hero2.powerstats.speed / 10;
+
 	if (oldStats.firstAttack) {
-		oldStats.hero2.powerstats.life -=
-			((oldStats.hero1.powerstats.strength + oldStats.hero1.powerstats.combat) / 10 +
-				(oldStats.hero1.powerstats.intelligence + oldStats.hero1.powerstats.power) / 10) *
-			(oldStats.hero1.powerstats.speed / 100);
+		let criticalChance = Math.floor(Math.random() * 101);
+		let miss = Math.floor(Math.random() * 101);
+
+		if (chanceMissHero2 <= miss) {
+			if (criticalHitHero1 >= criticalChance) {
+				oldStats.hero2.powerstats.life -=
+					oldStats.hero1.powerstats.strength -
+					oldStats.hero2.powerstats.durability / 5 +
+					oldStats.hero1.powerstats.power * 2;
+				console.log('critical hit');
+			} else {
+				oldStats.hero2.powerstats.life -=
+					oldStats.hero1.powerstats.strength -
+					oldStats.hero2.powerstats.durability / 3 +
+					oldStats.hero2.powerstats.power;
+			}
+		} else {
+			console.log('missed');
+		}
+
 		hero1DealingDamage = true;
 		hero2ReceivingDamage = true;
 	}
+
 	if (!oldStats.firstAttack) {
-		oldStats.hero1.powerstats.life -=
-			((oldStats.hero2.powerstats.strength +
-				oldStats.hero2.powerstats.combat +
-				(oldStats.hero2.powerstats.intelligence + oldStats.hero2.powerstats.power)) /
-				10) *
-			(oldStats.hero2.powerstats.speed / 100);
+		let criticalChance = Math.floor(Math.random() * 101);
+		let miss = Math.floor(Math.random() * 101);
+
+		if (chanceMissHero1 <= miss) {
+			if (criticalHitHero2 >= criticalChance) {
+				oldStats.hero1.powerstats.life -=
+					oldStats.hero2.powerstats.strength -
+					oldStats.hero1.powerstats.durability / 5 +
+					oldStats.hero2.powerstats.power * 2;
+				console.log('critical hit');
+			} else {
+				oldStats.hero1.powerstats.life -=
+					oldStats.hero2.powerstats.strength -
+					oldStats.hero1.powerstats.durability / 3 +
+					oldStats.hero2.powerstats.power;
+			}
+		} else {
+			console.log('missed');
+		}
+
 		hero2DealingDamage = true;
 		hero1ReceivingDamage = true;
-	}
-
-	if (oldStats.hero1.powerstats.life <= 0 && oldStats.hero2.powerstats.life <= 0) {
-		if (oldStats.hero1.powerstats.speed >= oldStats.hero2.powerstats.speed) {
-			oldStats.hero1.powerstats.life = 1;
-		} else {
-			oldStats.hero2.powerstats.life = 1;
-		}
 	}
 
 	if (oldStats.hero2.powerstats.life <= 0) {

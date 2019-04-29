@@ -29,7 +29,7 @@ const CardLife = ({ powerstats }) => {
 
 	return (
 		<div style={cardLife}>
-			<Progress animated style={lifeBar} color={color} value={powerstats.life} max={powerstats.durability} />
+			<Progress animated style={lifeBar} color={color} value={powerstats.life} max={powerstats.durability + 100} />
 		</div>
 	);
 };

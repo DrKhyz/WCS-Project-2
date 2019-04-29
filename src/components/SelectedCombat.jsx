@@ -74,8 +74,8 @@ const SelectedCombat = () => {
 
 	const selectNextOppenent = () => {
 		let NewLife = hero1.powerstats.life + hero1.powerstats.durability / 5;
-		if (NewLife >= hero1.powerstats.durability) {
-			NewLife = hero1.powerstats.durability;
+		if (NewLife >= hero1.powerstats.durability + 100) {
+			NewLife = hero1.powerstats.durability + 100;
 		}
 
 		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: NewLife } });
@@ -86,7 +86,7 @@ const SelectedCombat = () => {
 	};
 
 	const resetCombat = () => {
-		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability } });
+		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability + 100 } });
 		setWinStrike(0);
 		setHero2({ ...hero2, loading: true });
 		setAsLost(false);
