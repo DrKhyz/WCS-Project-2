@@ -6,6 +6,7 @@
 	background-color: #bbb;
 	height: 38vw;
 }
+
 .card-background img {
 	max-height: var(--width);
 	--width: 40vw;
