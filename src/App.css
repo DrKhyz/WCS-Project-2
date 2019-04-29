@@ -3,6 +3,16 @@
 	src: url('./fonts/heroesassemble.ttf');
 }
 
+body {
+	color: white !important;
+	background-color: #0d3a63 !important;
+	background: url('http://pftraininggym.com/blog/wp-content/uploads/2017/03/Marvel_Wallpaper_Heroes_1.jpg');
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
 .vs-img {
 	height: auto;
 	width: 50%;

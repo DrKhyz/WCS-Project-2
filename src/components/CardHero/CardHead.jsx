@@ -1,21 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardHead = ({ name, star }) => {
+const CardHead = ({ name, star, golden }) => {
 	let starsType = [];
-	const filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
-	const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
-	for (let i = 1; i <= 5; i++) {
-		star < i ? starsType.push(emptyStar) : starsType.push(filledStar);
-	}
-
 	const cardHead = {
 		width: '28vw',
 		fontSize: '0.8vw',
 		position: 'absolute',
 	};
 
-	const cardName = {
+	let cardName = {
 		position: 'absolute',
 		display: 'flex',
 		alignItems: 'align-items-center',
@@ -33,7 +27,7 @@ const CardHead = ({ name, star }) => {
 		borderBottomRightRadius: '10px',
 	};
 
-	const cardLevel = {
+	let cardLevel = {
 		display: 'flex',
 		position: 'absolute',
 		color: 'white',
@@ -47,12 +41,26 @@ const CardHead = ({ name, star }) => {
 		marginTop: '10%',
 	};
 
-	const starContainer = {
+	let starContainer = {
 		maxHeight: '20%',
 		height: '20%',
 		maxWidth: '20%',
 		width: '20%',
 	};
+	let filledStar = 'https://img.icons8.com/color/48/000000/filled-star.png';
+	const emptyStar = 'https://img.icons8.com/color/48/000000/star.png';
+
+	if (golden) {
+		cardName = { ...cardName, color: 'black', background: 'gold', border: '2px solid gold' };
+		starContainer = { ...starContainer };
+		cardLevel = { ...cardLevel, background: 'gold', border: '2px solid gold' };
+		filledStar = 'https://img.icons8.com/material-sharp/24/000000/filled-star.png';
+	}
+
+	for (let i = 1; i <= 5; i++) {
+		star < i ? starsType.push(emptyStar) : starsType.push(filledStar);
+	}
+
 	return (
 		<div style={cardHead}>
 			<div style={cardName}>{name}</div>

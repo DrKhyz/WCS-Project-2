@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
 import CardHero from './CardHero/CardHero';
 import getDatasFromApi from '../functions/getDatasFromApi';
 import handleCombat from '../functions/handleCombat';
+import BackToMain from './BackToMain.jsx';
 import Loading from './Loading.jsx';
 
 const SelectedCombat = () => {
@@ -99,10 +99,8 @@ const SelectedCombat = () => {
 	}
 
 	return (
-		<div>
-			<NavLink className='btn btn-primary m-1 ' activeClassName='btn-danger' exact to='/'>
-				Back to Main
-			</NavLink>
+		<div style={{ width: '96%', marginLeft: '0' }}>
+			<BackToMain />
 
 			{inCombat ? (
 				<Button className='m-1' color='info'>
