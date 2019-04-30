@@ -233,7 +233,9 @@ const SelectedCombat = () => {
 					<form
 						onSubmit={e => {
 							e.preventDefault();
-							return callHeroList(search);
+							if (search) {
+								return callHeroList(search);
+							}
 						}}>
 						<input
 							style={{ borderRadius: '5px', border: 'blue 1px solid' }}
