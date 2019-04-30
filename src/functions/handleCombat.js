@@ -23,7 +23,6 @@ const handleCombat = oldStats => {
 					oldStats.hero2.powerstats.durability / 5 +
 					oldStats.hero1.powerstats.power * 2;
 				asCritical = true;
-				console.log('critical hit');
 			} else {
 				oldStats.hero2.powerstats.life -=
 					oldStats.hero1.powerstats.strength -
@@ -31,7 +30,6 @@ const handleCombat = oldStats => {
 					oldStats.hero2.powerstats.power;
 			}
 		} else {
-			console.log('missed');
 			asMissed = true;
 		}
 
@@ -49,7 +47,6 @@ const handleCombat = oldStats => {
 					oldStats.hero2.powerstats.strength -
 					oldStats.hero1.powerstats.durability / 5 +
 					oldStats.hero2.powerstats.power * 2;
-				console.log('critical hit');
 				asCritical = true;
 			} else {
 				oldStats.hero1.powerstats.life -=
@@ -58,7 +55,6 @@ const handleCombat = oldStats => {
 					oldStats.hero2.powerstats.power;
 			}
 		} else {
-			console.log('missed');
 			asMissed = true;
 		}
 
