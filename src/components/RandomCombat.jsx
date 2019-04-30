@@ -15,6 +15,7 @@ const RandomCombat = () => {
 	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
 	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
 	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
+	let firstAttack;
 
 	useEffect(() => {
 		getDatasFromApi().then(hero => setHero1(hero));
@@ -33,9 +34,21 @@ const RandomCombat = () => {
 		getDatasFromApi().then(hero => setHero2(hero));
 	};
 
+	const handleClickCombat = () => {
+		setInCombat(true);
+		setHideButton(true);
+		if (hero1.powerstats.speed > hero2.powerstats.speed) {
+			firstAttack = true;
+		} else {
+			firstAttack = false;
+		}
+
+		combatLoop();
+	};
+
 	const combatLoop = () => {
 		if (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0 && !hero2.loading) {
-			let newStats = handleCombat({ hero1, hero2 });
+			let newStats = handleCombat({ hero1, hero2, firstAttack });
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
 
@@ -43,6 +56,7 @@ const RandomCombat = () => {
 			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
 			setHero2DealingDamage(newStats.hero2DealingDamage);
 			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
+			firstAttack = newStats.firstAttack;
 
 			setTimeout(combatLoop, 1000);
 		} else {
@@ -56,13 +70,6 @@ const RandomCombat = () => {
 				setHero2DealingDamage(false);
 			}
 		}
-	};
-
-	const handleClickCombat = () => {
-		setInCombat(true);
-		setHideButton(true);
-
-		combatLoop();
 	};
 
 	const loadingHeroes = hero => {

@@ -3,6 +3,7 @@ import CardFrame from './CardFrame.jsx';
 import CardHead from './CardHead.jsx';
 import CardBackground from './CardBackground/CardBackground';
 import CardLife from './CardLife.jsx';
+import CardStatus from './CardStatus.jsx';
 import PropTypes from 'prop-types';
 
 const CardHero = ({ props }) => {
@@ -33,12 +34,14 @@ const CardHero = ({ props }) => {
 		<div style={cardContainer} key={props.id}>
 			<CardBackground image={props.image} star={props.star} />
 			<CardHead name={props.name} star={props.star} golden={golden} />
+			<CardStatus asCritical={props.asCritical} asMissed={props.asMissed} />
 			<CardFrame
 				powerstats={props.powerstats}
 				biography={props.biography}
 				appearance={props.appearance}
 				golden={golden}
 			/>
+
 			<CardLife powerstats={props.powerstats} />
 		</div>
 	);

@@ -8,8 +8,8 @@ const Main = () => {
 		marginTop: '21%',
 		broder: 'black 1px solid',
 		background: 'rgb(255,255,255,0.8)',
-		width: '40%',
-		margin: '20% auto',
+		width: '50%',
+		margin: '10% auto',
 		padding: '1%',
 		borderRadius: '10px',
 	};
@@ -18,11 +18,14 @@ const Main = () => {
 			<h1>Welcome to the arena </h1>
 			<p>You will see heroes fight each other</p>
 			<p>Only one can stay alive</p>
-			<NavLink className='btn btn-primary m-1' activeClassName='btn-danger' to='/random'>
+			<p>Your objective : survive the longest time in the arena !</p>
+			<p>May the gods be with you ...</p>
+			{/* Condensed in the select hero page */}
+			{/* <NavLink className='btn btn-primary m-1' activeClassName='btn-danger' to='/random'>
 				Random Combat
-			</NavLink>
+			</NavLink> */}
 			<NavLink className='btn btn-primary m-1' activeClassName='btn-danger' to='/selected'>
-				Selected Combat
+				Enter
 			</NavLink>
 		</div>
 	);
