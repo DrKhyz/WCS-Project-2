@@ -210,6 +210,8 @@ const SelectedCombat = () => {
 							type='submit'
 							value='S'
 						/>
+
+						<Button onClick={() => getDatasFromApi().then(hero1data => setHero1(hero1data))}>Random Hero</Button>
 					</form>
 					<Row>
 						{heroStore.map(x => (

@@ -78,4 +78,5 @@ export default CardHead;
 CardHead.propTypes = {
 	name: PropTypes.string.isRequired,
 	star: PropTypes.number.isRequired,
+	golden: PropTypes.bool,
 };

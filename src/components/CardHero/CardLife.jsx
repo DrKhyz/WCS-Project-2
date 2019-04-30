@@ -17,10 +17,8 @@ const CardLife = ({ powerstats }) => {
 
 	let color;
 	let remaningLife = (powerstats.life / powerstats.durability) * 100;
-	if (remaningLife >= 70) {
+	if (remaningLife >= 50) {
 		color = 'success';
-	} else if (remaningLife < 69 && remaningLife >= 50) {
-		color = 'info';
 	} else if (remaningLife < 49 && remaningLife >= 25) {
 		color = 'warning';
 	} else {
