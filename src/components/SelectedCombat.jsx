@@ -20,14 +20,25 @@ const SelectedCombat = () => {
 	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
 	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
 	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
-
+	let firstAttack;
 	useEffect(() => {
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 	}, []);
 
+	const handleClickCombat = () => {
+		if (hero1.powerstats.speed > hero2.powerstats.speed) {
+			firstAttack = true;
+		} else {
+			firstAttack = false;
+		}
+		setInCombat(true);
+
+		combatLoop();
+	};
+
 	const combatLoop = () => {
 		if (hero1.powerstats.life !== 0 && hero2.powerstats.life !== 0 && !hero2.loading) {
-			let newStats = handleCombat({ hero1, hero2 });
+			let newStats = handleCombat({ hero1, hero2, firstAttack });
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
 
@@ -35,6 +46,7 @@ const SelectedCombat = () => {
 			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
 			setHero2DealingDamage(newStats.hero2DealingDamage);
 			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
+			firstAttack = newStats.firstAttack;
 
 			setTimeout(combatLoop, 1000);
 		} else {
@@ -43,18 +55,17 @@ const SelectedCombat = () => {
 				setWinStrike(winStrike + 1);
 				setHero1DealingDamage(false);
 				setHero2DealingDamage(false);
+				setHero1({ ...hero1, asCritical: false, asMissed: false });
+				setHero2({ ...hero2, asCritical: false, asMissed: false });
 			}
 			if (hero1.powerstats.life <= 0) {
 				setAsLost(true);
 				setHero1DealingDamage(false);
 				setHero2DealingDamage(false);
+				setHero1({ ...hero1, asCritical: false, asMissed: false });
+				setHero2({ ...hero2, asCritical: false, asMissed: false });
 			}
 		}
-	};
-
-	const handleClickCombat = () => {
-		setInCombat(true);
-		combatLoop();
 	};
 
 	const callHeroList = soughtWord => {
@@ -67,19 +78,27 @@ const SelectedCombat = () => {
 
 	const selectNextOppenent = () => {
 		let NewLife = hero1.powerstats.life + hero1.powerstats.durability / 5;
-		if (NewLife >= hero1.powerstats.durability) {
-			NewLife = hero1.powerstats.durability;
+		if (NewLife >= hero1.powerstats.durability + 100) {
+			NewLife = hero1.powerstats.durability + 100;
 		}
 
-		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: NewLife } });
-		setHero2({ ...hero2, loading: true });
+		setHero1({
+			...hero1,
+			asCritical: false,
+			asMissed: false,
+			powerstats: { ...hero1.powerstats, life: NewLife },
+		});
+		setHero2({ ...hero2, loading: true, asCritical: false, asMissed: false });
 
 		setInCombat(false);
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 	};
 
 	const resetCombat = () => {
-		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability } });
+		setHero1({
+			...hero1,
+			powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability + 100 },
+		});
 		setWinStrike(0);
 		setHero2({ ...hero2, loading: true });
 		setAsLost(false);
@@ -101,28 +120,37 @@ const SelectedCombat = () => {
 	return (
 		<div style={{ width: '96%', marginLeft: '0' }}>
 			<BackToMain />
-
 			{inCombat ? (
 				<Button className='m-1' color='info'>
 					Fight in Progress
 				</Button>
+			) : search ? (
+				<Button
+					className='m-1'
+					name='Reset hero'
+					color='info'
+					onClick={() => {
+						setHero1(undefined);
+						setHeroStore([]);
+						setSearch('');
+						setAsLost(false);
+						setLastSearch('');
+						setWinStrike(0);
+					}}>
+					{hero1 ? 'Change hero' : 'Reset Search'}
+				</Button>
 			) : (
-				lastSearch && (
-					<Button
-						className='m-1'
-						name='Reset hero'
-						color='info'
-						onClick={() => {
-							setHero1(undefined);
-							setHeroStore([]);
-							setSearch('');
-							setAsLost(false);
-							setLastSearch('');
-							setWinStrike(0);
-						}}>
-						{hero1 ? 'Change hero' : 'Reset Search'}
-					</Button>
-				)
+				<Button
+					className='m-1'
+					color='secondary'
+					onClick={() => {
+						getDatasFromApi().then(hero1data => {
+							setHero1(hero1data);
+							setSearch('Random Hero');
+						});
+					}}>
+					Random Hero
+				</Button>
 			)}
 			{hero1 ? (
 				<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
@@ -137,19 +165,30 @@ const SelectedCombat = () => {
 								<Loading />
 							) : asLost ? (
 								<div>
-									<Button className='newCampaign-button' onClick={resetCombat}>
+									<Button className='newCampaign-button' onClick={() => resetCombat()}>
 										New Campaign
 									</Button>
-									<p className='text-center mt-5'>You won {winStrike} match</p>
+									<p
+										style={{
+											textAlign: 'center',
+											color: 'black',
+											marginTop: '21%',
+											broder: 'black 1px solid',
+											background: 'rgb(255,255,255,0.8)',
+											borderRadius: '10px',
+											padding: '5%',
+										}}>
+										You won {winStrike} match
+									</p>
 								</div>
 							) : inCombat ? (
 								''
 							) : hero2.powerstats.life > 0 ? (
-								<Button onClick={handleClickCombat} className='fight-button'>
+								<Button onClick={() => handleClickCombat()} className='fight-button'>
 									FIGHT
 								</Button>
 							) : (
-								<Button onClick={selectNextOppenent} className='random-button'>
+								<Button onClick={() => selectNextOppenent()} className='random-button'>
 									Next Oppenent
 								</Button>
 							)}
@@ -175,7 +214,20 @@ const SelectedCombat = () => {
 							<h1>There is no match for your search ({lastSearch})</h1>
 						)
 					) : (
-						<h1>Search your hero</h1>
+						<h1
+							style={{
+								textAlign: 'center',
+								color: 'black',
+								marginTop: '21%',
+								broder: 'black 1px solid',
+								background: 'rgb(255,255,255,0.8)',
+								width: '50%',
+								margin: '10% auto',
+								padding: '1%',
+								borderRadius: '10px',
+							}}>
+							Search your hero
+						</h1>
 					)}
 
 					<form
@@ -194,7 +246,7 @@ const SelectedCombat = () => {
 						<input
 							style={{
 								borderRadius: '5px',
-								border: 'black 1px solid',
+								border: 'gold 1px solid',
 								color: 'red',
 								background: 'blue',
 								margin: 'auto',
