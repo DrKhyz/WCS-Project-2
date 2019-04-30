@@ -55,6 +55,8 @@ const SelectedCombat = () => {
 				setWinStrike(winStrike + 1);
 				setHero1DealingDamage(false);
 				setHero2DealingDamage(false);
+				setHero1({ ...hero1, asCritical: false, asMissed: false });
+				setHero2({ ...hero2, asCritical: false, asMissed: false });
 			}
 			if (hero1.powerstats.life <= 0) {
 				setAsLost(true);
@@ -82,9 +84,11 @@ const SelectedCombat = () => {
 
 		setHero1({
 			...hero1,
+			asCritical: false,
+			asMissed: false,
 			powerstats: { ...hero1.powerstats, life: NewLife },
 		});
-		setHero2({ ...hero2, loading: true });
+		setHero2({ ...hero2, loading: true, asCritical: false, asMissed: false });
 
 		setInCombat(false);
 		getDatasFromApi().then(hero2data => setHero2(hero2data));

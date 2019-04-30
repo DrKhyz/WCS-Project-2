@@ -5,15 +5,23 @@ const CardStatus = ({ asCritical, asMissed }) => {
 	const CardStatus = {
 		position: 'absolute',
 		marginTop: '15vw',
-		marginLeft: '',
+	};
+
+	const statusStyle = {
+		width: '16vw',
+		fontSize: '1.3vw',
 		textAlign: 'center',
-		width: '10vw',
+		backgroundColor: 'black',
+		color: 'red',
+		padding: '5px',
+		textDecoration: 'bold',
+		borderRadius: '2vw',
 	};
 
 	return (
 		<div style={CardStatus}>
-			{asCritical && <div style={{ color: 'red', textDecoration: 'bold' }}>Critical Hit</div>}
-			{asMissed && <div style={{ color: 'red', textDecoration: 'bold' }}>Miss</div>}
+			{asCritical && <div style={statusStyle}>Critical Hit</div>}
+			{asMissed && <div style={statusStyle}>Miss</div>}
 		</div>
 	);
 };
