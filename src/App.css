@@ -86,26 +86,25 @@ img {
 .shaking {
 	width: 96%;
 	animation: shake 0.8s;
-
-	/* animation-iteration-count: infinite; */
 }
 
 .h1Attacking {
 	animation: moverh1 0.8s;
-	/* animation-iteration-count: infinite; */
 }
 
 .h2Attacking {
 	animation: moverh2 0.8s;
-	/* animation-iteration-count: infinite; */
 }
 
 @keyframes moverh1 {
 	0% {
 		transform: translateX(0);
 	}
+	10% {
+		transform: translateX(100%);
+	}
 	100% {
-		transform: translateX(5%);
+		transform: translateX(0);
 	}
 }
 
@@ -113,8 +112,11 @@ img {
 	0% {
 		transform: translateX(0);
 	}
+	10% {
+		transform: translateX(-100%);
+	}
 	100% {
-		transform: translateX(-5%);
+		transform: translateX(0);
 	}
 }
 
