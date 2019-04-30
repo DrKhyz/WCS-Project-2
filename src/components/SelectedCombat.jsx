@@ -60,6 +60,8 @@ const SelectedCombat = () => {
 				setAsLost(true);
 				setHero1DealingDamage(false);
 				setHero2DealingDamage(false);
+				setHero1({ ...hero1, asCritical: false, asMissed: false });
+				setHero2({ ...hero2, asCritical: false, asMissed: false });
 			}
 		}
 	};
@@ -78,7 +80,10 @@ const SelectedCombat = () => {
 			NewLife = hero1.powerstats.durability + 100;
 		}
 
-		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: NewLife } });
+		setHero1({
+			...hero1,
+			powerstats: { ...hero1.powerstats, life: NewLife },
+		});
 		setHero2({ ...hero2, loading: true });
 
 		setInCombat(false);
@@ -86,7 +91,10 @@ const SelectedCombat = () => {
 	};
 
 	const resetCombat = () => {
-		setHero1({ ...hero1, powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability + 100 } });
+		setHero1({
+			...hero1,
+			powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability + 100 },
+		});
 		setWinStrike(0);
 		setHero2({ ...hero2, loading: true });
 		setAsLost(false);
@@ -108,28 +116,37 @@ const SelectedCombat = () => {
 	return (
 		<div style={{ width: '96%', marginLeft: '0' }}>
 			<BackToMain />
-
 			{inCombat ? (
 				<Button className='m-1' color='info'>
 					Fight in Progress
 				</Button>
+			) : search ? (
+				<Button
+					className='m-1'
+					name='Reset hero'
+					color='info'
+					onClick={() => {
+						setHero1(undefined);
+						setHeroStore([]);
+						setSearch('');
+						setAsLost(false);
+						setLastSearch('');
+						setWinStrike(0);
+					}}>
+					{hero1 ? 'Change hero' : 'Reset Search'}
+				</Button>
 			) : (
-				lastSearch && (
-					<Button
-						className='m-1'
-						name='Reset hero'
-						color='info'
-						onClick={() => {
-							setHero1(undefined);
-							setHeroStore([]);
-							setSearch('');
-							setAsLost(false);
-							setLastSearch('');
-							setWinStrike(0);
-						}}>
-						{hero1 ? 'Change hero' : 'Reset Search'}
-					</Button>
-				)
+				<Button
+					className='m-1'
+					color='secondary'
+					onClick={() => {
+						getDatasFromApi().then(hero1data => {
+							setHero1(hero1data);
+							setSearch('Random Hero');
+						});
+					}}>
+					Random Hero
+				</Button>
 			)}
 			{hero1 ? (
 				<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
@@ -147,7 +164,18 @@ const SelectedCombat = () => {
 									<Button className='newCampaign-button' onClick={() => resetCombat()}>
 										New Campaign
 									</Button>
-									<p className='text-center mt-5'>You won {winStrike} match</p>
+									<p
+										style={{
+											textAlign: 'center',
+											color: 'black',
+											marginTop: '21%',
+											broder: 'black 1px solid',
+											background: 'rgb(255,255,255,0.8)',
+											borderRadius: '10px',
+											padding: '5%',
+										}}>
+										You won {winStrike} match
+									</p>
 								</div>
 							) : inCombat ? (
 								''
@@ -182,7 +210,20 @@ const SelectedCombat = () => {
 							<h1>There is no match for your search ({lastSearch})</h1>
 						)
 					) : (
-						<h1>Search your hero</h1>
+						<h1
+							style={{
+								textAlign: 'center',
+								color: 'black',
+								marginTop: '21%',
+								broder: 'black 1px solid',
+								background: 'rgb(255,255,255,0.8)',
+								width: '50%',
+								margin: '10% auto',
+								padding: '1%',
+								borderRadius: '10px',
+							}}>
+							Search your hero
+						</h1>
 					)}
 
 					<form
@@ -201,7 +242,7 @@ const SelectedCombat = () => {
 						<input
 							style={{
 								borderRadius: '5px',
-								border: 'black 1px solid',
+								border: 'gold 1px solid',
 								color: 'red',
 								background: 'blue',
 								margin: 'auto',
@@ -210,8 +251,6 @@ const SelectedCombat = () => {
 							type='submit'
 							value='S'
 						/>
-
-						<Button onClick={() => getDatasFromApi().then(hero1data => setHero1(hero1data))}>Random Hero</Button>
 					</form>
 					<Row>
 						{heroStore.map(x => (

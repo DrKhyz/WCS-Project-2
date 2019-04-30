@@ -112,6 +112,8 @@ const createHero = data => {
 		image,
 		star,
 		loading: false,
+		asCritical: false,
+		asMissed: false,
 	};
 };
 
