@@ -3,8 +3,11 @@ const handleCombat = oldStats => {
 	let hero1ReceivingDamage = false;
 	let hero2DealingDamage = false;
 	let hero2ReceivingDamage = false;
-	let asCritical = false;
-	let asMissed = false;
+	let asCriticalHero1 = false;
+	let asCriticalHero2 = false;
+	let asMissedHero1 = false;
+	let asMissedHero2 = false;
+	let damageDeal;
 
 	let criticalHitHero1 = oldStats.hero1.powerstats.intelligence / 10;
 	let chanceMissHero1 = oldStats.hero1.powerstats.speed / 10;
@@ -18,19 +21,21 @@ const handleCombat = oldStats => {
 
 		if (chanceMissHero2 <= missChance) {
 			if (criticalHitHero1 >= criticalChance) {
-				oldStats.hero2.powerstats.life -=
+				damageDeal =
 					oldStats.hero1.powerstats.strength -
 					oldStats.hero2.powerstats.durability / 5 +
 					oldStats.hero1.powerstats.power * 2;
-				asCritical = true;
+				oldStats.hero2.powerstats.life -= damageDeal;
+				asCriticalHero1 = true;
 			} else {
-				oldStats.hero2.powerstats.life -=
+				damageDeal =
 					oldStats.hero1.powerstats.strength -
 					oldStats.hero2.powerstats.durability / 3 +
 					oldStats.hero2.powerstats.power;
+				oldStats.hero2.powerstats.life -= damageDeal;
 			}
 		} else {
-			asMissed = true;
+			asMissedHero2 = true;
 		}
 
 		hero1DealingDamage = true;
@@ -43,19 +48,21 @@ const handleCombat = oldStats => {
 
 		if (chanceMissHero1 <= missChance) {
 			if (criticalHitHero2 >= criticalChance) {
-				oldStats.hero1.powerstats.life -=
+				damageDeal =
 					oldStats.hero2.powerstats.strength -
 					oldStats.hero1.powerstats.durability / 5 +
 					oldStats.hero2.powerstats.power * 2;
-				asCritical = true;
+				asCriticalHero2 = true;
+				oldStats.hero1.powerstats.life -= damageDeal;
 			} else {
-				oldStats.hero1.powerstats.life -=
+				damageDeal =
 					oldStats.hero2.powerstats.strength -
 					oldStats.hero1.powerstats.durability / 3 +
 					oldStats.hero2.powerstats.power;
+				oldStats.hero1.powerstats.life -= damageDeal;
 			}
 		} else {
-			asMissed = true;
+			asMissedHero1 = true;
 		}
 
 		hero2DealingDamage = true;
@@ -76,23 +83,24 @@ const handleCombat = oldStats => {
 		hero2DealingDamage: hero2DealingDamage,
 		hero2ReceivingDamage: hero2ReceivingDamage,
 		firstAttack: !oldStats.firstAttack,
+		damageDeal: Math.floor(damageDeal),
 		hero1: {
 			...oldStats.hero1,
 			powerstats: {
 				...oldStats.hero1.powerstats,
 				life: oldStats.hero1.powerstats.life,
 			},
-			asCritical: asCritical,
-			asMissed: asMissed,
+			asCritical: asCriticalHero1,
+			asMissed: asMissedHero1,
 		},
 		hero2: {
 			...oldStats.hero2,
 			powerstats: {
 				...oldStats.hero2.powerstats,
 				life: oldStats.hero2.powerstats.life,
-				asCritical: asCritical,
-				asMissed: asMissed,
 			},
+			asCritical: asCriticalHero2,
+			asMissed: asMissedHero2,
 		},
 	};
 };

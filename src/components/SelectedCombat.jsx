@@ -4,6 +4,7 @@ import CardHero from './CardHero/CardHero';
 import getDatasFromApi from '../functions/getDatasFromApi';
 import handleCombat from '../functions/handleCombat';
 import BackToMain from './BackToMain.jsx';
+import ResumeCombatDamage from './ResumeCombatDamage.jsx';
 import Loading from './Loading.jsx';
 
 const SelectedCombat = () => {
@@ -20,9 +21,12 @@ const SelectedCombat = () => {
 	const [hero1ReceivingDamage, setHero1ReceivingDamage] = useState(false);
 	const [hero2DealingDamage, setHero2DealingDamage] = useState(false);
 	const [hero2ReceivingDamage, setHero2ReceivingDamage] = useState(false);
+	const [historyArrayCombatDamage, setHistoryArrayCombatDamage] = useState([]);
 	let firstAttack;
+
 	useEffect(() => {
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
+		setHistoryArrayCombatDamage([]);
 	}, []);
 
 	const handleClickCombat = () => {
@@ -42,8 +46,27 @@ const SelectedCombat = () => {
 			setHero1(newStats.hero1);
 			setHero2(newStats.hero2);
 
+			if (newStats.hero1DealingDamage) {
+				historyArrayCombatDamage.push([
+					newStats.hero1.name,
+					newStats.hero2.name,
+					newStats.damageDeal,
+					newStats.hero2.asMissed,
+					newStats.hero1.asCritical,
+				]);
+			} else {
+				historyArrayCombatDamage.push([
+					newStats.hero2.name,
+					newStats.hero1.name,
+					newStats.damageDeal,
+					newStats.hero1.asMissed,
+					newStats.hero2.asCritical,
+				]);
+			}
+
 			setHero1DealingDamage(newStats.hero1DealingDamage);
 			setHero1ReceivingDamage(newStats.hero1ReceivingDamage);
+
 			setHero2DealingDamage(newStats.hero2DealingDamage);
 			setHero2ReceivingDamage(newStats.hero2ReceivingDamage);
 			firstAttack = newStats.firstAttack;
@@ -95,6 +118,7 @@ const SelectedCombat = () => {
 	};
 
 	const resetCombat = () => {
+		setHistoryArrayCombatDamage([]);
 		setHero1({
 			...hero1,
 			powerstats: { ...hero1.powerstats, life: hero1.powerstats.durability + 100 },
@@ -146,6 +170,7 @@ const SelectedCombat = () => {
 					onClick={() => {
 						getDatasFromApi().then(hero1data => {
 							setHero1(hero1data);
+							setHistoryArrayCombatDamage([]);
 							setSearch('Random Hero');
 						});
 					}}>
@@ -195,6 +220,9 @@ const SelectedCombat = () => {
 						</Col>
 						<Col xs='4'>
 							<div className={hero2Anime}>{hero2.loading ? <Loading /> : <CardHero props={hero2} />}</div>
+						</Col>
+						<Col xs='12'>
+							<ResumeCombatDamage historyArray={[...historyArrayCombatDamage]} />
 						</Col>
 					</Row>
 				</div>
