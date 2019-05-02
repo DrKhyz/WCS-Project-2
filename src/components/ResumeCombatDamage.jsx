@@ -6,9 +6,10 @@ const ResumeCombatDamage = ({ historyArray }) => {
 	const tableStyle = {
 		textAlign: 'center',
 		background: 'rgb(255,255,255,0.7)',
-		padding: '10px',
+		paddingTop: '12px 0 0 12px',
 		verticalAlign: 'middle',
 		width: '80%',
+		fontSize: '1vw',
 		margin: '2% auto 0 auto',
 		borderRadius: '2vw',
 		color: 'black',
@@ -20,15 +21,15 @@ const ResumeCombatDamage = ({ historyArray }) => {
 
 	return (
 		historyArray.length !== 0 && (
-			<div style={tableStyle}>
-				<Button color='primary' id='toggler' style={{ marginBottom: '1rem' }}>
+			<div style={{ textAlign: 'center', margin: '2% auto 0 auto', fontSize: '1vw' }}>
+				<Button color='info' id='toggler' style={{ fontSize: '1vw' }}>
 					See Dealed Damages
 				</Button>
-				<UncontrolledCollapse toggler='#toggler'>
+				<UncontrolledCollapse style={tableStyle} toggler='#toggler'>
 					{historyArray
 						.reverse()
 						.map((logs, i) => (
-							<div key={i} style={{ fontSize: '1vw' }}>
+							<div key={i}>
 								{logs[3] ? (
 									<div>
 										<p>

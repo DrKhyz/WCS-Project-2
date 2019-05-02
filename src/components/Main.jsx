@@ -15,7 +15,7 @@ const Main = () => {
 	};
 	return (
 		<div style={content}>
-			<h1>Welcome to the arena </h1>
+			<h1 style={{ fontSize: '3vw' }}>Welcome to the arena </h1>
 			<p>You will see heroes fight each other</p>
 			<p>Only one can stay alive</p>
 			<p>Your objective : survive the longest time in the arena !</p>
@@ -24,7 +24,7 @@ const Main = () => {
 			{/* <NavLink className='btn btn-primary m-1' activeClassName='btn-danger' to='/random'>
 				Random Combat
 			</NavLink> */}
-			<NavLink className='btn btn-primary m-1' activeClassName='btn-danger' to='/selected'>
+			<NavLink style={{ fontSize: '1vw' }} className='btn btn-primary m-1' activeClassName='btn-danger' to='/selected'>
 				Enter
 			</NavLink>
 		</div>

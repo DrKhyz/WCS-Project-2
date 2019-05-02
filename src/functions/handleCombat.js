@@ -25,14 +25,14 @@ const handleCombat = oldStats => {
 					oldStats.hero1.powerstats.strength -
 					oldStats.hero2.powerstats.durability / 5 +
 					oldStats.hero1.powerstats.power * 2;
-				oldStats.hero2.powerstats.life -= damageDeal;
+				oldStats.hero2.powerstats.life -= Math.floor(damageDeal);
 				asCriticalHero1 = true;
 			} else {
 				damageDeal =
 					oldStats.hero1.powerstats.strength -
 					oldStats.hero2.powerstats.durability / 3 +
 					oldStats.hero2.powerstats.power;
-				oldStats.hero2.powerstats.life -= damageDeal;
+				oldStats.hero2.powerstats.life -= Math.floor(damageDeal);
 			}
 		} else {
 			asMissedHero2 = true;
@@ -53,13 +53,13 @@ const handleCombat = oldStats => {
 					oldStats.hero1.powerstats.durability / 5 +
 					oldStats.hero2.powerstats.power * 2;
 				asCriticalHero2 = true;
-				oldStats.hero1.powerstats.life -= damageDeal;
+				oldStats.hero1.powerstats.life -= Math.floor(damageDeal);
 			} else {
 				damageDeal =
 					oldStats.hero2.powerstats.strength -
 					oldStats.hero1.powerstats.durability / 3 +
 					oldStats.hero2.powerstats.power;
-				oldStats.hero1.powerstats.life -= damageDeal;
+				oldStats.hero1.powerstats.life -= Math.floor(damageDeal);
 			}
 		} else {
 			asMissedHero1 = true;
@@ -88,7 +88,7 @@ const handleCombat = oldStats => {
 			...oldStats.hero1,
 			powerstats: {
 				...oldStats.hero1.powerstats,
-				life: oldStats.hero1.powerstats.life,
+				life: Math.ceil(oldStats.hero1.powerstats.life),
 			},
 			asCritical: asCriticalHero1,
 			asMissed: asMissedHero1,
@@ -97,7 +97,7 @@ const handleCombat = oldStats => {
 			...oldStats.hero2,
 			powerstats: {
 				...oldStats.hero2.powerstats,
-				life: oldStats.hero2.powerstats.life,
+				life: Math.ceil(oldStats.hero2.powerstats.life),
 			},
 			asCritical: asCriticalHero2,
 			asMissed: asMissedHero2,
