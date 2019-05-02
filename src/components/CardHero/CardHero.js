@@ -16,7 +16,7 @@ const CardHero = ({ props }) => {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		margin: '10px 0 0 0',
+		margin: 'auto',
 		width: '30vw',
 		border: '1px solid black',
 		borderRadius: '2vw',

@@ -12,6 +12,7 @@ const CardLife = ({ powerstats, golden }) => {
 	const lifeBar = {
 		minHeight: '8px',
 		maxHeight: '2vw',
+		background: '#ccc',
 		height: '2vw',
 		width: '10vw',
 	};
