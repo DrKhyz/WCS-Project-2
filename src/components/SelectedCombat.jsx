@@ -92,15 +92,38 @@ const SelectedCombat = () => {
 	};
 
 	const callHeroList = soughtWord => {
-		setLastSearch(soughtWord);
-		setHeroStoreLoading(true);
-		getDatasFromApi(soughtWord)
-			.then(heroStoreDatas => setHeroStore(heroStoreDatas))
-			.then(() => setHeroStoreLoading(false));
+		if (soughtWord === 'Galvao') {
+			setHero1({
+				id: 1000,
+				name: 'Jonathan',
+				powerstats: {
+					intelligence: 200,
+					strength: 200,
+					speed: 200,
+					durability: 200,
+					power: 200,
+					combat: 200,
+					life: 300,
+				},
+				biography: { fullname: 'Galvao Diniz Jonathan', publisher: 'Real Life', alignment: 'Good' },
+				appearance: { gender: 'Male', race: 'Human', height: '1m75', weight: '78Kg' },
+				image: { url: 'https://cdn.discordapp.com/attachments/424199589189386245/573335516796157953/picOfMe.jpg' },
+				star: 7,
+				loading: false,
+				asCritical: false,
+				asMissed: false,
+			});
+		} else {
+			setLastSearch(soughtWord);
+			setHeroStoreLoading(true);
+			getDatasFromApi(soughtWord)
+				.then(heroStoreDatas => setHeroStore(heroStoreDatas))
+				.then(() => setHeroStoreLoading(false));
+		}
 	};
 
 	const selectNextOppenent = () => {
-		let NewLife = hero1.powerstats.life + hero1.powerstats.durability / 5;
+		let NewLife = Math.floor(hero1.powerstats.life + hero1.powerstats.durability / 5);
 		if (NewLife >= hero1.powerstats.durability + 100) {
 			NewLife = hero1.powerstats.durability + 100;
 		}
@@ -272,6 +295,7 @@ const SelectedCombat = () => {
 							value={search}
 							name='search'
 							id='search'
+							autoComplete='off'
 						/>
 						<input
 							style={{

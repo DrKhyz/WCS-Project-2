@@ -42,7 +42,7 @@ const CardHero = ({ props }) => {
 				golden={golden}
 			/>
 
-			<CardLife powerstats={props.powerstats} />
+			<CardLife powerstats={props.powerstats} golden={golden} />
 		</div>
 	);
 };

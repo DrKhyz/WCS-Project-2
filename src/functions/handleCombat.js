@@ -88,7 +88,7 @@ const handleCombat = oldStats => {
 			...oldStats.hero1,
 			powerstats: {
 				...oldStats.hero1.powerstats,
-				life: oldStats.hero1.powerstats.life,
+				life: Math.floor(oldStats.hero1.powerstats.life),
 			},
 			asCritical: asCriticalHero1,
 			asMissed: asMissedHero1,
@@ -97,7 +97,7 @@ const handleCombat = oldStats => {
 			...oldStats.hero2,
 			powerstats: {
 				...oldStats.hero2.powerstats,
-				life: oldStats.hero2.powerstats.life,
+				life: Math.floor(oldStats.hero2.powerstats.life),
 			},
 			asCritical: asCriticalHero2,
 			asMissed: asMissedHero2,
