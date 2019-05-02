@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'reactstrap';
 import CardHero from './CardHero/CardHero';
 import getDatasFromApi from '../functions/getDatasFromApi';
 import handleCombat from '../functions/handleCombat';
+import customHeros from '../functions/customHeros';
 import BackToMain from './BackToMain.jsx';
 import ResumeCombatDamage from './ResumeCombatDamage.jsx';
 import Loading from './Loading.jsx';
@@ -94,26 +95,9 @@ const SelectedCombat = () => {
 
 	const callHeroList = soughtWord => {
 		if (soughtWord === 'Galvao') {
-			setHero1({
-				id: 1000,
-				name: 'Jonathan',
-				powerstats: {
-					intelligence: 150,
-					strength: 150,
-					speed: 150,
-					durability: 150,
-					power: 150,
-					combat: 150,
-					life: 250,
-				},
-				biography: { fullname: 'Galvao Diniz Jonathan', publisher: 'Real Life', alignment: 'Good' },
-				appearance: { gender: 'Male', race: 'Human', height: '175 cm', weight: '78 Kg' },
-				image: { url: 'https://cdn.discordapp.com/attachments/424199589189386245/573335516796157953/picOfMe.jpg' },
-				star: 7,
-				loading: false,
-				asCritical: false,
-				asMissed: false,
-			});
+			setHero1(customHeros.Galvao);
+		} else if (soughtWord === 'Vivier') {
+			setHero1(customHeros.Vivier);
 		} else {
 			setLastSearch(soughtWord);
 			setHeroStoreLoading(true);
