@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CardFrame = ({ powerstats, biography, appearance }) => {
 	const cardFrame = {
-		color: 'black',
+		color: '#2c3e50',
 		width: '28vw',
 		fontSize: '1.3vw',
 		backgroundColor: '#bbb',
@@ -18,11 +18,19 @@ const CardFrame = ({ powerstats, biography, appearance }) => {
 		textAlign: 'center',
 	};
 
+	const thhead = {
+		color: '#d35400',
+	};
+
+	const thbody = {
+		color: 'black',
+	};
+
 	return (
 		<div style={cardFrame}>
 			<table style={{ width: '90%', margin: 'auto' }}>
 				<thead>
-					<tr>
+					<tr style={thhead}>
 						<th>INT</th>
 						<th>STR</th>
 						<th>SPD</th>
@@ -32,7 +40,7 @@ const CardFrame = ({ powerstats, biography, appearance }) => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr style={thbody}>
 						<td>{powerstats.intelligence}</td>
 						<td>{powerstats.strength}</td>
 						<td>{powerstats.speed}</td>

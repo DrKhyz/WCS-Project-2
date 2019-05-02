@@ -8,8 +8,8 @@ import ResumeCombatDamage from './ResumeCombatDamage.jsx';
 import Loading from './Loading.jsx';
 
 const SelectedCombat = () => {
-	const [hero1, setHero1] = useState(null);
-	const [hero2, setHero2] = useState(null);
+	const [hero1, setHero1] = useState();
+	const [hero2, setHero2] = useState();
 	const [winStrike, setWinStrike] = useState(0);
 	const [search, setSearch] = useState('');
 	const [lastSearch, setLastSearch] = useState('');
@@ -25,6 +25,7 @@ const SelectedCombat = () => {
 	let firstAttack;
 
 	useEffect(() => {
+		setHero2({ loading: true });
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 		setHistoryArrayCombatDamage([]);
 	}, []);
@@ -92,15 +93,38 @@ const SelectedCombat = () => {
 	};
 
 	const callHeroList = soughtWord => {
-		setLastSearch(soughtWord);
-		setHeroStoreLoading(true);
-		getDatasFromApi(soughtWord)
-			.then(heroStoreDatas => setHeroStore(heroStoreDatas))
-			.then(() => setHeroStoreLoading(false));
+		if (soughtWord === 'Galvao') {
+			setHero1({
+				id: 1000,
+				name: 'Jonathan',
+				powerstats: {
+					intelligence: 200,
+					strength: 200,
+					speed: 200,
+					durability: 200,
+					power: 200,
+					combat: 200,
+					life: 300,
+				},
+				biography: { fullname: 'Galvao Diniz Jonathan', publisher: 'Real Life', alignment: 'Good' },
+				appearance: { gender: 'Male', race: 'Human', height: '1m75', weight: '78Kg' },
+				image: { url: 'https://cdn.discordapp.com/attachments/424199589189386245/573335516796157953/picOfMe.jpg' },
+				star: 7,
+				loading: false,
+				asCritical: false,
+				asMissed: false,
+			});
+		} else {
+			setLastSearch(soughtWord);
+			setHeroStoreLoading(true);
+			getDatasFromApi(soughtWord)
+				.then(heroStoreDatas => setHeroStore(heroStoreDatas))
+				.then(() => setHeroStoreLoading(false));
+		}
 	};
 
 	const selectNextOppenent = () => {
-		let NewLife = hero1.powerstats.life + hero1.powerstats.durability / 5;
+		let NewLife = Math.ceil(hero1.powerstats.life + hero1.powerstats.durability / 5);
 		if (NewLife >= hero1.powerstats.durability + 100) {
 			NewLife = hero1.powerstats.durability + 100;
 		}
@@ -143,89 +167,101 @@ const SelectedCombat = () => {
 
 	return (
 		<div style={{ width: '96%', marginLeft: '0' }}>
-			<BackToMain />
 			{inCombat ? (
-				<Button className='m-1' color='info'>
+				<Button className='m-1' color='primary'>
 					Fight in Progress
 				</Button>
 			) : search ? (
-				<Button
-					className='m-1'
-					name='Reset hero'
-					color='info'
-					onClick={() => {
-						setHero1(undefined);
-						setHeroStore([]);
-						setSearch('');
-						setAsLost(false);
-						setLastSearch('');
-						setWinStrike(0);
-					}}>
-					{hero1 ? 'Change hero' : 'Reset Search'}
-				</Button>
+				<div>
+					<BackToMain />
+					<Button
+						className='m-1'
+						name='Reset hero'
+						color='info'
+						style={{ fontSize: '1vw' }}
+						onClick={() => {
+							setHero1();
+							setHero2({ loading: true });
+							getDatasFromApi().then(hero2data => {
+								setHero2(hero2data);
+							});
+							setHeroStore([]);
+							setSearch('');
+							setAsLost(false);
+							setLastSearch('');
+							setWinStrike(0);
+						}}>
+						{hero1 ? 'Change hero' : 'Reset Search'}
+					</Button>
+				</div>
 			) : (
-				<Button
-					className='m-1'
-					color='secondary'
-					onClick={() => {
-						getDatasFromApi().then(hero1data => {
-							setHero1(hero1data);
-							setHistoryArrayCombatDamage([]);
-							setSearch('Random Hero');
-						});
-					}}>
-					Random Hero
-				</Button>
+				<div>
+					<BackToMain />
+					<Button
+						className='m-1'
+						color='secondary'
+						style={{ fontSize: '1vw' }}
+						onClick={() => {
+							getDatasFromApi().then(hero1data => {
+								setHero1(hero1data);
+								setHistoryArrayCombatDamage([]);
+								setSearch('Random Hero');
+							});
+						}}>
+						Random Hero
+					</Button>
+				</div>
 			)}
 			{hero1 ? (
-				<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%' }}>
-					<Row>
-						<Col xs='4'>
-							<div className={hero1Anime}>
-								<CardHero props={hero1} />
+				<Row className='ml-3'>
+					<Col xs={{ size: 6, order: 1 }} sm={{ size: 4 }}>
+						<div className={hero1Anime}>
+							<CardHero props={hero1} />
+						</div>
+					</Col>
+					<Col
+						xs={{ size: 10, offset: 1, order: 3 }}
+						sm={{ size: 4, offset: 0, order: 2 }}
+						style={{ marginLaft: 'auto' }}>
+						{hero2.loading ? (
+							<Loading />
+						) : asLost ? (
+							<div>
+								<Button className='newCampaign-button' style={{ fontSize: '1vw' }} onClick={() => resetCombat()}>
+									New Campaign
+								</Button>
+								<p
+									style={{
+										textAlign: 'center',
+										color: 'black',
+										// marginTop: '21%',
+										broder: 'black 1px solid',
+										background: 'rgb(255,255,255,0.8)',
+										borderRadius: '10px',
+										padding: '5%',
+									}}>
+									You won {winStrike} match
+								</p>
 							</div>
-						</Col>
-						<Col xs='4'>
-							{hero2.loading ? (
-								<Loading />
-							) : asLost ? (
-								<div>
-									<Button className='newCampaign-button' onClick={() => resetCombat()}>
-										New Campaign
-									</Button>
-									<p
-										style={{
-											textAlign: 'center',
-											color: 'black',
-											marginTop: '21%',
-											broder: 'black 1px solid',
-											background: 'rgb(255,255,255,0.8)',
-											borderRadius: '10px',
-											padding: '5%',
-										}}>
-										You won {winStrike} match
-									</p>
-								</div>
-							) : inCombat ? (
-								''
-							) : hero2.powerstats.life > 0 ? (
-								<Button onClick={() => handleClickCombat()} className='fight-button'>
-									FIGHT
-								</Button>
-							) : (
-								<Button onClick={() => selectNextOppenent()} className='random-button'>
-									Next Oppenent
-								</Button>
-							)}
-						</Col>
-						<Col xs='4'>
-							<div className={hero2Anime}>{hero2.loading ? <Loading /> : <CardHero props={hero2} />}</div>
-						</Col>
-						<Col xs='12'>
-							<ResumeCombatDamage historyArray={[...historyArrayCombatDamage]} />
-						</Col>
-					</Row>
-				</div>
+						) : inCombat ? (
+							''
+						) : hero2.powerstats.life > 0 ? (
+							<Button onClick={() => handleClickCombat()} className='fight-button'>
+								FIGHT
+							</Button>
+						) : (
+							<Button onClick={() => selectNextOppenent()} className='random-button'>
+								Next Oppenent
+							</Button>
+						)}
+					</Col>
+					<Col xs={{ size: 5, order: 2 }} sm={{ size: 4 }}>
+						<div className={hero2Anime}>{hero2.loading ? <Loading /> : <CardHero props={hero2} />}</div>
+					</Col>
+					<Col xs={{ size: 12, order: 4 }}>
+						<ResumeCombatDamage historyArray={[...historyArrayCombatDamage]} />
+					</Col>
+				</Row>
 			) : (
 				<div style={{ marginTop: '1%', width: '96%', marginLeft: '2%', textAlign: 'center' }}>
 					{heroStoreLoading ? (
@@ -250,6 +286,7 @@ const SelectedCombat = () => {
 								broder: 'black 1px solid',
 								background: 'rgb(255,255,255,0.8)',
 								width: '50%',
+								fontSize: '4vw',
 								margin: '10% auto',
 								padding: '1%',
 								borderRadius: '10px',
@@ -272,6 +309,7 @@ const SelectedCombat = () => {
 							value={search}
 							name='search'
 							id='search'
+							autoComplete='off'
 						/>
 						<input
 							style={{
