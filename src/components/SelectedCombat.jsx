@@ -8,8 +8,8 @@ import ResumeCombatDamage from './ResumeCombatDamage.jsx';
 import Loading from './Loading.jsx';
 
 const SelectedCombat = () => {
-	const [hero1, setHero1] = useState(null);
-	const [hero2, setHero2] = useState(null);
+	const [hero1, setHero1] = useState();
+	const [hero2, setHero2] = useState();
 	const [winStrike, setWinStrike] = useState(0);
 	const [search, setSearch] = useState('');
 	const [lastSearch, setLastSearch] = useState('');
@@ -25,6 +25,7 @@ const SelectedCombat = () => {
 	let firstAttack;
 
 	useEffect(() => {
+		setHero2({ loading: true });
 		getDatasFromApi().then(hero2data => setHero2(hero2data));
 		setHistoryArrayCombatDamage([]);
 	}, []);
@@ -123,7 +124,7 @@ const SelectedCombat = () => {
 	};
 
 	const selectNextOppenent = () => {
-		let NewLife = Math.floor(hero1.powerstats.life + hero1.powerstats.durability / 5);
+		let NewLife = Math.ceil(hero1.powerstats.life + hero1.powerstats.durability / 5);
 		if (NewLife >= hero1.powerstats.durability + 100) {
 			NewLife = hero1.powerstats.durability + 100;
 		}

@@ -5,22 +5,22 @@ import PropTypes from 'prop-types';
 const CardLife = ({ powerstats, golden }) => {
 	const cardLife = {
 		position: 'absolute',
-		marginTop: '24vw',
-		marginLeft: '-8vw',
+		marginTop: '23vw',
+		marginLeft: '8vw',
 		width: '10vw',
 	};
 	const lifeBar = {
-		minHeight: '7px',
-		maxHeight: '1.5vw',
-		height: '1.5vw',
-		width: '26vw',
+		minHeight: '8px',
+		maxHeight: '2vw',
+		height: '2vw',
+		width: '10vw',
 	};
 
 	const displayLifeStyle = {
 		position: 'absolute',
 		color: 'black',
-		marginLeft: '200%',
-		fontSize: '1vw',
+		marginLeft: '60%',
+		fontSize: '1.5vw',
 	};
 
 	let color;
@@ -33,19 +33,15 @@ const CardLife = ({ powerstats, golden }) => {
 		color = 'danger';
 	}
 
-	let animated = golden ? 'animated' : '';
-
 	return (
 		<div style={cardLife}>
 			<Progress
-				animated={animated}
+				animated={golden}
 				style={lifeBar}
 				color={color}
 				value={powerstats.life}
 				max={powerstats.durability + 100}>
-				<div style={displayLifeStyle}>
-					{powerstats.life}/{powerstats.durability + 100}
-				</div>
+				<div style={displayLifeStyle}>{powerstats.life}</div>
 			</Progress>
 		</div>
 	);
