@@ -178,7 +178,11 @@ const SelectedCombat = () => {
 					name='Reset hero'
 					color='info'
 					onClick={() => {
-						setHero1(undefined);
+						setHero1();
+						setHero2({ loading: true });
+						getDatasFromApi().then(hero2data => {
+							setHero2(hero2data);
+						});
 						setHeroStore([]);
 						setSearch('');
 						setAsLost(false);
