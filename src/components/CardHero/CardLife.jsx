@@ -16,15 +16,15 @@ const CardLife = ({ powerstats, golden }) => {
 		width: '10vw',
 	};
 
-	const displayLifeStyle = {
-		position: 'absolute',
-		color: 'black',
-		marginLeft: '60%',
-		fontSize: '1.5vw',
-	};
+	// const displayLifeStyle = {
+	// 	position: 'absolute',
+	// 	color: 'black',
+	// 	marginLeft: '60%',
+	// 	fontSize: '1.5vw',
+	// };
 
 	let color;
-	let remaningLife = (powerstats.life / powerstats.durability) * 100;
+	let remaningLife = (powerstats.life / (powerstats.durability + 100)) * 100;
 	if (remaningLife >= 50) {
 		color = 'success';
 	} else if (remaningLife < 49 && remaningLife >= 25) {
@@ -41,7 +41,7 @@ const CardLife = ({ powerstats, golden }) => {
 				color={color}
 				value={powerstats.life}
 				max={powerstats.durability + 100}>
-				<div style={displayLifeStyle}>{powerstats.life}</div>
+				{/* <div style={displayLifeStyle}>{powerstats.life}</div> */}
 			</Progress>
 		</div>
 	);
