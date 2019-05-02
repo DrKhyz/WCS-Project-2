@@ -32,7 +32,7 @@ const CardHero = ({ props }) => {
 
 	return (
 		<div style={cardContainer} key={props.id}>
-			<CardBackground image={props.image} star={props.star} />
+			<CardBackground image={props.image} star={props.star} backupImg={props.backupImg} />
 			<CardHead name={props.name} star={props.star} golden={golden} />
 			<CardStatus asCritical={props.asCritical} asMissed={props.asMissed} />
 			<CardFrame
