@@ -98,16 +98,16 @@ const SelectedCombat = () => {
 				id: 1000,
 				name: 'Jonathan',
 				powerstats: {
-					intelligence: 200,
-					strength: 200,
-					speed: 200,
-					durability: 200,
-					power: 200,
-					combat: 200,
-					life: 300,
+					intelligence: 150,
+					strength: 150,
+					speed: 150,
+					durability: 150,
+					power: 150,
+					combat: 150,
+					life: 250,
 				},
 				biography: { fullname: 'Galvao Diniz Jonathan', publisher: 'Real Life', alignment: 'Good' },
-				appearance: { gender: 'Male', race: 'Human', height: '1m75', weight: '78Kg' },
+				appearance: { gender: 'Male', race: 'Human', height: '175 cm', weight: '78 Kg' },
 				image: { url: 'https://cdn.discordapp.com/attachments/424199589189386245/573335516796157953/picOfMe.jpg' },
 				star: 7,
 				loading: false,
@@ -219,10 +219,7 @@ const SelectedCombat = () => {
 							<CardHero props={hero1} />
 						</div>
 					</Col>
-					<Col
-						xs={{ size: 10, offset: 1, order: 3 }}
-						sm={{ size: 4, offset: 0, order: 2 }}
-						style={{ marginLaft: 'auto' }}>
+					<Col xs={{ size: 10, offset: 1, order: 3 }} sm={{ size: 4, offset: 0, order: 2 }}>
 						{hero2.loading ? (
 							<Loading />
 						) : asLost ? (
@@ -247,7 +244,7 @@ const SelectedCombat = () => {
 							''
 						) : hero2.powerstats.life > 0 ? (
 							<Button onClick={() => handleClickCombat()} className='fight-button'>
-								FIGHT
+								Start Fight
 							</Button>
 						) : (
 							<Button onClick={() => selectNextOppenent()} className='random-button'>
