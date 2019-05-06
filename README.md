@@ -2,11 +2,6 @@
 
 ### Team :
 
-- Stephane Vivier
-- Baptiste Hyver
-- Louis Escartin
-- Jonathan Galvao Diniz
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
