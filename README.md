@@ -1,7 +1,6 @@
 ## Wild Code School Project No2
 
-### Team :
-
+Deployed : https://super-heros-combat.netlify.com/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
